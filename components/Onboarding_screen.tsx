@@ -44,7 +44,6 @@ const Onboarding_screen = (
            text= "Regular user"
           ></Primary_button>
           </View>
-
        <View
           style ={[AppStyles.margin_top_spacing3]}  
           >
@@ -53,6 +52,16 @@ const Onboarding_screen = (
            text= "Exchange office"
           ></Secondary_button>
       </View>
+          <Secondary_button
+           onPressFunction= {()=>{navigation.navigate("Waiting")}}
+           text= "Waiting"
+          ></Secondary_button>
+
+          <Secondary_button
+           onPressFunction= {()=>{navigation.navigate("Approved")}}
+           text= "Approved"
+          ></Secondary_button>
+
 
 
         </View>

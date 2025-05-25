@@ -56,6 +56,12 @@ const Exchange_role_screen = (
            onPressFunction= {()=>{navigation.navigate("Office_create_1")}}
            text= "Create"
           ></Primary_button>
+          <Secondary_button
+           onPressFunction= {()=>{navigation.navigate("Login")}}
+           text= "Login"
+          ></Secondary_button>
+
+
           </View>
         </View>
       </SafeAreaView>

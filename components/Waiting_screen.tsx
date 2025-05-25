@@ -9,6 +9,7 @@ import {
   View,
   Button,
   TextInput,
+ Image
 } from 'react-native';
  import AppStyles from '../styles/AppStyles.tsx';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -32,7 +33,18 @@ const Waiting_screen = (
         
         ></Header>
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
-          <Text>W</Text>
+
+       <Image source={require('../resources/png/wait.png')} 
+          style={[AppStyles.horizontaly_centered,  AppStyles.wait_image , AppStyles.margin_top_spacing13,]}
+          />
+
+
+        <View style={[AppStyles.margin_top_spacing6, AppStyles.width_350,  AppStyles.horizontaly_centered]}>
+          <Text
+          style={[AppStyles.paragraph_4, AppStyles.white]}
+          >All fields have been filled, please wait for the administrator to review your form, this may take a while ...
+         </Text>
+        </View>
         </View>
       </SafeAreaView>
     </>

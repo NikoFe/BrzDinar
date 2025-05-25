@@ -10,7 +10,6 @@ const paragraph_size3= 25
 const paragraph_size4= 24
 const paragraph_size5= 16
 
-
 const spacing1= 8
 const spacing2= 16
 const spacing3= 24
@@ -64,19 +63,24 @@ const header_black ="#3E3E3E"
 const app_gray ="#D9D9D9"
 const app_gray2 ="#565656"
 const app_gray3 ="#707070"
+const app_gray4 ="#AFAFAF"
 const app_white="#FFFFFF"
 
 
 const AppStyles = StyleSheet.create({
+
   grayBackground: {
-    backgroundColor: 'gray',
+    backgroundColor: app_gray2,
   },
-  Bottom: {
+
+    grayBackground_down: {
+    backgroundColor: app_gray2,
    display:"flex",
    flexDirection:"column",
    justifyContent:"flex-end"
 
   },
+
 
 
   verticalCenter: {
@@ -86,7 +90,7 @@ const AppStyles = StyleSheet.create({
   },
 
   customHeader: {
-    backgroundColor: '#454545',
+    backgroundColor: header_black,
     display: 'flex',
     justifyContent: 'center',
     alignContent: 'center',
@@ -139,10 +143,17 @@ const AppStyles = StyleSheet.create({
      fontFamily: "Inter",
      textAlign:"center"
   },
+  paragraph_4_label:{
+     fontSize:paragraph_size4,
+     fontFamily: "Inter",
+   
+  },
 
-
-
-
+  paragraph_4:{
+     fontSize:paragraph_size4,
+     fontFamily: "Inter",
+     textAlign:"center"
+  },
 
   white:{
     color:app_white
@@ -167,8 +178,14 @@ const AppStyles = StyleSheet.create({
    margin_top_spacing4:{
    marginTop:spacing4
   },
+     margin_top_spacing5:{
+   marginTop:spacing5
+  },
   margin_top_spacing6:{
    marginTop:spacing6
+  },
+  margin_top_spacing8:{
+  marginTop:spacing6
   },
   margin_top_spacing10:{
    marginTop:spacing10
@@ -182,16 +199,45 @@ const AppStyles = StyleSheet.create({
    marginTop:spacing26
   },
 
+  margin_left_spacing6:{
+   marginTop:spacing6
+  },
+
   margin_top_spacing36:{
    marginTop:spacing36
   },
   margin_top_spacing37:{
    marginTop:spacing37
   },
-    
+  margin_bottom_spacing1:{
+   marginBottom:spacing1
+  },
+
+  margin_bottom_spacing10:{
+   marginBottom:spacing10
+  },
+   margin_bottom_spacing15:{
+   marginBottom:spacing15
+  },
+
+   margin_bottom_spacing20:{
+   marginBottom:spacing20
+  },
+   margin_bottom_spacing35:{
+   marginBottom:spacing35
+  },
+
+
+
+
+  image_80x80:{
+   width:80,
+   height:80,
+  },
+
   image_100x100:{
-   width:200,
-   height:200,
+   width:100,
+   height:100,
   },
   
   image_200x200:{
@@ -234,6 +280,56 @@ const AppStyles = StyleSheet.create({
    top:10
 
   },
+
+  brzDinar_image:{
+  width:325,
+    height:175,
+  },
+
+
+  wait_image:{
+   width:236, 
+   height:201,
+  },
+
+
+  brzDinar_image_small:{
+  width:162,
+  height:87,
+  },
+
+  textInput:{
+    width:300,
+    height:50,
+    backgroundColor: app_gray4
+  },
+
+ dropDownButton:{
+    width:300,
+    height:50,
+    backgroundColor: app_gray,
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center"
+ },
+
+ bold:{
+
+    fontWeight: "bold"
+ },
+dropdown_arrow:{
+position: 'absolute',
+left:10,
+transform: "rotate(180deg)"
+},
+
+error_text:{
+  fontSize:paragraph_size3,
+  fontFamily: "Inter",
+  textAlign:"center",
+  color:primary_default
+},
+
 
 });
 

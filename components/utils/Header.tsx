@@ -20,7 +20,6 @@ const Header = (
    text: string
 }
 
-
 ) => {
   return (
     

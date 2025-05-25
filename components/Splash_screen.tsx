@@ -9,6 +9,7 @@ import {
   View,
   Button,
   TextInput,
+  Image
 } from 'react-native';
 import AppStyles from '../styles/AppStyles.tsx';
 import Header from './utils/Header.tsx';
@@ -25,19 +26,26 @@ const Splash_screen = ({
   useEffect(() => {
     const myTimeout = setTimeout(() => {
       navigation.navigate('Onboarding');
-    }, 5000);
+    }, 9999999);
   }, []);
 
   return (
     <>
       <StatusBar hidden={true} />
       <SafeAreaView style={{flex: 1}}>
-        <Header
-          text="Splash"
-        
-        ></Header>
-        <View style={[AppStyles.grayBackground, {flex: 1}]}>
-          <Text>Splash_screen222</Text>
+
+        <View style={[AppStyles.grayBackground_down, {flex: 1}]}>
+
+          <Image source={require('../resources/png/brzDinarWhite.png')} 
+          style={[AppStyles.horizontaly_centered,  AppStyles.brzDinar_image_small , AppStyles.margin_top_spacing8,  AppStyles.margin_bottom_spacing35]}
+          />
+
+          <Text style={[AppStyles.paragraph_4, AppStyles.white]}>Loading, please wait...</Text>
+
+          <Image source={require('../resources/png/spinner.png')} 
+          style={[AppStyles.horizontaly_centered,  AppStyles.image_80x80 , AppStyles.margin_top_spacing8,  AppStyles.margin_bottom_spacing10]}
+          />
+
         </View>
       </SafeAreaView>
     </>

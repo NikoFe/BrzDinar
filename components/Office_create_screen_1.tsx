@@ -35,7 +35,7 @@ const Office_create_screen_1 = (
         ></Header>
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
           <Text>Creating1</Text>
-        </View>
+
 
           <Primary_button
            onPressFunction= {()=>{navigation.navigate("Office_create_2")}}
@@ -46,7 +46,7 @@ const Office_create_screen_1 = (
            onPressFunction= {()=>{navigation.navigate("Exchange_role")}}
            text= "Back"
           ></Secondary_button>
-
+        </View>
       </SafeAreaView>
     </>
   )
