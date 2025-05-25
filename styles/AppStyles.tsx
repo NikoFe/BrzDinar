@@ -87,12 +87,16 @@ const AppStyles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignContent: 'center',
-    padding: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
     flexDirection: 'row',
   },
-  headerArrow: {
+  backArrow: {
     position: 'absolute',
+    left: -75,
+    top: 0,
   },
+
 
   whiteText: {
     color: 'white',
@@ -147,8 +151,12 @@ const AppStyles = StyleSheet.create({
   paragraph_4: {
     fontSize: paragraph_size4,
     fontFamily: 'Inter',
-    textAlign: 'center',
   },
+  paragraph_5: {
+    fontSize: paragraph_size5,
+    fontFamily: 'Inter',
+  },
+
 
   white: {
     color: app_white,
@@ -319,11 +327,8 @@ const AppStyles = StyleSheet.create({
     textAlign: 'center',
     color: primary_default,
   },
-
-  backArrow: {
-    position: 'absolute',
-    left: -120,
-    top: 0,
+  red:{
+      color: primary_default,
   },
   progress_image: {
     width: 328,
@@ -373,10 +378,11 @@ const AppStyles = StyleSheet.create({
     height:50,
   },
   exchange_rate_div:{
-  backgroundColor:app_gray,
+  backgroundColor:app_gray4,
   width:328,
   height:461,
-  marginHorizontal:"auto"
+  marginHorizontal:"auto",
+  overflow:"scroll" 
   },
   flag_image:{
    width:88,
@@ -384,17 +390,14 @@ const AppStyles = StyleSheet.create({
    position:"absolute",
    left:120,
    top:40
-    
   },
   exchange_buttons:{
   display:"flex",
   flexDirection:"row",
   justifyContent:"space-between",
   width:328,
-  backgroundColor:"green",
+  //backgroundColor:"green",
   padding:10,
-
-
   },
 
   exchange_text:{
@@ -422,11 +425,44 @@ const AppStyles = StyleSheet.create({
   height:5,
   backgroundColor:app_gray3
 
-  }
-
-
-
+  },
+  exchange_plus_button:{
+    position:"absolute",
+    left:140,
+    top:400,
+    zIndex:2
+  },
   
+office_data_header:{
+width:360,
+backgroundColor:app_white,
+display:"flex",
+padding:5
+
+},
+office_data_white_row:{
+width:360,
+backgroundColor:app_white,
+display:"flex",
+padding:5
+
+
+},
+office_data_gray_row:{
+backgroundColor:app_gray3,
+width:360,
+display:"flex",
+padding:5
+},
+boldFontWeight:{
+  fontWeight:"bold"
+},
+
+ExchangeOfficeData_height:{
+  height:"auto"
+}
+
+
 });
 
 export default AppStyles;

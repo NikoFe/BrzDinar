@@ -15,11 +15,11 @@ import {
 
 const PlusButton = () => {
   return (
-  <View style= {AppStyles.action_button}>
+  <View style= {[AppStyles.action_button, AppStyles.exchange_plus_button]}>
     <Image
       source={require('../../resources/png/plus-button.png')}
       style={[
-        AppStyles.horizontaly_centered,
+       
       ]}
     />
   </View>

@@ -10,6 +10,7 @@ import {
   View,
   Button,
   TextInput,
+  ScrollView
 } from 'react-native';
  import AppStyles from '../../styles/AppStyles.tsx';
 import ExchangeRate from './ExchangeRate.tsx';
@@ -17,21 +18,20 @@ import PlusButton from './PlusButton.tsx';
 
 const RateContainer = () => {
   return (
-
   <View style= {AppStyles.exchange_rate_div }>
-   
+  <PlusButton/>
+   <ScrollView>
 
-     <View style= {AppStyles.margin_bottom_spacing15  }>
 
-        
-   <ExchangeRate></ExchangeRate>
-
-    <View style= {AppStyles.margin_top_spacing2 }></View>
-   <ExchangeRate></ExchangeRate>
-      </View>
-   <PlusButton></PlusButton>
+   <ExchangeRate/>
+  
+    <View style= {AppStyles.margin_top_spacing2 }>
+   <ExchangeRate/>
 
   </View>
+
+</ScrollView>
+ </View>
   )
 }
 

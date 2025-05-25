@@ -14,7 +14,7 @@ import {
 import {RootStackParamList} from "../App.tsx"
 import Header from './utils/Header.tsx';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-
+import ExchangeOfficeData from './utils/ExchangeOfficeData.tsx';
 
  const Exchange_office_screen = (
     {
@@ -32,7 +32,10 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
         
         ></Header>
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
-          <Text>Splash_screen222</Text>
+      <ExchangeOfficeData/>
+      
+
+
         </View>
       </SafeAreaView>
     </>

@@ -54,8 +54,6 @@ const Office_create_screen_3 = ({
             <RateContainer></RateContainer>
           </View>
 
-
-
           <View style={AppStyles.margin_top_spacing4}>
           <Primary_button
             onPressFunction={() => {
