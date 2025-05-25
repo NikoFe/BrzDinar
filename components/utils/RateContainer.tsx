@@ -24,10 +24,11 @@ const RateContainer = () => {
 
 
    <ExchangeRate/>
-  
     <View style= {AppStyles.margin_top_spacing2 }>
    <ExchangeRate/>
-
+  </View>
+    <View style= {AppStyles.margin_top_spacing2 }>
+   <ExchangeRate/>
   </View>
 
 </ScrollView>

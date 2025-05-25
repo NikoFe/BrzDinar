@@ -62,6 +62,7 @@ const app_gray = '#D9D9D9';
 const app_gray2 = '#565656';
 const app_gray3 = '#707070';
 const app_gray4 = '#AFAFAF';
+const app_gray5 = '#CDCCCC';
 const app_white = '#FFFFFF';
 
 const AppStyles = StyleSheet.create({
@@ -138,11 +139,24 @@ const AppStyles = StyleSheet.create({
     fontFamily: 'Inter',
     color: 'white',
   },
+
+  paragraph_1: {
+    fontSize: paragraph_size1,
+    fontFamily: 'Inter',
+  
+  },
+
   paragraph_3: {
     fontSize: paragraph_size3,
     fontFamily: 'Inter',
     textAlign: 'center',
   },
+  paragraph_3_non_center: {
+    fontSize: paragraph_size3,
+    fontFamily: 'Inter',
+
+  },
+
   paragraph_4_label: {
     fontSize: paragraph_size4,
     fontFamily: 'Inter',
@@ -192,6 +206,9 @@ const AppStyles = StyleSheet.create({
   },
   margin_top_spacing10: {
     marginTop: spacing10,
+  },
+    margin_top_spacing12: {
+    marginTop: spacing12,
   },
   margin_top_spacing13: {
     marginTop: spacing13,
@@ -446,7 +463,6 @@ backgroundColor:app_white,
 display:"flex",
 padding:5
 
-
 },
 office_data_gray_row:{
 backgroundColor:app_gray3,
@@ -460,9 +476,56 @@ boldFontWeight:{
 
 ExchangeOfficeData_height:{
   height:"auto"
+},
+greenBackground:{
+  backgroundColor:"green"
+},
+map_image:{
+ width:319,
+ height:431,
+},
+admin_cell:{
+
+  width:300
+},
+
+admin_cell_brighter:{
+ backgroundColor:app_gray4,
+   padding:4,
+   display:"flex",
+   flexDirection:"row",
+   justifyContent:"flex-start"
+
+},
+admin_cell_darker:{
+   backgroundColor:app_gray5,
+   padding:4,
+   display:"flex",
+   flexDirection:"row",
+   justifyContent:"flex-start"
+
+
+},
+  smaller_primary_button: {
+    backgroundColor: primary_default,
+    color: app_white,
+    paddingTop: spacing1,
+    paddingBottom: spacing1,
+    alignSelf: 'flex-start',
+    marginHorizontal: 'auto',
+    width: 169,
+    height: 67,
+  },
+ margin_left_35:{
+  marginLeft:35
+ },
+gray5:{
+  color:app_gray4
 }
 
 
+
 });
+
 
 export default AppStyles;

@@ -14,7 +14,6 @@ import AppStyles from '../styles/AppStyles.tsx';
 import {RootStackParamList} from '../App.tsx';
 import Header from './utils/Header.tsx';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import AppTextInput from './utils/AppTextInput.tsx';
 import AppTextInputWithLabel from './utils/AppTextInputWithLabel.tsx';
 import Primary_button from './utils/Primary_button.tsx';
 import Secondary_button from './utils/Secondary_button.tsx';

@@ -18,7 +18,7 @@ import AppDropdown from './utils/AppDropdown.tsx';
 import NumberInput from './utils/NumberInput.tsx';
 import Primary_button from './utils/Primary_button.tsx';
 
-const Create_exchange = ({
+const UpdateExchangeScreen = ({
   navigation,
 }: {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
@@ -49,4 +49,4 @@ const Create_exchange = ({
   );
 };
 
-export default Create_exchange;
+export default UpdateExchangeScreen;

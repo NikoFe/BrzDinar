@@ -14,15 +14,13 @@ import {
 import AppStyles from '../../styles/AppStyles.tsx';
 import ExchangeRate from './ExchangeRate.tsx';
 import PlusButton from './PlusButton.tsx';
-import AppTextInputWithLabel from './AppTextInputWithLabel.tsx';
-import Primary_button from './Primary_button.tsx';
-import RateContainer from './RateContainer.tsx';
+
 
 const ExchangeOfficeData = () => {
   return (
-    <ScrollView>
+ 
       <View
-        style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3,  AppStyles.ExchangeOfficeData_height]}>
+        style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3,  AppStyles.ExchangeOfficeData_height,AppStyles.greenBackground ]}>
         <View style={AppStyles.office_data_header}>
           <Text style={[AppStyles.red, AppStyles.paragraph_4]}>
             INSA menjalnica
@@ -34,7 +32,6 @@ const ExchangeOfficeData = () => {
             Location:
           </Text>
         </View>
-
         <View style={AppStyles.office_data_white_row}>
           <Text style={[, AppStyles.paragraph_5, AppStyles.boldFontWeight]}>
             Pobreška cesta 18, 2000 Maribor
@@ -53,46 +50,8 @@ const ExchangeOfficeData = () => {
             SAT: 7:00-16:00
           </Text>
         </View>
-
-        <View
-          style={[
-            AppStyles.horizontaly_centered,
-            AppStyles.margin_top_spacing3,
-          ]}>
-          <AppTextInputWithLabel
-            label="Location"
-            defaultText="Pobreška cesta 18,2000..."></AppTextInputWithLabel>
-        </View>
-
-        <View
-          style={[
-            AppStyles.horizontaly_centered,
-            AppStyles.margin_top_spacing3,
-          ]}>
-          <AppTextInputWithLabel
-            label="Phone number:"
-            defaultText="030-689-421"></AppTextInputWithLabel>
-        </View>
-
-        <View
-          style={[
-            AppStyles.horizontaly_centered,
-            AppStyles.margin_top_spacing3,
-          ]}>
-          <Primary_button
-            onPressFunction={() => {}}
-            text="Change"></Primary_button>
-        </View>
-        <View
-          style={[
-            AppStyles.horizontaly_centered,
-            AppStyles.margin_top_spacing3,
-          ]}>
-          <RateContainer></RateContainer>
-          
-        </View>
       </View>
-    </ScrollView>
+
   );
 };
 

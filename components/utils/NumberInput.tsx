@@ -15,24 +15,24 @@ import {
 } from 'react-native';
  import AppStyles from '../../styles/AppStyles.tsx';
 
-const AppTextArea = (
+
+const NumberInput = (
 {
 label,
-defaultText
+defaultNumber
 }
 :
 {
-
 label:string
-defaultText:string
-
+defaultNumber:number
 }
+
 ) => {
-  const [text, onChangeText] = React.useState(defaultText);
-  const [number, onChangeNumber] = React.useState('');
+
+  const [number, onChangeNumber] = React.useState(defaultNumber);
 
   useEffect(() => {
-     onChangeText(defaultText)
+     onChangeNumber(defaultNumber)
   } ,[]);
 
 
@@ -49,15 +49,13 @@ defaultText:string
  </Text>
 
    <TextInput
-   style={AppStyles.textArea}
-   onChangeText={onChangeText}
-   value={text}
-   numberOfLines={4}
-   multiline={true}
+   style={AppStyles.textInput}
+   value={number.toString()}
+    keyboardType="numeric" // shows number pad
    />
  </View>
+
   )
 }
 
-export default AppTextArea
-
+export default NumberInput

@@ -9,34 +9,44 @@ import {
   View,
   Button,
   TextInput,
+  ScrollView
 } from 'react-native';
- import AppStyles from '../styles/AppStyles.tsx';
-import {RootStackParamList} from "../App.tsx"
+import AppStyles from '../styles/AppStyles.tsx';
+import {RootStackParamList} from '../App.tsx';
 import Header from './utils/Header.tsx';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import ExchangeOfficeData from './utils/ExchangeOfficeData.tsx';
+import RateContainer from './utils/RateContainer.tsx';
 
-
-const Exchange_details = (
-  {
+const Exchange_details = ({
   navigation,
 }: {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
-}
-) => {
+}) => {
   return (
     <>
+     <ScrollView>
       <StatusBar hidden={true} />
       <SafeAreaView style={{flex: 1}}>
-        <Header
-          text="Details"
-        
-        ></Header>
+        <Header text="Details"></Header>
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
-          <Text>Splash_screen222</Text>
+          <ExchangeOfficeData />
+
+          <View style={[AppStyles.margin_top_spacing2]}>
+          <Text style={[AppStyles.paragraph_3, AppStyles.white]}>
+            Exchange rates:
+          </Text>
+        </View>
+
+          <View style={[AppStyles.margin_top_spacing3]}>
+          <RateContainer/>
+          </View>
+
         </View>
       </SafeAreaView>
+      </ScrollView>
     </>
-  )
-}
+  );
+};
 
-export default Exchange_details
+export default Exchange_details;

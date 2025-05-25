@@ -21,6 +21,7 @@ import Splash_screen from './components/Splash_screen.tsx';
 import User_role_screen from './components/User_role_screen.tsx';
 import Waiting_screen from './components/Waiting_screen.tsx';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import UpdateExchangeScreen from './components/UpdateExchangeScreen.tsx';
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -39,6 +40,7 @@ export type RootStackParamList = {
   Onboarding: undefined;
   User_role: undefined;
   Waiting: undefined;
+  Update_exchange:undefined
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -79,6 +81,8 @@ const App = () => {
            <Stack.Screen name="Approved" options={{ headerShown: false}} component={Approved_screen}>
             </Stack.Screen>
            <Stack.Screen name="Create_exchange" options={{ headerShown: false}} component={Create_exchange_screen}>
+            </Stack.Screen>
+            <Stack.Screen name="Update_exchange" options={{ headerShown: false}} component={UpdateExchangeScreen}>
             </Stack.Screen>
              <Stack.Screen name="Exchange_details" options={{ headerShown: false}} component={Exchange_details_screen}>
             </Stack.Screen>

@@ -53,8 +53,8 @@ const Onboarding_screen = (
           ></Secondary_button>
       </View>
           <Secondary_button
-           onPressFunction= {()=>{navigation.navigate("Exchange_office")}}
-           text= "Exchange_office"
+           onPressFunction= {()=>{navigation.navigate("Create_exchange")}}
+           text= "Create_exchange"
           ></Secondary_button>
 
           <Secondary_button
