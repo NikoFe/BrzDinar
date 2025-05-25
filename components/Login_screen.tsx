@@ -29,7 +29,11 @@ const Login_screen = ({
     <>
       <StatusBar hidden={true} />
       <SafeAreaView style={{flex: 1}}>
-        <Header text="Login"></Header>
+        <Header 
+        text="Login"
+
+        
+        ></Header>
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
           <View style={AppStyles.margin_top_spacing13}>
             <Text
@@ -46,12 +50,15 @@ const Login_screen = ({
           <View style={AppStyles.margin_top_spacing6}>
             <AppTextInputWithLabel
             label="Name:"
+             defaultText="AAA"
+
+          
             ></AppTextInputWithLabel>
           </View>
           <View style={AppStyles.margin_top_spacing6}>
             <AppTextInputWithLabel
             label="Password:"
-         
+                  defaultText="AAA"
             ></AppTextInputWithLabel>
          </View>
 
@@ -70,7 +77,6 @@ const Login_screen = ({
               ]}>
               Error! Invalid credentials
             </Text>
-
 
 
         </View>

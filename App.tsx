@@ -108,8 +108,6 @@ const App = () => {
         </NavigationContainer>
       </SafeAreaView>
     );
-
-
 };
 
 

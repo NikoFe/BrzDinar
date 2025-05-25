@@ -23,6 +23,7 @@ const Primary_button = ({
    onPressFunction: () => void;
    text: string
 }
+
 ) => {
   return (
 

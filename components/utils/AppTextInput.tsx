@@ -18,6 +18,9 @@ const AppTextInput = () => {
   const [text, onChangeText] = React.useState('Useless Text');
   const [number, onChangeNumber] = React.useState('');
 
+
+
+
   return (
   <View style={AppStyles.horizontaly_centered}>
    <TextInput
