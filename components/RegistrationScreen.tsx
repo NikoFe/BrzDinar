@@ -18,7 +18,7 @@ import AppTextInputWithLabel from './utils/AppTextInputWithLabel.tsx';
 import Primary_button from './utils/Primary_button.tsx';
 import Secondary_button from './utils/Secondary_button.tsx';
 
-const Login_screen = ({
+const RegistrationScreen = ({
   navigation,
 }: {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
@@ -27,7 +27,7 @@ const Login_screen = ({
     <>
       <StatusBar hidden={true} />
       <SafeAreaView style={{flex: 1}}>
-        <Header text="Login"></Header>
+        <Header text="Registration"></Header>
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
           <View style={AppStyles.margin_top_spacing13}>
             <Text
@@ -36,7 +36,7 @@ const Login_screen = ({
                 AppStyles.white,
                 AppStyles.horizontaly_centered,
               ]}>
-              Login
+              Registration
             </Text>
           </View>
 
@@ -56,7 +56,7 @@ const Login_screen = ({
               onPressFunction={() => {
                 navigation.navigate('Exchange_office');
               }}
-              text="Login"
+              text="Register"
             />
           </View>
           <Text
@@ -73,4 +73,4 @@ const Login_screen = ({
   );
 };
 
-export default Login_screen;
+export default RegistrationScreen;

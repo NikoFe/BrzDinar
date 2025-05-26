@@ -9,14 +9,13 @@ import {
   View,
   Button,
   TextInput,
-  Image
+  Image,
 } from 'react-native';
 import AppStyles from '../styles/AppStyles.tsx';
 import Header from './utils/Header.tsx';
 import {useState, useEffect} from 'react';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from "../App.tsx"
-
+import {RootStackParamList} from '../App.tsx';
 
 const Splash_screen = ({
   navigation,
@@ -33,19 +32,30 @@ const Splash_screen = ({
     <>
       <StatusBar hidden={true} />
       <SafeAreaView style={{flex: 1}}>
-
         <View style={[AppStyles.grayBackground_down, {flex: 1}]}>
-
-          <Image source={require('../resources/png/brzDinarWhite.png')} 
-          style={[AppStyles.horizontaly_centered,  AppStyles.brzDinar_image_small , AppStyles.margin_top_spacing8,  AppStyles.margin_bottom_spacing35]}
+          <Image
+            source={require('../resources/png/brzDinarWhite.png')}
+            style={[
+              AppStyles.horizontaly_centered,
+              AppStyles.brzDinar_image_small,
+              AppStyles.margin_top_spacing8,
+              AppStyles.margin_bottom_spacing35,
+            ]}
           />
 
-          <Text style={[AppStyles.paragraph_4, AppStyles.white]}>Loading, please wait...</Text>
+          <Text style={[AppStyles.paragraph_4, AppStyles.white]}>
+            Loading, please wait...
+          </Text>
 
-          <Image source={require('../resources/png/spinner.png')} 
-          style={[AppStyles.horizontaly_centered,  AppStyles.image_80x80 , AppStyles.margin_top_spacing8,  AppStyles.margin_bottom_spacing10]}
+          <Image
+            source={require('../resources/png/spinner.png')}
+            style={[
+              AppStyles.horizontaly_centered,
+              AppStyles.image_80x80,
+              AppStyles.margin_top_spacing8,
+              AppStyles.margin_bottom_spacing10,
+            ]}
           />
-
         </View>
       </SafeAreaView>
     </>

@@ -10,11 +10,9 @@ import {
   Button,
   TextInput,
 } from 'react-native';
- import AppStyles from '../../styles/AppStyles.tsx';
+import AppStyles from '../../styles/AppStyles.tsx';
 const Add_button = () => {
-  return (
-    <div>Add_button</div>
-  )
-}
+  return <div>Add_button</div>;
+};
 
-export default Add_button
+export default Add_button;

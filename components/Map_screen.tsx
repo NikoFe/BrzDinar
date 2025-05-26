@@ -18,6 +18,7 @@ import Header from './utils/Header.tsx';
 import ExchangeOfficeData from './utils/ExchangeOfficeData.tsx';
 import Primary_button from './utils/Primary_button.tsx';
 import Secondary_button from './utils/Secondary_button.tsx';
+import HeaderWithProfile from './utils/HeaderWithProfile.tsx';
 
 const Map_screen = ({
   navigation,
@@ -28,38 +29,29 @@ const Map_screen = ({
     <>
       <StatusBar hidden={true} />
       <SafeAreaView style={{flex: 1}}>
-        <Header text="Maps"></Header>
+        <HeaderWithProfile text="Maps"></HeaderWithProfile>
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
           <ExchangeOfficeData />
 
-          <View style={[AppStyles.margin_top_spacing3]}>  </View>
+          <View style={[AppStyles.margin_top_spacing3]}> </View>
           <Image
             source={require('../resources/png/map1.png')}
-            style={[
-              AppStyles.horizontaly_centered,
-              AppStyles.map_image,
-
-            ]}
+            style={[AppStyles.horizontaly_centered, AppStyles.map_image]}
           />
 
-          <View style={[AppStyles.margin_top_spacing3]}> 
-           <Primary_button
-           onPressFunction= {()=>{navigation.navigate("Exchange_details")}}
-           text= "Details"
-          ></Primary_button>
-       </View>
+          <View style={[AppStyles.margin_top_spacing3]}>
+            <Primary_button
+              onPressFunction={() => {
+                navigation.navigate('Exchange_details');
+              }}
+              text="Details"></Primary_button>
+          </View>
 
-          <View style={[AppStyles.margin_top_spacing2]}> 
-           <Secondary_button
-           onPressFunction= {()=>{}}
-           text= "Path"
-          ></Secondary_button>
-    </View>
-
-
-
-
-
+          <View style={[AppStyles.margin_top_spacing2]}>
+            <Secondary_button
+              onPressFunction={() => {}}
+              text="Path"></Secondary_button>
+          </View>
         </View>
       </SafeAreaView>
     </>

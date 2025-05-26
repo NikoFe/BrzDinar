@@ -86,18 +86,14 @@ const AppStyles = StyleSheet.create({
   customHeader: {
     backgroundColor: header_black,
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignContent: 'center',
     paddingTop: 10,
     paddingBottom: 10,
     flexDirection: 'row',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
-  backArrow: {
-    position: 'absolute',
-    left: -75,
-    top: 0,
-  },
-
 
   whiteText: {
     color: 'white',
@@ -143,7 +139,6 @@ const AppStyles = StyleSheet.create({
   paragraph_1: {
     fontSize: paragraph_size1,
     fontFamily: 'Inter',
-  
   },
 
   paragraph_3: {
@@ -154,7 +149,6 @@ const AppStyles = StyleSheet.create({
   paragraph_3_non_center: {
     fontSize: paragraph_size3,
     fontFamily: 'Inter',
-
   },
 
   paragraph_4_label: {
@@ -170,7 +164,6 @@ const AppStyles = StyleSheet.create({
     fontSize: paragraph_size5,
     fontFamily: 'Inter',
   },
-
 
   white: {
     color: app_white,
@@ -207,7 +200,7 @@ const AppStyles = StyleSheet.create({
   margin_top_spacing10: {
     marginTop: spacing10,
   },
-    margin_top_spacing12: {
+  margin_top_spacing12: {
     marginTop: spacing12,
   },
   margin_top_spacing13: {
@@ -344,8 +337,8 @@ const AppStyles = StyleSheet.create({
     textAlign: 'center',
     color: primary_default,
   },
-  red:{
-      color: primary_default,
+  red: {
+    color: primary_default,
   },
   progress_image: {
     width: 328,
@@ -375,137 +368,129 @@ const AppStyles = StyleSheet.create({
   date_row: {
     display: 'flex',
     justifyContent: 'space-around',
-    flexDirection: "row",
-    alignItems: "center",
-    marginHorizontal:"auto",
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 'auto',
     //backgroundColor:"green",
-    gap:20,
-    height:40
-  }, 
+    gap: 20,
+    height: 40,
+  },
   date_dots: {
     marginBottom: 20,
-    color:app_gray4,
+    color: app_gray4,
     //backgroundColor:"pink",
-    height:50,
-    width: 25
+    height: 50,
+    width: 25,
   },
-  action_button:{
-
-    width:51,
-    height:50,
+  action_button: {
+    width: 51,
+    height: 50,
   },
-  exchange_rate_div:{
-  backgroundColor:app_gray4,
-  width:328,
-  height:461,
-  marginHorizontal:"auto",
-  overflow:"scroll" 
+  exchange_rate_div: {
+    backgroundColor: app_gray4,
+    width: 328,
+    height: 461,
+    marginHorizontal: 'auto',
+    overflow: 'scroll',
   },
-  flag_image:{
-   width:88,
-   height:54,
-   position:"absolute",
-   left:120,
-   top:40
+  flag_image: {
+    width: 88,
+    height: 54,
+    position: 'absolute',
+    left: 120,
+    top: 40,
   },
-  exchange_buttons:{
-  display:"flex",
-  flexDirection:"row",
-  justifyContent:"space-between",
-  width:328,
-  //backgroundColor:"green",
-  padding:10,
+  exchange_buttons: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 328,
+    //backgroundColor:"green",
+    padding: 10,
   },
 
-  exchange_text:{
-  display:"flex",
-  flexDirection:"row",
-  justifyContent:"space-between",
-  width:328,
-  //backgroundColor:"red",
-  paddingLeft:25,
-  paddingRight:25,
-  height:"auto"
+  exchange_text: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 328,
+    //backgroundColor:"red",
+    paddingLeft: 25,
+    paddingRight: 25,
+    height: 'auto',
   },
-  exchange_text2:{
-  display:"flex",
-  flexDirection:"row",
-  justifyContent:"space-between",
-  width:328,
-  //backgroundColor:"red",
-  paddingLeft:18,
-  paddingRight:18,
-  height:"auto"
+  exchange_text2: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 328,
+    //backgroundColor:"red",
+    paddingLeft: 18,
+    paddingRight: 18,
+    height: 'auto',
   },
-  exchange_border:{
-  width: 300,
-  height:5,
-  backgroundColor:app_gray3
-
+  exchange_border: {
+    width: 300,
+    height: 5,
+    backgroundColor: app_gray3,
   },
-  exchange_plus_button:{
-    position:"absolute",
-    left:140,
-    top:400,
-    zIndex:2
+  exchange_plus_button: {
+    position: 'absolute',
+    left: 140,
+    top: 400,
+    zIndex: 2,
   },
-  
-office_data_header:{
-width:360,
-backgroundColor:app_white,
-display:"flex",
-padding:5
 
-},
-office_data_white_row:{
-width:360,
-backgroundColor:app_white,
-display:"flex",
-padding:5
+  office_data_header: {
+    width: 360,
+    backgroundColor: app_white,
+    display: 'flex',
+    padding: 5,
+  },
+  office_data_white_row: {
+    width: 360,
+    backgroundColor: app_white,
+    display: 'flex',
+    padding: 5,
+  },
+  office_data_gray_row: {
+    backgroundColor: app_gray3,
+    width: 360,
+    display: 'flex',
+    padding: 5,
+  },
+  boldFontWeight: {
+    fontWeight: 'bold',
+  },
 
-},
-office_data_gray_row:{
-backgroundColor:app_gray3,
-width:360,
-display:"flex",
-padding:5
-},
-boldFontWeight:{
-  fontWeight:"bold"
-},
+  ExchangeOfficeData_height: {
+    height: 'auto',
+  },
+  greenBackground: {
+    backgroundColor: 'green',
+  },
+  map_image: {
+    width: 319,
+    height: 431,
+  },
+  admin_cell: {
+    width: 300,
+  },
 
-ExchangeOfficeData_height:{
-  height:"auto"
-},
-greenBackground:{
-  backgroundColor:"green"
-},
-map_image:{
- width:319,
- height:431,
-},
-admin_cell:{
-
-  width:300
-},
-
-admin_cell_brighter:{
- backgroundColor:app_gray4,
-   padding:4,
-   display:"flex",
-   flexDirection:"row",
-   justifyContent:"flex-start"
-
-},
-admin_cell_darker:{
-   backgroundColor:app_gray5,
-   padding:4,
-   display:"flex",
-   flexDirection:"row",
-   justifyContent:"flex-start"
-
-
-},
+  admin_cell_brighter: {
+    backgroundColor: app_gray4,
+    padding: 4,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  admin_cell_darker: {
+    backgroundColor: app_gray5,
+    padding: 4,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
   smaller_primary_button: {
     backgroundColor: primary_default,
     color: app_white,
@@ -516,35 +501,32 @@ admin_cell_darker:{
     width: 169,
     height: 67,
   },
- margin_left_35:{
-  marginLeft:35
- },
-gray5:{
-  color:app_gray4
-},
-number_input_arrow_down:{
-width:22,
-height:22,
-position: "absolute",
-right:5,
-top:64,
-zIndex:2
-},
-number_input_arrow_up:{
-width:22,
-height:22,
-position: "absolute",
-right:5,
-top:44,
-zIndex:2,
-transform: 'rotate(180deg)',
-}
-
-
-
-
-
+  margin_left_35: {
+    marginLeft: 35,
+  },
+  gray5: {
+    color: app_gray4,
+  },
+  number_input_arrow_down: {
+    width: 22,
+    height: 22,
+    position: 'absolute',
+    right: 5,
+    top: 64,
+    zIndex: 2,
+  },
+  number_input_arrow_up: {
+    width: 22,
+    height: 22,
+    position: 'absolute',
+    right: 5,
+    top: 44,
+    zIndex: 2,
+    transform: 'rotate(180deg)',
+  },
+  invisible_image: {
+    opacity: 0,
+  },
 });
-
 
 export default AppStyles;

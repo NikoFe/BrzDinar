@@ -17,6 +17,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import AppDropdown from './utils/AppDropdown.tsx';
 import NumberInput from './utils/NumberInput.tsx';
 import Primary_button from './utils/Primary_button.tsx';
+import HeaderWithProfile from './utils/HeaderWithProfile.tsx';
 
 const Create_exchange = ({
   navigation,
@@ -27,22 +28,22 @@ const Create_exchange = ({
     <>
       <StatusBar hidden={true} />
       <SafeAreaView style={{flex: 1}}>
-        <Header text="Create exchange rate"></Header>
+        <HeaderWithProfile text="Create exchange rate"></HeaderWithProfile>
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
           <View style={[AppStyles.margin_top_spacing37]}>
             <AppDropdown input="aaa"></AppDropdown>
           </View>
-            <View style={[AppStyles.margin_top_spacing3]}>
-          <NumberInput defaultNumber={59.87} label="Buy:" />
+          <View style={[AppStyles.margin_top_spacing3]}>
+            <NumberInput defaultNumber={59.87} label="Buy:" />
           </View>
-                 <View style={[AppStyles.margin_top_spacing1]}>
-          <NumberInput defaultNumber={59.87} label="Sell:" />
+          <View style={[AppStyles.margin_top_spacing1]}>
+            <NumberInput defaultNumber={59.87} label="Sell:" />
           </View>
-                      <View style={[AppStyles.margin_top_spacing12]}>
-          <Primary_button
-            onPressFunction={() => {}}
-            text="Create"></Primary_button>
-            </View>
+          <View style={[AppStyles.margin_top_spacing12]}>
+            <Primary_button
+              onPressFunction={() => {}}
+              text="Create"></Primary_button>
+          </View>
         </View>
       </SafeAreaView>
     </>

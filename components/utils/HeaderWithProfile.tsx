@@ -19,7 +19,7 @@ import {useNavigation} from '@react-navigation/native';
 
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
 
-const Header = ({text}: {text: string}) => {
+const HeaderWithProfile = ({text}: {text: string}) => {
   const navigation = useNavigation<Navigation>();
 
   const onPressFunction = () => {
@@ -33,14 +33,16 @@ const Header = ({text}: {text: string}) => {
           <Image source={require('../../resources/png/arrow-left.png')}></Image>
         </Pressable>
         <Text style={[AppStyles.whiteText]}>{text}</Text>
-        <Pressable onPress={() => {}}>
+        <Pressable
+          onPress={() => {
+            navigation.navigate('Account');
+          }}>
           <Image
-            source={require('../../resources/png/profile-icon.png')}
-            style={AppStyles.invisible_image}></Image>
+            source={require('../../resources/png/profile-icon.png')}></Image>
         </Pressable>
       </View>
     </SafeAreaView>
   );
 };
 
-export default Header;
+export default HeaderWithProfile;

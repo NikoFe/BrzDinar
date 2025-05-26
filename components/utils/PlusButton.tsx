@@ -9,21 +9,19 @@ import {
   View,
   Button,
   TextInput,
-  Image
+  Image,
 } from 'react-native';
- import AppStyles from '../../styles/AppStyles.tsx';
+import AppStyles from '../../styles/AppStyles.tsx';
 
 const PlusButton = () => {
   return (
-  <View style= {[AppStyles.action_button, AppStyles.exchange_plus_button]}>
-    <Image
-      source={require('../../resources/png/plus-button.png')}
-      style={[
-       
-      ]}
-    />
-  </View>
-  )
-}
+    <View style={[AppStyles.action_button, AppStyles.exchange_plus_button]}>
+      <Image
+        source={require('../../resources/png/plus-button.png')}
+        style={[]}
+      />
+    </View>
+  );
+};
 
-export default PlusButton
+export default PlusButton;

@@ -32,8 +32,6 @@ const Office_create_screen_1 = ({
       <SafeAreaView style={{flex: 1}}>
         <Header text="Creating exchange offices"></Header>
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
-        
-
           <Image
             source={require('../resources/png/progress-1.png')}
             style={[

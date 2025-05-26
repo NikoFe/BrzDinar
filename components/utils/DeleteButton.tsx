@@ -9,25 +9,19 @@ import {
   View,
   Button,
   TextInput,
-  Image
+  Image,
 } from 'react-native';
- import AppStyles from '../../styles/AppStyles.tsx';
+import AppStyles from '../../styles/AppStyles.tsx';
 
 const Delete_button = () => {
   return (
-  <View style= {AppStyles.action_button}>
-    <Image
-      source={require('../../resources/png/delete-button.png')}
-      style={[
-        AppStyles.horizontaly_centered,
-      ]}
-    />
-  </View>
+    <View style={AppStyles.action_button}>
+      <Image
+        source={require('../../resources/png/delete-button.png')}
+        style={[AppStyles.horizontaly_centered]}
+      />
+    </View>
+  );
+};
 
-
-
-
-  )
-}
-
-export default Delete_button
+export default Delete_button;

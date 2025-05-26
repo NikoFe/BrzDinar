@@ -9,40 +9,30 @@ import {
   View,
   Button,
   TextInput,
-  Pressable
+  Pressable,
 } from 'react-native';
- import AppStyles from '../../styles/AppStyles.tsx';
-
+import AppStyles from '../../styles/AppStyles.tsx';
 
 const Primary_button = ({
   onPressFunction,
-  text
-
+  text,
 }: {
- // onPressFunction : React.MouseEventHandler;
-   onPressFunction: () => void;
-   text: string
-}
-
-) => {
+  // onPressFunction : React.MouseEventHandler;
+  onPressFunction: () => void;
+  text: string;
+}) => {
   return (
-
-  <Pressable
-      onPress={(onPressFunction)}
-      style={({ pressed }) => [
+    <Pressable
+      onPress={onPressFunction}
+      style={({pressed}) => [
         AppStyles.primary_button,
         pressed && AppStyles.secondary_button,
-      ]}
-    >
-    <View style={AppStyles.primary_button} 
-     >
-    <Text
-     style={[AppStyles.paragraph_3, AppStyles.white]} 
-    >{text}</Text>
-    
-    </View>
+      ]}>
+      <View style={AppStyles.primary_button}>
+        <Text style={[AppStyles.paragraph_3, AppStyles.white]}>{text}</Text>
+      </View>
     </Pressable>
-  )
-}
+  );
+};
 
-export default Primary_button
+export default Primary_button;

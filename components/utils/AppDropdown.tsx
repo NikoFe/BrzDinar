@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -10,37 +10,23 @@ import {
   Button,
   TextInput,
   Pressable,
-  Image
+  Image,
 } from 'react-native';
- import AppStyles from '../../styles/AppStyles.tsx';
+import AppStyles from '../../styles/AppStyles.tsx';
 
-
-const AppDropdown = (
-    {
-    input,
-  }: {
-    input: string;
-  }
-
-) => {
-
+const AppDropdown = ({input}: {input: string}) => {
   return (
+    <View style={AppStyles.horizontaly_centered}>
+      <View style={AppStyles.dropDownButton}>
+        <Image
+          source={require('../../resources/png/dropdown-arrow.png')}
+          style={[AppStyles.dropdown_arrow]}
+        />
 
-  <View style={AppStyles.horizontaly_centered}>
-   <View
-   style={AppStyles.dropDownButton  }
-   >
-       <Image source={require('../../resources/png/dropdown-arrow.png')} 
-          style={[ AppStyles.dropdown_arrow ]}
-          />
-    
-    <Text  style= {AppStyles.paragraph_4}> 
-        {input}
-    </Text>
-  </View>
+        <Text style={AppStyles.paragraph_4}>{input}</Text>
+      </View>
+    </View>
+  );
+};
 
- </View>
-  )
-}
-
-export default AppDropdown
+export default AppDropdown;

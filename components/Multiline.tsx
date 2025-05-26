@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import React, {useState} from 'react';
+import {View, TextInput, StyleSheet} from 'react-native';
 
 const MultilineInput = () => {
   const [text, setText] = useState('');

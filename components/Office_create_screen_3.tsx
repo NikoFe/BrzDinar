@@ -55,20 +55,20 @@ const Office_create_screen_3 = ({
           </View>
 
           <View style={AppStyles.margin_top_spacing4}>
-          <Primary_button
-            onPressFunction={() => {
-              navigation.navigate('Waiting');
-            }}
-            text="Next"></Primary_button>
-         </View>
+            <Primary_button
+              onPressFunction={() => {
+                navigation.navigate('Waiting');
+              }}
+              text="Next"></Primary_button>
+          </View>
 
-        <View style={AppStyles.margin_top_spacing2}>
-          <Secondary_button
-            onPressFunction={() => {
-              navigation.navigate('Office_create_2');
-            }}
-            text="Back"></Secondary_button>
-        </View>
+          <View style={AppStyles.margin_top_spacing2}>
+            <Secondary_button
+              onPressFunction={() => {
+                navigation.navigate('Office_create_2');
+              }}
+              text="Back"></Secondary_button>
+          </View>
         </View>
       </SafeAreaView>
     </>
