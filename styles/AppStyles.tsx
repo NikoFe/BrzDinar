@@ -521,7 +521,26 @@ admin_cell_darker:{
  },
 gray5:{
   color:app_gray4
+},
+number_input_arrow_down:{
+width:22,
+height:22,
+position: "absolute",
+right:5,
+top:64,
+zIndex:2
+},
+number_input_arrow_up:{
+width:22,
+height:22,
+position: "absolute",
+right:5,
+top:44,
+zIndex:2,
+transform: 'rotate(180deg)',
 }
+
+
 
 
 

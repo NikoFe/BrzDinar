@@ -27,7 +27,7 @@ const UpdateExchangeScreen = ({
     <>
       <StatusBar hidden={true} />
       <SafeAreaView style={{flex: 1}}>
-        <Header text="Create exchange rate"></Header>
+        <Header text="Update exchange rate"></Header>
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
           <View style={[AppStyles.margin_top_spacing37]}>
             <AppDropdown input="aaa"></AppDropdown>

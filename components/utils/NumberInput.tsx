@@ -11,7 +11,8 @@ import {
   View,
   Button,
   TextInput,
-  Pressable
+  Pressable,
+  Image
 } from 'react-native';
  import AppStyles from '../../styles/AppStyles.tsx';
 
@@ -48,9 +49,24 @@ defaultNumber:number
      {label}
  </Text>
 
+    <Image
+      source={require('../../resources/png/gray-arrow-down.png')}
+      style={[
+        AppStyles.horizontaly_centered,
+        AppStyles.number_input_arrow_down
+      ]}
+    />
+        <Image
+      source={require('../../resources/png/gray-arrow-down.png')}
+      style={[
+        AppStyles.horizontaly_centered,
+        AppStyles.number_input_arrow_up
+      ]}
+    />
+
    <TextInput
-   style={AppStyles.textInput}
-   value={number.toString()}
+    style={AppStyles.textInput}
+    value={number.toString()}
     keyboardType="numeric" // shows number pad
    />
  </View>
