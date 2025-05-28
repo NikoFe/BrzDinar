@@ -1,33 +1,12 @@
-import {useEffect} from 'react';
 import React from 'react';
-
-import {
-  SafeAreaView,
-  StatusBar,
-  useColorScheme,
-  StyleSheet,
-  Alert,
-  Text,
-  View,
-  Button,
-  TextInput,
-  Pressable,
-} from 'react-native';
+import { View, Text, TextInput, TextInputProps } from 'react-native';
 import AppStyles from '../../styles/AppStyles.tsx';
 
-const AppTextInputWithLabel = ({
-  label,
-  defaultText,
-}: {
+interface AppTextInputWithLabelProps extends TextInputProps {
   label: string;
-  defaultText: string;
-}) => {
-  const [text, onChangeText] = React.useState('Useless Text');
-  const [number, onChangeNumber] = React.useState('');
-  useEffect(() => {
-    onChangeText(defaultText);
-  }, []);
+}
 
+const AppTextInputWithLabel = ({ label, ...textInputProps }: AppTextInputWithLabelProps) => {
   return (
     <View style={AppStyles.horizontaly_centered}>
       <Text
@@ -41,8 +20,7 @@ const AppTextInputWithLabel = ({
 
       <TextInput
         style={AppStyles.textInput}
-        onChangeText={onChangeText}
-        value={text}
+        {...textInputProps}
       />
     </View>
   );

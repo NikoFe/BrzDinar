@@ -1,34 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   StatusBar,
-  useColorScheme,
-  StyleSheet,
-  Alert,
   Text,
   View,
-  Button,
-  TextInput,
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
 import AppStyles from '../styles/AppStyles.tsx';
-import {RootStackParamList} from '../App.tsx';
+import { RootStackParamList } from '../App.tsx';
 import Header from './utils/Header.tsx';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import AppTextInputWithLabel from './utils/AppTextInputWithLabel.tsx';
 import Primary_button from './utils/Primary_button.tsx';
-import Secondary_button from './utils/Secondary_button.tsx';
 
 const Login_screen = ({
   navigation,
 }: {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
 }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      await auth().signInWithEmailAndPassword(email, password);
+      setErrorMessage('');
+      navigation.navigate('Exchange_office');
+    } catch (error: any) {
+      setErrorMessage('Error! Invalid credentials');
+    }
+  };
+
   return (
     <>
       <StatusBar hidden={true} />
-      <SafeAreaView style={{flex: 1}}>
-        <Header text="Login"></Header>
-        <View style={[AppStyles.grayBackground, {flex: 1}]}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <Header text="Login" />
+        <View style={[AppStyles.grayBackground, { flex: 1 }]}>
           <View style={AppStyles.margin_top_spacing13}>
             <Text
               style={[
@@ -42,31 +51,38 @@ const Login_screen = ({
 
           <View style={AppStyles.margin_top_spacing6}>
             <AppTextInputWithLabel
-              label="Name:"
-              defaultText="AAA"></AppTextInputWithLabel>
-          </View>
-          <View style={AppStyles.margin_top_spacing6}>
-            <AppTextInputWithLabel
-              label="Password:"
-              defaultText="AAA"></AppTextInputWithLabel>
+              label="Email:"
+              value={email}
+              onChangeText={setEmail}
+              autoCapitalize="none"
+              keyboardType="email-address"
+            />
           </View>
 
           <View style={AppStyles.margin_top_spacing6}>
-            <Primary_button
-              onPressFunction={() => {
-                navigation.navigate('Exchange_office');
-              }}
-              text="Login"
+            <AppTextInputWithLabel
+              label="Password:"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
             />
           </View>
-          <Text
-            style={[
-              AppStyles.error_text,
-              AppStyles.horizontaly_centered,
-              AppStyles.margin_top_spacing6,
-            ]}>
-            Error! Invalid credentials
-          </Text>
+
+          {/* Show error message if login fails */}
+          {errorMessage !== '' && (
+            <Text
+              style={[
+                AppStyles.error_text,
+                AppStyles.horizontaly_centered,
+                AppStyles.margin_top_spacing6,
+              ]}>
+              {errorMessage}
+            </Text>
+          )}
+
+          <View style={AppStyles.margin_top_spacing6}>
+            <Primary_button onPressFunction={handleLogin} text="Login" />
+          </View>
         </View>
       </SafeAreaView>
     </>
