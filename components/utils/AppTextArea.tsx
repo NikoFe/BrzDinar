@@ -1,33 +1,21 @@
-import {useEffect} from 'react';
-import React from 'react';
-
+import React, {useEffect} from 'react';
 import {
-  SafeAreaView,
-  StatusBar,
-  useColorScheme,
-  StyleSheet,
-  Alert,
-  Text,
   View,
-  Button,
+  Text,
   TextInput,
-  Pressable,
 } from 'react-native';
 import AppStyles from '../../styles/AppStyles.tsx';
 
-const AppTextArea = ({
-  label,
-  defaultText,
-}: {
+type AppTextAreaProps = {
   label: string;
   defaultText: string;
-}) => {
-  const [text, onChangeText] = React.useState(defaultText);
-  const [number, onChangeNumber] = React.useState('');
+  onChangeText: (text: string) => void;
+};
 
+const AppTextArea = ({label, defaultText, onChangeText}: AppTextAreaProps) => {
   useEffect(() => {
     onChangeText(defaultText);
-  }, []);
+  }, [defaultText]);
 
   return (
     <View style={AppStyles.horizontaly_centered}>
@@ -43,9 +31,9 @@ const AppTextArea = ({
       <TextInput
         style={AppStyles.textArea}
         onChangeText={onChangeText}
-        value={text}
+        defaultValue={defaultText}
         numberOfLines={4}
-        multiline={true}
+        multiline
       />
     </View>
   );
