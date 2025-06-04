@@ -43,12 +43,16 @@ const RegistrationScreen = ({
           <View style={AppStyles.margin_top_spacing6}>
             <AppTextInputWithLabel
               label="Name:"
-              defaultText="AAA"></AppTextInputWithLabel>
+             //</View> defaultText="AAA"
+             >
+
+              </AppTextInputWithLabel>
           </View>
           <View style={AppStyles.margin_top_spacing6}>
             <AppTextInputWithLabel
               label="Password:"
-              defaultText="AAA"></AppTextInputWithLabel>
+            //  defaultText="AAA"
+              ></AppTextInputWithLabel>
           </View>
 
           <View style={AppStyles.margin_top_spacing6}>

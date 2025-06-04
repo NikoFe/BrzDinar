@@ -17,19 +17,7 @@ import ExchangeRate from './ExchangeRate.tsx';
 import PlusButton from './PlusButton.tsx';
 import {useEffect} from 'react';
 
-const RateContainer = (
-
-{
-navigateToCreate,
-navigateToEdit
-}: {
-//  navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>;
-   navigateToCreate: ()=>void; 
-   navigateToEdit: ()=>void; 
-}
-
-
-) => {
+const RateContainer = () => {
 
   const addExchangeRate = async (imageName:string,currency:string,buyValue:number,sellValue:number   ) => {
   // Alert.alert("AAAAAA")
@@ -40,20 +28,12 @@ navigateToEdit
       sellValue: sellValue,
     };
 
-   // Primer dodajanja v polje:
-
-
-   if(exchangeRates.length==0){
-    setExchangeRates([newItem])
-   }
-   else {
      setExchangeRates(exchangeRates => [...exchangeRates, newItem]);
-   }
-
-
-     navigateToCreate();
+    //  navigation.navigate('Exchange_office');
  }
   
+
+
   const [exchangeRates, setExchangeRates] = useState<Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>>([]);
 
   useEffect(() => {
@@ -84,17 +64,13 @@ navigateToEdit
          currency=  {rate.currency}
          buyValue= {rate.buyValue}
          sellValue= {rate.sellValue}
-         navigateToEdit={navigateToEdit}
        />
 )}
 
 </ScrollView>
 
   <PlusButton
-  onPressFunction={()=>{addExchangeRate("australian-flag.png", "AUD", 2, 22 )
-
-
-}}
+  onPressFunction={()=>{addExchangeRate("australian-flag.png", "AUD", 2, 22 )}}
   />
  </View>
   )

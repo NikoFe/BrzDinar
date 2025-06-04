@@ -43,7 +43,7 @@ export type RootStackParamList = {
   Exchange_details: undefined;
   Exchange_office: undefined;
   Exchange_role: undefined;
-  Login: undefined;
+  Login: { type: string };
   Register: undefined;
   Map: undefined;
   Office_create_1: undefined;
@@ -110,10 +110,13 @@ const App = () => {
             name="Exchange_role"
             options={{headerShown: false}}
             component={Exchange_role_screen}></Stack.Screen>
+
           <Stack.Screen
             name="Login"
             options={{headerShown: false}}
-            component={Login_screen}></Stack.Screen>
+            component={Login_screen}>
+              
+            </Stack.Screen>
           <Stack.Screen
             name="Register"
             options={{headerShown: false}}

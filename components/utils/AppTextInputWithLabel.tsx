@@ -4,6 +4,7 @@ import AppStyles from '../../styles/AppStyles.tsx';
 
 interface AppTextInputWithLabelProps extends TextInputProps {
   label: string;
+
 }
 
 const AppTextInputWithLabel = ({ label, ...textInputProps }: AppTextInputWithLabelProps) => {
@@ -21,6 +22,7 @@ const AppTextInputWithLabel = ({ label, ...textInputProps }: AppTextInputWithLab
       <TextInput
         style={AppStyles.textInput}
         {...textInputProps}
+    
       />
     </View>
   );

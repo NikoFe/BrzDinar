@@ -10,17 +10,32 @@ import {
   Button,
   TextInput,
   Image,
+  Pressable,
 } from 'react-native';
 import AppStyles from '../../styles/AppStyles.tsx';
 
-const PlusButton = () => {
+const PlusButton = (
+
+{
+  onPressFunction,
+
+}: {
+  // onPressFunction : React.MouseEventHandler;
+  onPressFunction: () => void;
+}
+
+) => {
   return (
+    <Pressable
+      onPress={onPressFunction}
+   >
     <View style={[AppStyles.action_button, AppStyles.exchange_plus_button]}>
       <Image
         source={require('../../resources/png/plus-button.png')}
         style={[]}
       />
     </View>
+    </Pressable>
   );
 };
 

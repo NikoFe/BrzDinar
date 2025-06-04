@@ -1,4 +1,4 @@
-import {SetStateAction, useEffect} from 'react';
+import {useEffect} from 'react';
 import React from 'react';
 
 import {
@@ -17,25 +17,27 @@ import {
 import AppStyles from '../../styles/AppStyles.tsx';
 import App from '../../App_backup1.tsx';
 import {useAnimatedProps} from 'react-native-reanimated';
+import {TextInputProps } from 'react-native';
 
 
-type DatePickerProps = {
-  setLeftValue: (value: string) => void;
-  setRightValue: (value: string) => void;
-};
+interface AppTextInputWithLabelProps extends TextInputProps {
+  label: string;
+
+}
 
 
-const DatePicker = (
-{ setLeftValue, setRightValue }: DatePickerProps
-) => {
 
+const DatePicker = () => {
+  const [leftText, changeLeftText] = React.useState('16:00');
+  const [rightText, changeRightText] = React.useState('16:00');
+  const [number, onChangeNumber] = React.useState('');
 
   return (
     <View style={AppStyles.date_inputs}>
       <TextInput
         style={AppStyles.date_picker_cell}
-        onChangeText={setLeftValue}
-        //value={leftText}
+        onChangeText={changeLeftText}
+        value={leftText}
       />
 
       <Text style={[AppStyles.header_2_bold_Inter_white, AppStyles.date_dots]}>
@@ -44,8 +46,8 @@ const DatePicker = (
       </Text>
       <TextInput
         style={AppStyles.date_picker_cell}
-       onChangeText={setRightValue}
-      //  value={rightText}
+        onChangeText={changeRightText}
+        value={rightText}
       />
     </View>
   );

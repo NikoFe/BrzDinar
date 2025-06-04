@@ -18,6 +18,8 @@ import Secondary_button from './utils/Secondary_button.tsx';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../App.tsx';
 
+
+
 const Exchange_role_screen = ({
   navigation,
 }: {
@@ -33,14 +35,14 @@ const Exchange_role_screen = ({
             style={[
               AppStyles.horizontaly_centered,
               AppStyles.image_300x150,
-              AppStyles.margin_top_spacing13,
+              AppStyles.margin_top_spacing10,
             ]}
           />
           <Text
             style={[
               AppStyles.header_3_bold_Inter_white,
               AppStyles.horizontaly_centered,
-              AppStyles.margin_top_spacing10,
+              AppStyles.margin_top_spacing5,
             ]}>
             Exchange_office
           </Text>
@@ -50,7 +52,7 @@ const Exchange_role_screen = ({
                 AppStyles.paragraph_3,
                 AppStyles.white,
                 AppStyles.width_300,
-                AppStyles.margin_top_spacing6,
+                AppStyles.margin_top_spacing5,
               ]}>
               As an exchange office you can add you’re exchange office to our
               map and monitor your company’s finances or if you are an admin,
@@ -65,6 +67,21 @@ const Exchange_role_screen = ({
               }}
               text="Create"></Primary_button>
           </View>
+          <View style={[AppStyles.margin_top_spacing2]}>
+            <Secondary_button
+              onPressFunction={() => {
+               navigation.navigate('Login', { type: 'Login as Office' });
+              }}
+              text="Login as office"></Secondary_button>
+          </View>
+          <View style={[AppStyles.margin_top_spacing2]}>
+            <Secondary_button
+              onPressFunction={() => {
+                    navigation.navigate('Login', { type: 'Login as Admin' });
+              }}
+              text="Login as admin"></Secondary_button>
+          </View>
+
         </View>
       </SafeAreaView>
     </>

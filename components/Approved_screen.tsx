@@ -66,7 +66,7 @@ const Approved_screen = ({
           <View style={[AppStyles.margin_top_spacing4]}>
             <Primary_button
               onPressFunction={() => {
-                navigation.navigate('Login');
+             navigation.navigate('Login', { type: 'Login as Office' });
               }}
               text="Login"></Primary_button>
           </View>

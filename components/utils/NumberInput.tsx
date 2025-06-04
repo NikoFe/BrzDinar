@@ -1,6 +1,5 @@
 import {useEffect} from 'react';
 import React from 'react';
-
 import {
   SafeAreaView,
   StatusBar,
@@ -16,21 +15,47 @@ import {
 } from 'react-native';
 import AppStyles from '../../styles/AppStyles.tsx';
 
+
 const NumberInput = ({
   label,
-  defaultNumber,
+  value,
+  setValue,
+  
 }: {
   label: string;
-  defaultNumber: number;
+  value: number;
+  setValue: (value: number) => void;
 }) => {
-  const [number, onChangeNumber] = React.useState(defaultNumber);
+  const [number, onChangeNumber] = React.useState(  value,
+);
 
   useEffect(() => {
-    onChangeNumber(defaultNumber);
+    onChangeNumber(  value,
+);
   }, []);
 
   return (
+
+
+
     <View style={AppStyles.horizontaly_centered}>
+
+   <Pressable
+    style={AppStyles.up_pressable}
+    onPress={()=>{
+      setValue(value+1)}}
+      />
+
+   
+   <Pressable
+    style={AppStyles.down_pressable}
+    onPress={()=>{
+      setValue(value-1)}}
+      />
+
+
+
+
       <Text
         style={[
           AppStyles.paragraph_4_label,
@@ -40,6 +65,8 @@ const NumberInput = ({
         {label}
       </Text>
 
+
+    
       <Image
         source={require('../../resources/png/gray-arrow-down.png')}
         style={[
@@ -48,20 +75,35 @@ const NumberInput = ({
         ]}
       />
       <Image
-        source={require('../../resources/png/gray-arrow-down.png')}
-        style={[
-          AppStyles.horizontaly_centered,
-          AppStyles.number_input_arrow_up,
-        ]}
-      />
+         source={require('../../resources/png/gray-arrow-down.png')}
+         style={[
+           AppStyles.horizontaly_centered,
+           AppStyles.number_input_arrow_up,
+         ]}
+       />
+    
 
-      <TextInput
-        style={AppStyles.textInput}
-        value={number.toString()}
-        keyboardType="numeric" // shows number pad
-      />
-    </View>
-  );
-};
+       <View
+         style={AppStyles.number_textInput}
+       
+       >
+
+        <Text style={AppStyles.paragraph_4}>
+          {value}
+        </Text>
+
+     </View>
+
+
+       {/*
+       <TextInput
+         style={AppStyles.textInput}
+         value={number.toString()}
+       />
+       */
+       }
+     </View>
+   );
+ };
 
 export default NumberInput;

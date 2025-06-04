@@ -12,12 +12,20 @@ import Header from './utils/Header.tsx';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import AppTextInputWithLabel from './utils/AppTextInputWithLabel.tsx';
 import Primary_button from './utils/Primary_button.tsx';
+import { RouteProp } from '@react-navigation/native';
+
+type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
+type LoginScreenRouteProp = RouteProp<RootStackParamList, 'Login'>;
 
 const Login_screen = ({
   navigation,
+  route
 }: {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
+//  navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>;
+   navigation: LoginScreenNavigationProp; 
+   route: LoginScreenRouteProp;
 }) => {
+    const { type } = route.params;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -26,7 +34,15 @@ const Login_screen = ({
     try {
       await auth().signInWithEmailAndPassword(email, password);
       setErrorMessage('');
+
+      if(type=="Login as Office"){
       navigation.navigate('Exchange_office');
+      }
+      else if(type=="Login as Admin"){
+      navigation.navigate('Admin_check');
+      }
+
+
     } catch (error: any) {
       setErrorMessage('Error! Invalid credentials');
     }
@@ -45,7 +61,7 @@ const Login_screen = ({
                 AppStyles.white,
                 AppStyles.horizontaly_centered,
               ]}>
-              Login
+              {type}
             </Text>
           </View>
 

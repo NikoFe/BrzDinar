@@ -24,6 +24,15 @@ const Office_create_screen_3 = ({
 }: {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
 }) => {
+
+  const navigateToCreate=()=>{
+    navigation.navigate("Create_exchange")
+  }
+  const navigateToEdit  =()=>{
+    Alert.alert("AAA")
+    navigation.navigate("Update_exchange")
+  }
+
   return (
     <>
       <StatusBar hidden={true} />
@@ -51,7 +60,11 @@ const Office_create_screen_3 = ({
           </View>
 
           <View style={AppStyles.margin_top_spacing5}>
-            <RateContainer></RateContainer>
+            <RateContainer
+            navigateToEdit={navigateToEdit}
+            navigateToCreate={navigateToCreate}
+            
+            ></RateContainer>
           </View>
 
           <View style={AppStyles.margin_top_spacing4}>

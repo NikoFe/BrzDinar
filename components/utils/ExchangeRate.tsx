@@ -16,19 +16,75 @@ import PlusButton from './PlusButton.tsx';
 import EditButton from './EditButton.tsx';
 import DeleteButton from './DeleteButton.tsx';
 
-const ExchangeRate = () => {
+
+const imageMap: { [key: string]: any } = {
+  'australian-flag.png': require('../../resources/png/australian-flag.png'),
+  'russian-flag.png': require('../../resources/png/russian-flag.png'),
+  // Add more mappings here
+};
+
+const ExchangeRate = (
+
+{
+  imageName,
+   currency,
+   buyValue,
+   sellValue,
+   setExchangeRate,
+   exchangeRates,
+   navigateToEdit
+
+}: {
+
+  // onPressFunction : React.MouseEventHandler;
+  imageName: string;
+  currency:string;
+  buyValue:number;
+  sellValue:number;
+  //deleteRate: (value: number)=>void
+  setExchangeRate:(value: Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>) => void;
+  exchangeRates:Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>
+  navigateToEdit:(variable:string)=>void
+
+ // setRate: (value: Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>) => void
+
+}
+) => {
+   const deleteRate= async ()=>{
+     Alert.alert("CALLING delete!")
+     let tempArray = exchangeRates.slice();
+
+    for(let i=0; i<exchangeRates.length; i++){
+      if(exchangeRates[i].imageName == imageName && exchangeRates[i].currency==currency && 
+      exchangeRates[i].buyValue==buyValue && exchangeRates[i].sellValue==sellValue 
+       )
+     {
+      console.log("DELETED at INDEX: ", i)
+     tempArray.splice(i,1)
+     setExchangeRate(tempArray)
+     }
+
+    }
+   }
+
   return (
     <View style={[AppStyles.horizontaly_centered]}>
       <View style={[AppStyles.exchange_buttons]}>
-        <DeleteButton />
-        <EditButton />
+        <DeleteButton 
+          onPressFunction={
+            ()=>deleteRate()}
+
+        />
+        <EditButton
+        onPressFunction={() => navigateToEdit(currency)}
+        />
       </View>
-      <Image
-        source={require('../../resources/png/australian-flag.png')}
-        style={[AppStyles.horizontaly_centered, AppStyles.flag_image]}
-      />
+       <Image
+         source={imageMap[imageName]}
+         style={[AppStyles.horizontaly_centered, AppStyles.flag_image]}
+       />
       <Text style={[AppStyles.paragraph_3, AppStyles.margin_top_spacing3]}>
-        AUD
+        {currency}
       </Text>
       <View style={[AppStyles.exchange_text]}>
         <Text style={[AppStyles.paragraph_3, AppStyles.margin_top_spacing3]}>
@@ -39,8 +95,8 @@ const ExchangeRate = () => {
         </Text>
       </View>
       <View style={[AppStyles.exchange_text2]}>
-        <Text style={[AppStyles.paragraph_3]}>59.87 </Text>
-        <Text style={[AppStyles.paragraph_3]}>63.47</Text>
+        <Text style={[AppStyles.paragraph_3]}>{buyValue} </Text>
+        <Text style={[AppStyles.paragraph_3]}>{sellValue} </Text>
       </View>
 
       <View

@@ -1,4 +1,5 @@
 import React from 'react';
+import {useState} from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -24,6 +25,12 @@ const UpdateExchangeScreen = ({
 }: {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
 }) => {
+
+  const [buyValue, setBuyValue]= useState(0)
+  const [sellValue, setSellValue]= useState(0)
+  const [selectedDropDown, setSelectedDropdown] =useState("")
+
+
   return (
     <>
       <StatusBar hidden={true} />
@@ -31,13 +38,28 @@ const UpdateExchangeScreen = ({
         <HeaderWithProfile text="Update exchange rate"></HeaderWithProfile>
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
           <View style={[AppStyles.margin_top_spacing37]}>
-            <AppDropdown input="aaa"></AppDropdown>
+            <AppDropdown 
+            title="aaa"
+            values={["a","b", "c"]}
+            onPressFunction={()=>{}}
+            dropdownSetter={()=>{}}
+            ></AppDropdown>
           </View>
           <View style={[AppStyles.margin_top_spacing3]}>
-            <NumberInput defaultNumber={59.87} label="Buy:" />
+            <NumberInput 
+            value={59.87} 
+            label="Buy:"
+            setValue={setBuyValue}
+
+            />
           </View>
           <View style={[AppStyles.margin_top_spacing1]}>
-            <NumberInput defaultNumber={59.87} label="Sell:" />
+            <NumberInput
+             value={59.87}
+              label="Sell:"
+              setValue={setSellValue} 
+            
+            />
           </View>
           <View style={[AppStyles.margin_top_spacing12]}>
             <Primary_button

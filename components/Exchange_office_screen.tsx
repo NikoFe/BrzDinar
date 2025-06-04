@@ -41,7 +41,8 @@ const Exchange_office_screen = ({
               ]}>
               <AppTextInputWithLabel
                 label="Location"
-                defaultText="Pobreška cesta 18,2000..."></AppTextInputWithLabel>
+                //defaultText="Pobreška cesta 18,2000..."
+                ></AppTextInputWithLabel>
             </View>
 
             <View
@@ -51,7 +52,8 @@ const Exchange_office_screen = ({
               ]}>
               <AppTextInputWithLabel
                 label="Phone number:"
-                defaultText="030-689-421"></AppTextInputWithLabel>
+                //defaultText="030-689-421"
+                ></AppTextInputWithLabel>
             </View>
 
             <View
@@ -68,7 +70,9 @@ const Exchange_office_screen = ({
                 AppStyles.horizontaly_centered,
                 AppStyles.margin_top_spacing3,
               ]}>
-              <RateContainer></RateContainer>
+              <RateContainer
+             navigateToCreate={()=>{}}
+              ></RateContainer>
             </View>
           </View>
         </SafeAreaView>

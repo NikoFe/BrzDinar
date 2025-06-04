@@ -14,20 +14,22 @@ import {
   Pressable,
 } from 'react-native';
 import AppStyles from '../../styles/AppStyles.tsx';
+import { TextInputProps } from 'react-native';
 
-const AppTextArea = ({
-  label,
-  defaultText,
-}: {
+interface AppTextInputWithLabelProps extends TextInputProps {
   label: string;
-  defaultText: string;
-}) => {
-  const [text, onChangeText] = React.useState(defaultText);
-  const [number, onChangeNumber] = React.useState('');
 
+}
+
+
+
+const AppTextArea = ({ label, ...textInputProps }: AppTextInputWithLabelProps) => {
+//  const [text, onChangeText] = React.useState(defaultText);
+  const [number, onChangeNumber] = React.useState('');
+  /*
   useEffect(() => {
     onChangeText(defaultText);
-  }, []);
+  }, []);*/
 
   return (
     <View style={AppStyles.horizontaly_centered}>
@@ -41,9 +43,10 @@ const AppTextArea = ({
       </Text>
 
       <TextInput
+        {...textInputProps}
         style={AppStyles.textArea}
-        onChangeText={onChangeText}
-        value={text}
+       // onChangeText={onChangeText}
+      
         numberOfLines={4}
         multiline={true}
       />

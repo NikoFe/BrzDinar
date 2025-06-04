@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react'
 import {
   SafeAreaView,
   StatusBar,
@@ -20,11 +20,35 @@ import Secondary_button from './utils/Secondary_button.tsx';
 import AppTextInputWithLabel from './utils/AppTextInputWithLabel.tsx';
 import AppTextArea from './utils/AppTextArea.tsx';
 
+
 const Office_create_screen_1 = ({
   navigation,
 }: {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
 }) => {
+
+  const [name, setName] = useState('');
+  const [location, setLocation] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [description, setDescription] = useState('');
+
+
+  const checkInputs = async () => {
+    try {
+
+      if(name=="" ||location=="" ||  phoneNumber==""|| description==""){
+         Alert.alert("empty fields")
+      }
+      else {
+     //  Alert.alert("SUCCESS") 
+       navigation.navigate('Office_create_2');
+      }
+
+    } catch (error: any) {
+    Alert.alert("error")
+    }
+  };
+
   return (
     <>
       <StatusBar hidden={true} />
@@ -42,33 +66,37 @@ const Office_create_screen_1 = ({
           />
           <View style={AppStyles.margin_top_spacing2}>
             <AppTextInputWithLabel
-              defaultText="INSA menjalnica"
+            //  defaultText="INSA menjalnica"
+              onChangeText={setName}
               label="Name:"></AppTextInputWithLabel>
           </View>
           <View style={AppStyles.margin_top_spacing2}>
             <AppTextInputWithLabel
-              defaultText="Celjska ulica"
-              label="Location:"></AppTextInputWithLabel>
+            //  defaultText="Celjska ulica"
+                onChangeText={setLocation}
+                label="Location:"></AppTextInputWithLabel>
           </View>
 
           <View style={AppStyles.margin_top_spacing2}>
             <AppTextInputWithLabel
-              defaultText="030-070-998"
+             // defaultText="030-070-998"
+              onChangeText={setPhoneNumber}
               label="Phone number:"></AppTextInputWithLabel>
           </View>
           <View style={AppStyles.margin_top_spacing2}>
             <AppTextArea
+
+              onChangeText={setDescription}
               label={'description: '}
-              defaultText={
-                'Menjalnica za evropske valute, ki se nahaja v mestu Mariboru'
-              }
+       
             />
           </View>
 
           <View style={AppStyles.margin_top_spacing2}>
             <Primary_button
               onPressFunction={() => {
-                navigation.navigate('Office_create_2');
+                //navigation.navigate('Office_create_2');
+                checkInputs()
               }}
               text="Next"></Primary_button>
           </View>

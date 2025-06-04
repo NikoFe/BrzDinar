@@ -328,7 +328,15 @@ const AppStyles = StyleSheet.create({
   dropdown_arrow: {
     position: 'absolute',
     left: 10,
-    transform: 'rotate(180deg)',
+
+  },
+
+  dropdown_arrow_up_div: {
+   position:"absolute",
+   backgroundColor:app_gray,
+   left:10,
+   zIndex:5,
+  transform: 'rotate(180deg)',
   },
 
   error_text: {
@@ -435,10 +443,12 @@ const AppStyles = StyleSheet.create({
     backgroundColor: app_gray3,
   },
   exchange_plus_button: {
-    position: 'absolute',
-    left: 140,
-    top: 400,
-    zIndex: 2,
+    //position: 'absolute',
+    //left: 140,
+   // top: 400,
+  //  zIndex: 3,
+   marginHorizontal:"auto"
+    
   },
 
   office_data_header: {
@@ -513,7 +523,7 @@ const AppStyles = StyleSheet.create({
     position: 'absolute',
     right: 5,
     top: 64,
-    zIndex: 2,
+    zIndex: 10,
   },
   number_input_arrow_up: {
     width: 22,
@@ -521,12 +531,67 @@ const AppStyles = StyleSheet.create({
     position: 'absolute',
     right: 5,
     top: 44,
-    zIndex: 2,
+    zIndex: 10,
     transform: 'rotate(180deg)',
   },
   invisible_image: {
     opacity: 0,
   },
+
+  dropdownCell:{
+  backgroundColor:header_black,
+  color:app_white,
+  paddingTop:2,
+  paddingBottom:2,
+  paddingLeft:10,
+  fontSize:paragraph_size4
+    
+  },
+  hiddenDropdown:{
+  top:50,
+  position:"absolute",
+  zIndex:200,
+  width:300
+  },
+
+  number_input_div:{
+
+    display:"flex",
+    justifyContent:"flex-end"
+
+  },
+  up_pressable:{
+
+  width:20,
+  height:20,
+ // backgroundColor:"green",
+  position:"absolute",
+  zIndex:100,
+  left:275,
+  top:42,
+  },
+  down_pressable:{
+
+  width:20,
+  height:20,
+  //backgroundColor:"red",
+  position:"absolute",
+  zIndex:100,
+  left:275,
+  top:65,
+  },
+
+  number_textInput: {
+    width: 300,
+    height: 50,
+    padding:10,
+    backgroundColor: app_gray4,
+    fontSize: paragraph_size3,
+  },
+
 });
+
+
+
 
 export default AppStyles;
