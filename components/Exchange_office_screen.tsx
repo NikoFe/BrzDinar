@@ -72,6 +72,7 @@ const Exchange_office_screen = ({
               ]}>
               <RateContainer
              navigateToCreate={()=>{}}
+             navigateToEdit={()=>{}}
               ></RateContainer>
             </View>
           </View>

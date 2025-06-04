@@ -35,9 +35,9 @@ const Create_exchange = ({
 
 
   const checkInputs2 = async () => {
-    Alert.alert("CCCCCCC")
+  
     try {
-
+ 
       if(buyValue==0 ||sellValue==0 ||  buyValue<0|| sellValue<0  ||selectedDropDown=="" ){
          Alert.alert("empty or invalid fields")
       }

@@ -22,7 +22,7 @@ const AppTextInputWithLabel = ({ label, ...textInputProps }: AppTextInputWithLab
       <TextInput
         style={AppStyles.textInput}
         {...textInputProps}
-    
+      
       />
     </View>
   );

@@ -64,7 +64,7 @@ const AppDropdown = (
        <Pressable
        onPress={()=>{
         Alert.alert(value)
-
+        dropdownSetter(value)
       }}
        >
        <Text  style={AppStyles.dropdownCell} >{value}</Text> 

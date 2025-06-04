@@ -19,12 +19,27 @@ import Header from './utils/Header.tsx';
 import Primary_button from './utils/Primary_button.tsx';
 import Secondary_button from './utils/Secondary_button.tsx';
 import DatePicker from './utils/DatePicker.tsx';
+import { RouteProp } from '@react-navigation/native';
+
+type OfficeCreate2RouteProp = RouteProp<RootStackParamList, 'Office_create_2'>;
 
 const Office_create_screen_2 = ({
+  route,
   navigation,
 }: {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
+  route: OfficeCreate2RouteProp;
+  navigation: NativeStackNavigationProp<RootStackParamList, 'Office_create_2'>;
 }) => {
+
+  const {
+    name,
+    location,
+    email,
+    description,
+    phone,
+    password,
+    repeatPassword,
+  } = route.params;
 
   const [monday1, setMonday1] = React.useState('');
   const [monday2, setMonday2] = React.useState('');
@@ -83,8 +98,32 @@ const Office_create_screen_2 = ({
       }
 
       else {
-      //  Alert.alert("SUCCESS") 
-       navigation.navigate('Office_create_3');
+       //Alert.alert("SUCCESS") 
+
+
+      navigation.navigate('Office_create_3', {
+        name,
+        location,
+        email,
+        description,
+        phone,
+        password,
+        repeatPassword,
+        monday1,
+        monday2,
+        tuesday1,
+        tuesday2,
+        wednsday1,
+        wednsday2,
+        thursday1,
+        thursday2,
+        friday1,
+        friday2,
+        saturday1,
+        saturday2,
+        sunday1,
+        sunday2, 
+      });
       }
 
     } catch (error: any) {

@@ -16,8 +16,6 @@ import Secondary_button from './utils/Secondary_button.tsx';
 import AppTextInputWithLabel from './utils/AppTextInputWithLabel.tsx';
 import AppTextArea from './utils/AppTextArea.tsx';
 
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
 
 
 const Office_create_screen_1 = ({
@@ -26,14 +24,15 @@ const Office_create_screen_1 = ({
   navigation: NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
 }) => {
   const [name, setName] = useState('INSA menjalnica');
-  const [email, setEmail] = useState('janez@example.com');
-  const [password, setPassword] = useState('password');
-  const [repeatPassword, setRepeatPassword] = useState('password');
   const [location, setLocation] = useState('Celjska ulica');
-  const [phone, setPhone] = useState('030-070-998');
+  const [email, setEmail] = useState('janez@example.com');
   const [description, setDescription] = useState(
     'Menjalnica za evropske valute, ki se nahaja v mestu Mariboru',
   );
+
+    const [phone, setPhone] = useState('030-070-998');
+  const [password, setPassword] = useState('password');
+  const [repeatPassword, setRepeatPassword] = useState('password');
 
   const checkInputs = async () => {
     try {
@@ -43,7 +42,16 @@ const Office_create_screen_1 = ({
       }
       else {
      //  Alert.alert("SUCCESS") 
-       navigation.navigate('Office_create_2');
+     //  navigation.navigate('Office_create_2');
+      navigation.navigate('Office_create_2', {
+        name,
+        location,
+        email,
+        description,
+        phone,
+        password,
+        repeatPassword,
+      });
       }
 
     } catch (error: any) {
@@ -51,36 +59,6 @@ const Office_create_screen_1 = ({
     }
   };
 
-  const handleRegister = async () => {
-    if (password !== repeatPassword) {
-      Alert.alert('Napaka', 'Gesli se ne ujemata');
-      return;
-    }
-
-    try {
-      const userCredential = await auth().createUserWithEmailAndPassword(
-        email,
-        password,
-      );
-
-      const uid = userCredential.user.uid;
-
-      await firestore().collection('exchange_offices').doc(uid).set({
-        name,
-        email,
-        location,
-        phone,
-        description,
-        createdAt: firestore.Timestamp.now(),
-      });
-
-      Alert.alert('Uspeh', 'Registracija uspešna!');
-      navigation.navigate('Exchange_office');
-    } catch (error: any) {
-      console.error(error);
-      Alert.alert('Napaka pri registraciji', error.message);
-    }
-  };
 
   return (
     <>
@@ -107,7 +85,7 @@ const Office_create_screen_1 = ({
             
             
             </View>
-
+  
             <View style={AppStyles.margin_top_spacing2}>
               <AppTextInputWithLabel
                 label="Password:"

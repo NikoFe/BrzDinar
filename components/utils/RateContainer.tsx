@@ -21,13 +21,17 @@ const RateContainer = (
 
 {
 navigateToCreate,
-navigateToEdit
+navigateToEdit,
+exchangeRates,
+setExchangeRates
+
 }: {
 //  navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>;
    navigateToCreate: ()=>void; 
    navigateToEdit: ()=>void; 
+   exchangeRates?: Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>,
+   setExchangeRates?: (variable:Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>)=>void;
 }
-
 
 ) => {
 
@@ -39,23 +43,16 @@ navigateToEdit
       buyValue: buyValue,
       sellValue: sellValue,
     };
-
-   // Primer dodajanja v polje:
-
-
-   if(exchangeRates.length==0){
+    
+   if(exchangeRates && exchangeRates.length==0 && setExchangeRates){
     setExchangeRates([newItem])
    }
-   else {
-     setExchangeRates(exchangeRates => [...exchangeRates, newItem]);
+   else if(exchangeRates && setExchangeRates )     {
+     setExchangeRates([...exchangeRates, newItem]);
    }
-
-
      navigateToCreate();
  }
   
-  const [exchangeRates, setExchangeRates] = useState<Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>>([]);
-
   useEffect(() => {
     // Update the document title using the browser API
        const newItem = {
@@ -64,8 +61,10 @@ navigateToEdit
       buyValue: 10,
       sellValue: 15,
     };
+if(setExchangeRates && exchangeRates){
+ setExchangeRates([...exchangeRates, newItem]);
+}
 
- setExchangeRates(exchangeRates => [...exchangeRates, newItem]);
  //setExchangeRates(exchangeRates => [...exchangeRates, newItem]);
 
   },[]);
@@ -76,7 +75,10 @@ navigateToEdit
    <ScrollView>
 
 
-       {exchangeRates.map((rate) => 
+       {
+      exchangeRates && setExchangeRates && 
+      
+       exchangeRates.map((rate) => 
          <ExchangeRate
          setExchangeRate={setExchangeRates}
          exchangeRates={exchangeRates}

@@ -47,8 +47,41 @@ export type RootStackParamList = {
   Register: undefined;
   Map: undefined;
   Office_create_1: undefined;
-  Office_create_2: undefined;
-  Office_create_3: undefined;
+  Office_create_2: {
+    name: string;
+    location: string;
+    email: string;
+    description: string;
+    phone: string;
+    password: string;
+    repeatPassword: string;
+  };
+  Office_create_3:
+ {
+    name: string;
+    location: string;
+    email: string;
+    description: string;
+    phone: string;
+    password: string;
+    repeatPassword: string;
+    monday1:string
+    monday2:string
+    tuesday1:string
+    tuesday2:string
+    wednsday1:string
+    wednsday2:string
+    thursday1:string
+    thursday2:string
+    friday1:string
+    friday2:string
+    saturday1:string
+    saturday2:string
+    sunday1:string
+    sunday2:string
+  };
+
+
   Onboarding: undefined;
   User_role: undefined;
   Waiting: undefined;
