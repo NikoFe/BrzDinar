@@ -23,14 +23,20 @@ const RateContainer = (
 navigateToCreate,
 navigateToEdit,
 exchangeRates,
-setExchangeRates
+setExchangeRates,
+selectedRate,
+setSelectedRate
+
 
 }: {
 //  navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>;
    navigateToCreate: ()=>void; 
    navigateToEdit: ()=>void; 
-   exchangeRates?: Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>,
-   setExchangeRates?: (variable:Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>)=>void;
+   exchangeRates: Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>,
+   setExchangeRates: (variable:Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>)=>void;
+   selectedRate: { imageName: string; currency: string,buyValue:number, sellValue:number},
+   setSelectedRate :(variable:{ imageName: string; currency: string,buyValue:number, sellValue:number})=>void;
+
 }
 
 ) => {
@@ -43,13 +49,14 @@ setExchangeRates
       buyValue: buyValue,
       sellValue: sellValue,
     };
-    
+    /*
    if(exchangeRates && exchangeRates.length==0 && setExchangeRates){
     setExchangeRates([newItem])
    }
+
    else if(exchangeRates && setExchangeRates )     {
      setExchangeRates([...exchangeRates, newItem]);
-   }
+   }*/
      navigateToCreate();
  }
   
@@ -73,8 +80,6 @@ if(setExchangeRates && exchangeRates){
   <View style= {AppStyles.exchange_rate_div }>
 
    <ScrollView>
-
-
        {
       exchangeRates && setExchangeRates && 
       
@@ -87,6 +92,8 @@ if(setExchangeRates && exchangeRates){
          buyValue= {rate.buyValue}
          sellValue= {rate.sellValue}
          navigateToEdit={navigateToEdit}
+         selectedRate={selectedRate}
+         setSelectedRate={ setSelectedRate}
        />
 )}
 

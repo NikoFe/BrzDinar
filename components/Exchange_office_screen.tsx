@@ -39,6 +39,23 @@ const Exchange_office_screen = ({
   const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState('');
   const [phone, setPhone] = useState('');
+  const [exchangeRates, setExchangeRates] =
+   useState<Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>>([]);
+
+//////placeholders:
+  const navigateToCreate=()=>{
+    navigation.navigate("Create_exchange",
+   {
+    exchangeRates,
+    setExchangeRates
+   }
+    )
+  }
+  const navigateToEdit  =()=>{
+    Alert.alert("AAA")
+    navigation.navigate("Update_exchange")
+  }
+
 
 
 
@@ -128,10 +145,10 @@ const Exchange_office_screen = ({
 
             <View style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3]}>
               <RateContainer
-                navigateToCreate={() => { }}
-                navigateToEdit={() => {
-                  throw new Error('Function not implemented.');
-                }}
+              exchangeRates={exchangeRates}
+              setExchangeRates={setExchangeRates}
+              navigateToEdit={navigateToEdit}
+              navigateToCreate={navigateToCreate}
               />
             </View>
           </View>

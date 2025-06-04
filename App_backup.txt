@@ -39,24 +39,7 @@ export type RootStackParamList = {
   Account: undefined;
   Admin_check: undefined;
   Approved: undefined;
-
-  Update_exchange: 
-   {
-    exchangeRates:Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>,
-    setExchangeRates 
-    :(variable:Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>)=>void
-      
-    currency:string,
-    buyValue:number,
-    sellValue:number,
-    flag:string
-};
-  Create_exchange: 
- {
-  exchangeRates:Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>,
-  setExchangeRates  :(variable:Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>)=>void
-  };
-
+  Create_exchange: undefined;
   Exchange_details: undefined;
   Exchange_office: { email: string };
   Exchange_role: undefined;
@@ -97,9 +80,12 @@ export type RootStackParamList = {
     sunday1:string
     sunday2:string
   };
+
+
   Onboarding: undefined;
   User_role: undefined;
   Waiting: undefined;
+  Update_exchange: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

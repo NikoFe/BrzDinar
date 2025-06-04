@@ -24,7 +24,6 @@ const imageMap: { [key: string]: any } = {
 };
 
 const ExchangeRate = (
-
 {
   imageName,
    currency,
@@ -32,7 +31,9 @@ const ExchangeRate = (
    sellValue,
    setExchangeRate,
    exchangeRates,
-   navigateToEdit
+   navigateToEdit,
+   selectedRate,
+   setSelectedRate
 
 }: {
 
@@ -44,14 +45,15 @@ const ExchangeRate = (
   //deleteRate: (value: number)=>void
   setExchangeRate:(value: Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>) => void;
   exchangeRates:Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>
-  navigateToEdit:(variable:string)=>void
-
+  navigateToEdit:()=>void
+   selectedRate: { imageName: string; currency: string,buyValue:number, sellValue:number},
+   setSelectedRate :(variable:{ imageName: string; currency: string,buyValue:number, sellValue:number})=>void;
  // setRate: (value: Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>) => void
 
 }
 ) => {
    const deleteRate= async ()=>{
-     Alert.alert("CALLING delete!")
+    
      let tempArray = exchangeRates.slice();
 
     for(let i=0; i<exchangeRates.length; i++){
@@ -67,6 +69,20 @@ const ExchangeRate = (
     }
    }
 
+  const startEdit= ()=>{
+  // Alert.alert("||||||: "+ JSON.stringify(selectedRate))
+    const newRate = {
+      imageName,
+     currency,
+     buyValue,
+     sellValue,
+
+    }
+  //  Alert.alert( currency)
+    setSelectedRate(newRate)
+    navigateToEdit()
+  }
+
   return (
     <View style={[AppStyles.horizontaly_centered]}>
       <View style={[AppStyles.exchange_buttons]}>
@@ -76,7 +92,9 @@ const ExchangeRate = (
 
         />
         <EditButton
-        onPressFunction={() => navigateToEdit(currency)}
+        onPressFunction={
+          startEdit
+        }
         />
       </View>
        <Image

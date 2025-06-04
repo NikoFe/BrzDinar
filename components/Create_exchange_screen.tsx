@@ -20,15 +20,35 @@ import AppDropdown from './utils/AppDropdown.tsx';
 import NumberInput from './utils/NumberInput.tsx';
 import Primary_button from './utils/Primary_button.tsx';
 import HeaderWithProfile from './utils/HeaderWithProfile.tsx';
+import { RouteProp } from '@react-navigation/native';
+
+
+type OfficeCreateProp = RouteProp<RootStackParamList, 'Create_exchange'>;
+
+/*
+type Props = {
+  route: OfficeCreateProp;
+  navigation: NativeStackNavigationProp<RootStackParamList, 'Create_exchange'>;
+};*/
 
 const Create_exchange = ({
+  route,
   navigation,
  // setExchangeArray
 }: {
+    route: OfficeCreateProp;
   navigation: NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
 //  setExchangeArray: (variable:string)=>void
 }) => {
  
+  const {
+  exchangeRates,
+  setExchangeRates
+  } = route.params;
+
+
+
+
   const [buyValue, setBuyValue]= useState(0)
   const [sellValue, setSellValue]= useState(0)
   const [selectedDropDown, setSelectedDropdown] =useState("")
@@ -42,15 +62,16 @@ const Create_exchange = ({
          Alert.alert("empty or invalid fields")
       }
       else {
-       Alert.alert("SUCCESS: ", selectedDropDown)
+     //  Alert.alert("SUCCESS: ", selectedDropDown)
 
        const newExchange ={
+       imageName: "australian-flag.png",
        buyValue:buyValue,
        sellValue:sellValue,
        currency:selectedDropDown,
        }
 
-      //dodaj v firebase bazo.
+     setExchangeRates([...exchangeRates,newExchange])
        navigation.goBack();
       }
 
@@ -58,11 +79,7 @@ const Create_exchange = ({
     Alert.alert("error")
     }
   };
-
-
-
   return (
-
     <>
       <StatusBar hidden={true} />
       <SafeAreaView style={{flex: 1}}>
@@ -71,9 +88,8 @@ const Create_exchange = ({
           <View style={[AppStyles.margin_top_spacing37]}>
             <AppDropdown 
             onPressFunction={()=>{}}
-            title="aaa"
-            values={["1", "2","3"]}
-
+            title="Currency"
+            values={["AUD", "USD","EUR"]}
 
             dropdownSetter ={setSelectedDropdown}
             ></AppDropdown>

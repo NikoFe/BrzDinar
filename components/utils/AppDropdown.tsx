@@ -63,8 +63,9 @@ const AppDropdown = (
        {values.map((value, index) => 
        <Pressable
        onPress={()=>{
-        Alert.alert(value)
+         //Alert.alert(value)
         dropdownSetter(value)
+        setVisible(!visible)
       }}
        >
        <Text  style={AppStyles.dropdownCell} >{value}</Text> 

@@ -35,8 +35,16 @@ type Props = {
 
 const Office_create_screen_3 = ({ route, navigation }: Props) => {
 
+
   const [exchangeRates, setExchangeRates] =
    useState<Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>>([]);
+
+  const [selectedRate, setSelectedRate] =
+   useState<{ imageName: string; currency: string,buyValue:number, sellValue:number}>({imageName:"",currency:"",buyValue:0,sellValue:0});
+
+
+
+
 
   const {
     name,
@@ -65,11 +73,30 @@ const Office_create_screen_3 = ({ route, navigation }: Props) => {
 
 
   const navigateToCreate=()=>{
-    navigation.navigate("Create_exchange")
+    navigation.navigate("Create_exchange",
+   {
+    exchangeRates,
+    setExchangeRates
+   }
+    )
   }
-  const navigateToEdit  =()=>{
-    Alert.alert("AAA")
-    navigation.navigate("Update_exchange")
+
+  const navigateToEdit  =(currency:string, flag:string , buyValue :number,sellValue:number)=>{
+     //  Alert.alert("++++++++: "+ selectedRate)
+     Alert.alert("3: "+currency)
+    navigation.navigate("Update_exchange",
+   {
+    exchangeRates,
+    setExchangeRates,
+    currency,
+    buyValue,
+    sellValue,
+    flag
+    
+   }
+    )
+
+
   }
 
    const checkResult = async () =>{
@@ -123,7 +150,11 @@ const Office_create_screen_3 = ({ route, navigation }: Props) => {
        });
  
        Alert.alert('Uspeh', 'Registracija uspešna!');
-       navigation.navigate('Exchange_office');
+       navigation.navigate('Exchange_office',
+        {
+       email
+        }
+       );
      } catch (error: any) {
        console.error(error);
        Alert.alert('Napaka pri registraciji', error.message);
@@ -179,9 +210,12 @@ const Office_create_screen_3 = ({ route, navigation }: Props) => {
             <RateContainer
             exchangeRates={exchangeRates}
             setExchangeRates={setExchangeRates}
-            navigateToEdit={navigateToEdit}
+
+           // currency:string, flag:string , buyValue :number,sellValue:number
+            navigateToEdit={()=>{navigateToEdit(selectedRate.currency, selectedRate.imageName,selectedRate.buyValue, selectedRate.sellValue)}}
             navigateToCreate={navigateToCreate}
-            
+            selectedRate={selectedRate}
+            setSelectedRate={setSelectedRate}
             ></RateContainer>
           </View>
 

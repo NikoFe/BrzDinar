@@ -20,12 +20,12 @@ const EditButton = (
 
 }: {
   // onPressFunction : React.MouseEventHandler;
-  onPressFunction: (variable:string) => void;
+  onPressFunction: () => void;
 }
 ) => {
   return (
     <Pressable
-          onPress={()=>{onPressFunction}}
+      onPress={onPressFunction}
     >
     <View style={AppStyles.action_button}>
       <Image
