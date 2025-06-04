@@ -21,11 +21,11 @@ const Login_screen = ({
   navigation,
   route
 }: {
-//  navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>;
-   navigation: LoginScreenNavigationProp; 
-   route: LoginScreenRouteProp;
+  //  navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>;
+  navigation: LoginScreenNavigationProp;
+  route: LoginScreenRouteProp;
 }) => {
-    const { type } = route.params;
+  const { type } = route.params;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -35,11 +35,11 @@ const Login_screen = ({
       await auth().signInWithEmailAndPassword(email, password);
       setErrorMessage('');
 
-      if(type=="Login as Office"){
-      navigation.navigate('Exchange_office');
+      if (type == "Login as Office") {
+        navigation.navigate('Exchange_office', { email });
       }
-      else if(type=="Login as Admin"){
-      navigation.navigate('Admin_check');
+      else if (type == "Login as Admin") {
+        navigation.navigate('Admin_check');
       }
 
 
@@ -70,6 +70,7 @@ const Login_screen = ({
               label="Email:"
               value={email}
               onChangeText={setEmail}
+              defaultValue="janez@example.com"
               autoCapitalize="none"
               keyboardType="email-address"
             />
@@ -80,6 +81,7 @@ const Login_screen = ({
               label="Password:"
               value={password}
               onChangeText={setPassword}
+              defaultValue="password"
               secureTextEntry
             />
           </View>
