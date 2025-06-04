@@ -41,7 +41,7 @@ export type RootStackParamList = {
   Approved: undefined;
   Create_exchange: undefined;
   Exchange_details: undefined;
-  Exchange_office: undefined;
+  Exchange_office: { email: string };
   Exchange_role: undefined;
   Login: { type: string };
   Register: undefined;
