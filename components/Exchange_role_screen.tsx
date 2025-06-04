@@ -70,17 +70,11 @@ const Exchange_role_screen = ({
           <View style={[AppStyles.margin_top_spacing2]}>
             <Secondary_button
               onPressFunction={() => {
-               navigation.navigate('Login', { type: 'Login as Office' });
+               navigation.navigate('Login', { type: 'Login' });
               }}
-              text="Login as office"></Secondary_button>
+              text="Login"></Secondary_button>
           </View>
-          <View style={[AppStyles.margin_top_spacing2]}>
-            <Secondary_button
-              onPressFunction={() => {
-                    navigation.navigate('Login', { type: 'Login as Admin' });
-              }}
-              text="Login as admin"></Secondary_button>
-          </View>
+
 
         </View>
       </SafeAreaView>

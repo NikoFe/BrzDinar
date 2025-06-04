@@ -107,7 +107,6 @@ const Exchange_office_screen = ({
     }
   };
 
-
   return (
     <>
       <ScrollView>

@@ -72,7 +72,7 @@ const ExchangeRate = (
   const startEdit= ()=>{
   // Alert.alert("||||||: "+ JSON.stringify(selectedRate))
     const newRate = {
-      imageName,
+     imageName,
      currency,
      buyValue,
      sellValue,

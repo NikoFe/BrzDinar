@@ -18,7 +18,7 @@ import Header from './utils/Header.tsx';
 import ExchangeOfficeData from './utils/ExchangeOfficeData.tsx';
 import Primary_button from './utils/Primary_button.tsx';
 import Secondary_button from './utils/Secondary_button.tsx';
-import HeaderWithProfile from './utils/HeaderWithProfile.tsx';
+import Header from './utils/Header.tsx';
 
 const Map_screen = ({
   navigation,
@@ -29,9 +29,10 @@ const Map_screen = ({
     <>
       <StatusBar hidden={true} />
       <SafeAreaView style={{flex: 1}}>
-        <HeaderWithProfile text="Maps"></HeaderWithProfile>
+        <Header text="Maps"></Header>
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
-          <ExchangeOfficeData />
+          <ExchangeOfficeData 
+          />
 
           <View style={[AppStyles.margin_top_spacing3]}> </View>
           <Image

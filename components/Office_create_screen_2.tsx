@@ -146,49 +146,49 @@ const Office_create_screen_2 = ({
             ]}
           />
 
-          <View style={[AppStyles.margin_top_spacing2, AppStyles.date_row]}>
+          <View style={[AppStyles.margin_top_spacing2, AppStyles.date_row,AppStyles.width_350 ]}>
             <Text style={[AppStyles.paragraph_4, AppStyles.white]}>MON:</Text>
             <DatePicker
               setLeftValue={setMonday1}
               setRightValue={setMonday2}
             ></DatePicker>
           </View>
-          <View style={[AppStyles.margin_top_spacing2, AppStyles.date_row]}>
+          <View style={[AppStyles.margin_top_spacing2, AppStyles.date_row,AppStyles.width_350  ]}>
             <Text style={[AppStyles.paragraph_4, AppStyles.white]}>TUE:</Text>
             <DatePicker
               setLeftValue={setTuesday1}
               setRightValue={setTuesday2}
             ></DatePicker>
           </View>
-          <View style={[AppStyles.margin_top_spacing2, AppStyles.date_row]}>
+          <View style={[AppStyles.margin_top_spacing2, AppStyles.date_row,AppStyles.width_350 ]}>
             <Text style={[AppStyles.paragraph_4, AppStyles.white]}>WED:</Text>
             <DatePicker
               setLeftValue={setWednsday1}
               setRightValue={setWednsday2}
             ></DatePicker>
           </View>
-          <View style={[AppStyles.margin_top_spacing2, AppStyles.date_row]}>
+          <View style={[AppStyles.margin_top_spacing2, AppStyles.date_row,AppStyles.width_350]}>
             <Text style={[AppStyles.paragraph_4, AppStyles.white]}>THIR:</Text>
             <DatePicker
               setLeftValue={setThursday1}
               setRightValue={setThursday2}
             ></DatePicker>
           </View>
-          <View style={[AppStyles.margin_top_spacing2, AppStyles.date_row]}>
+          <View style={[AppStyles.margin_top_spacing2, AppStyles.date_row, AppStyles.width_350]}>
             <Text style={[AppStyles.paragraph_4, AppStyles.white]}>FRI:</Text>
             <DatePicker
               setLeftValue={setFriday1}
               setRightValue={setFriday2}  
             ></DatePicker>
           </View>
-          <View style={[AppStyles.margin_top_spacing2, AppStyles.date_row]}>
+          <View style={[AppStyles.margin_top_spacing2, AppStyles.date_row,AppStyles.width_350]}>
             <Text style={[AppStyles.paragraph_4, AppStyles.white]}>SAT:</Text>
             <DatePicker
               setLeftValue={setSaturday1}
               setRightValue={setSaturday2}
               ></DatePicker>
           </View>
-          <View style={[AppStyles.margin_top_spacing2, AppStyles.date_row]}>
+          <View style={[AppStyles.margin_top_spacing2, AppStyles.date_row, AppStyles.width_350]}>
             <Text style={[AppStyles.paragraph_4, AppStyles.white]}>SUN:</Text>
             <DatePicker
               setLeftValue={setSunday1}
