@@ -51,7 +51,7 @@ const Onboarding_screen = ({
           </View>
           <Secondary_button
             onPressFunction={() => {
-              navigation.navigate('Office_create_3');
+              navigation.navigate('Exchange_office');
             }}
             text="Test123"></Secondary_button>
 

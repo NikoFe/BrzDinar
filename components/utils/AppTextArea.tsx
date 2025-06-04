@@ -1,35 +1,34 @@
-import {useEffect} from 'react';
-import React from 'react';
-
+import React, {useEffect} from 'react';
 import {
-  SafeAreaView,
-  StatusBar,
-  useColorScheme,
-  StyleSheet,
-  Alert,
-  Text,
   View,
-  Button,
+  Text,
   TextInput,
-  Pressable,
 } from 'react-native';
 import AppStyles from '../../styles/AppStyles.tsx';
 import { TextInputProps } from 'react-native';
 
 interface AppTextInputWithLabelProps extends TextInputProps {
   label: string;
-
+  defaultText: string; 
 }
 
-
-
-const AppTextArea = ({ label, ...textInputProps }: AppTextInputWithLabelProps) => {
-//  const [text, onChangeText] = React.useState(defaultText);
+/*
+const AppTextArea = () => {
   const [number, onChangeNumber] = React.useState('');
-  /*
+
+
+*/
+type AppTextAreaProps = {
+  label: string;
+  defaultText: string;
+  onChangeText: (text: string) => void;
+};
+
+const AppTextArea = (
+  {label, defaultText, onChangeText, ...textInputProps}: AppTextAreaProps) => {
   useEffect(() => {
     onChangeText(defaultText);
-  }, []);*/
+  }, [defaultText]);
 
   return (
     <View style={AppStyles.horizontaly_centered}>
@@ -45,10 +44,10 @@ const AppTextArea = ({ label, ...textInputProps }: AppTextInputWithLabelProps) =
       <TextInput
         {...textInputProps}
         style={AppStyles.textArea}
-       // onChangeText={onChangeText}
-      
+        onChangeText={onChangeText}
+        defaultValue={defaultText}
         numberOfLines={4}
-        multiline={true}
+        multiline
       />
     </View>
   );
