@@ -49,7 +49,9 @@ export type RootStackParamList = {
     currency:string,
     buyValue:number,
     sellValue:number,
-    flag:string
+    flag:string,
+    setSelectedRate: (value:{ imageName: string; currency: string,buyValue:number, sellValue:number} )=>void;
+
 };
   Create_exchange: 
  {

@@ -42,10 +42,6 @@ const Office_create_screen_3 = ({ route, navigation }: Props) => {
   const [selectedRate, setSelectedRate] =
    useState<{ imageName: string; currency: string,buyValue:number, sellValue:number}>({imageName:"",currency:"",buyValue:0,sellValue:0});
 
-
-
-
-
   const {
     name,
     location,
@@ -82,8 +78,7 @@ const Office_create_screen_3 = ({ route, navigation }: Props) => {
   }
 
   const navigateToEdit  =(currency:string, flag:string , buyValue :number,sellValue:number)=>{
-     //  Alert.alert("++++++++: "+ selectedRate)
-     Alert.alert("3: "+currency)
+  //   Alert.alert("3: "+currency)
     navigation.navigate("Update_exchange",
    {
     exchangeRates,
@@ -91,22 +86,17 @@ const Office_create_screen_3 = ({ route, navigation }: Props) => {
     currency,
     buyValue,
     sellValue,
-    flag
-    
+    flag,
+    //
+    setSelectedRate
    }
-    )
-
-
+  )
   }
-
    const checkResult = async () =>{
- 
      let concat="name: "+name+" location: "+location+" email: "+" description: "+description    +"phone:"+phone
-
      Alert.alert("FINAL: "+concat)
      await  handleRegister()
    }
-
 
    const handleRegister = async () => {
      if (password !== repeatPassword) {
@@ -129,9 +119,6 @@ const Office_create_screen_3 = ({ route, navigation }: Props) => {
          phone,
          description,
          createdAt: firestore.Timestamp.now(),
-         ///odstrani to odstpodaj če potrebno:
-        // password, NAJVERJETNEJE najbolje, da ni tu gesla shranjenega
-        // repeatPassword,
          monday1,
          monday2,
          tuesday1,
@@ -160,25 +147,6 @@ const Office_create_screen_3 = ({ route, navigation }: Props) => {
        Alert.alert('Napaka pri registraciji', error.message);
      }
    };
-
-
-
-   /* password,
-    repeatPassword,
-    monday1,
-    monday2,
-    tuesday1,
-    tuesday2,
-    wednsday1,
-    wednsday2,
-    thursday1,
-    thursday2,
-    friday1,
-    friday2,
-    saturday1,
-    saturday2,
-    sunday1,
-    sunday2, */
 
   return (
     <>

@@ -18,7 +18,7 @@ import Header from './utils/Header.tsx';
 import ExchangeOfficeData from './utils/ExchangeOfficeData.tsx';
 import Primary_button from './utils/Primary_button.tsx';
 import Secondary_button from './utils/Secondary_button.tsx';
-import Header from './utils/Header.tsx';
+
 
 const Map_screen = ({
   navigation,
@@ -32,6 +32,7 @@ const Map_screen = ({
         <Header text="Maps"></Header>
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
           <ExchangeOfficeData 
+          data={"placeholder"}
           />
 
           <View style={[AppStyles.margin_top_spacing3]}> </View>

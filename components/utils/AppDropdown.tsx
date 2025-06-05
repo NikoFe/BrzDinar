@@ -28,6 +28,8 @@ const AppDropdown = (
   dropdownSetter: (value:string) => void;
 }) => {
 
+  const [currentTitle, setCurrentTitle] = useState(title);
+  const [index, setIndex] = useState();
   const [visible, setVisible] = useState(false);
 
   return (
@@ -54,7 +56,7 @@ const AppDropdown = (
         />
 
 
-        <Text style={AppStyles.paragraph_4}>{title}</Text>
+        <Text style={AppStyles.paragraph_4}>{currentTitle}</Text>
       </View>
    </Pressable>
 
@@ -64,6 +66,7 @@ const AppDropdown = (
        <Pressable
        onPress={()=>{
          //Alert.alert(value)
+        setCurrentTitle(value)
         dropdownSetter(value)
         setVisible(!visible)
       }}

@@ -101,8 +101,6 @@ if(setExchangeRates && exchangeRates){
 
   <PlusButton
   onPressFunction={()=>{addExchangeRate("australian-flag.png", "AUD", 2, 22 )
-
-
 }}
   />
  </View>

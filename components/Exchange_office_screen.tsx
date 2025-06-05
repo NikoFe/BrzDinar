@@ -42,6 +42,11 @@ const Exchange_office_screen = ({
   const [exchangeRates, setExchangeRates] =
    useState<Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>>([]);
 
+  const [selectedRate, setSelectedRate] =
+   useState<{ imageName: string; currency: string,buyValue:number, sellValue:number}>({imageName:"",currency:"",buyValue:0,sellValue:0});
+
+
+
 //////placeholders:
   const navigateToCreate=()=>{
     navigation.navigate("Create_exchange",
@@ -51,9 +56,19 @@ const Exchange_office_screen = ({
    }
     )
   }
+
   const navigateToEdit  =()=>{
+    /* WIP
     Alert.alert("AAA")
-    navigation.navigate("Update_exchange")
+    navigation.navigate("Update_exchange",{
+    exchangeRates,
+    setExchangeRates,
+    currency,
+    buyValue,
+    sellValue,
+    flag
+
+    })*/
   }
 
 
@@ -141,13 +156,14 @@ const Exchange_office_screen = ({
               <Primary_button onPressFunction={handleUpdate} text="Change" />
             </View>
 
-
             <View style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3]}>
               <RateContainer
               exchangeRates={exchangeRates}
               setExchangeRates={setExchangeRates}
               navigateToEdit={navigateToEdit}
               navigateToCreate={navigateToCreate}
+              selectedRate={selectedRate}
+              setSelectedRate={setSelectedRate}
               />
             </View>
           </View>

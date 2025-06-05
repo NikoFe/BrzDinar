@@ -23,12 +23,9 @@ import NumberInput from './utils/NumberInput.tsx';
 
 type OfficeUpdateProp = RouteProp<RootStackParamList, 'Update_exchange'>;
 
-
-
 const UpdateExchangeScreen = ({
   route,
   navigation,
-
 }: {
    route: OfficeUpdateProp;
   navigation: NativeStackNavigationProp<RootStackParamList, 'Update_exchange'>;
@@ -41,6 +38,7 @@ const UpdateExchangeScreen = ({
   buyValue,
   sellValue,
   flag,
+  setSelectedRate
   } = route.params;
 
   const [buyValue2, setBuyValue2]= useState(buyValue)
@@ -51,10 +49,7 @@ const UpdateExchangeScreen = ({
   //const [oldCurrencyValue, setOldCurrencyValue]= useState(currency)
   const oldCurrencyValue=currency
 
-
-
   const checkInputs = async () => {
-  
     try {
  
       if(buyValue2==0 ||sellValue2==0 ||  buyValue2<0|| sellValue2<0  ||selectedDropDown=="" ){
@@ -95,24 +90,16 @@ useEffect(() => {
     break;
     }
     if(i==copiedRates.length-1){
-
          Alert.alert("THEIR buy: "+copiedRates[i].buyValue+ " sell: "+copiedRates[i].sellValue+ " currency: " + copiedRates[i].currency+"\n"
          +"MINE buy: "+oldBuyValue+ " sell: "+oldSellValue+ " currency: " +  oldCurrencyValue
-
-
-
          )
-
-   
     }
-
    }
    copiedRates.push(newExchange)
    setExchangeRates(copiedRates)
-
+   setSelectedRate(newExchange)
    navigation.goBack()
  }
-
 
   return (
     <>
@@ -122,7 +109,7 @@ useEffect(() => {
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
           <View style={[AppStyles.margin_top_spacing37]}>
             <AppDropdown 
-            title="aaa"
+            title="Currency"
             values={["AUD", "USD","EUR"]}
             onPressFunction={()=>{}}
             dropdownSetter={setSelectedDropdown}
@@ -147,7 +134,7 @@ useEffect(() => {
           <View style={[AppStyles.margin_top_spacing12]}>
             <Primary_button
               onPressFunction={UpdateExchange}
-              text="Create"></Primary_button>
+              text="Update"></Primary_button>
           </View>
         </View>
       </SafeAreaView>
