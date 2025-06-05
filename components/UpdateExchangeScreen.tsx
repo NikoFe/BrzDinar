@@ -38,7 +38,7 @@ const UpdateExchangeScreen = ({
   buyValue,
   sellValue,
   flag,
-  setSelectedRate
+  
   } = route.params;
 
   const [buyValue2, setBuyValue2]= useState(buyValue)
@@ -86,18 +86,18 @@ useEffect(() => {
 
     if(copiedRates[i].buyValue== oldBuyValue && copiedRates[i].sellValue== oldSellValue &&  copiedRates[i].currency == oldCurrencyValue){
     copiedRates.splice(i,1)
-    Alert.alert("FOUND")
+  //  Alert.alert("FOUND")
     break;
     }
     if(i==copiedRates.length-1){
-         Alert.alert("THEIR buy: "+copiedRates[i].buyValue+ " sell: "+copiedRates[i].sellValue+ " currency: " + copiedRates[i].currency+"\n"
+         /*Alert.alert("THEIR buy: "+copiedRates[i].buyValue+ " sell: "+copiedRates[i].sellValue+ " currency: " + copiedRates[i].currency+"\n"
          +"MINE buy: "+oldBuyValue+ " sell: "+oldSellValue+ " currency: " +  oldCurrencyValue
-         )
+         )*/
     }
    }
    copiedRates.push(newExchange)
    setExchangeRates(copiedRates)
-   setSelectedRate(newExchange)
+  // setSelectedRate(newExchange)
    navigation.goBack()
  }
 

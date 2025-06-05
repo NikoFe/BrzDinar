@@ -85,7 +85,7 @@ if(setExchangeRates && exchangeRates){
       
        exchangeRates.map((rate) => 
          <ExchangeRate
-         setExchangeRate={setExchangeRates}
+         setExchangeRates={setExchangeRates}
          exchangeRates={exchangeRates}
          imageName= {rate.imageName}
          currency=  {rate.currency}

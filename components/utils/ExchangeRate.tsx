@@ -15,6 +15,9 @@ import AppStyles from '../../styles/AppStyles.tsx';
 import PlusButton from './PlusButton.tsx';
 import EditButton from './EditButton.tsx';
 import DeleteButton from './DeleteButton.tsx';
+import { useNavigation } from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../App.tsx';
 
 
 const imageMap: { [key: string]: any } = {
@@ -29,12 +32,12 @@ const ExchangeRate = (
    currency,
    buyValue,
    sellValue,
-   setExchangeRate,
+  // setExchangeRate,
+   setExchangeRates,
    exchangeRates,
    navigateToEdit,
    selectedRate,
    setSelectedRate
-
 }: {
 
   // onPressFunction : React.MouseEventHandler;
@@ -43,7 +46,7 @@ const ExchangeRate = (
   buyValue:number;
   sellValue:number;
   //deleteRate: (value: number)=>void
-  setExchangeRate:(value: Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>) => void;
+  setExchangeRates:(value: Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>) => void;
   exchangeRates:Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>
   navigateToEdit:()=>void
    selectedRate: { imageName: string; currency: string,buyValue:number, sellValue:number},
@@ -52,6 +55,7 @@ const ExchangeRate = (
 
 }
 ) => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
    const deleteRate= async ()=>{
     
      let tempArray = exchangeRates.slice();
@@ -63,14 +67,13 @@ const ExchangeRate = (
      {
       console.log("DELETED at INDEX: ", i)
      tempArray.splice(i,1)
-     setExchangeRate(tempArray)
+     setExchangeRates(tempArray)
      }
 
     }
    }
 
   const startEdit= ()=>{
-  // Alert.alert("||||||: "+ JSON.stringify(selectedRate))
     const newRate = {
      imageName,
      currency,
@@ -78,9 +81,21 @@ const ExchangeRate = (
      sellValue,
 
     }
-  //  Alert.alert( currency)
     setSelectedRate(newRate)
-    navigateToEdit()
+
+
+   // navigateToEdit()
+
+    navigation.navigate('Update_exchange', {
+      exchangeRates,
+      setExchangeRates,
+      currency,
+      buyValue,
+      sellValue,
+      flag: imageName,
+    });
+
+
   }
 
   return (

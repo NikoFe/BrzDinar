@@ -40,6 +40,10 @@ export type RootStackParamList = {
   Admin_check: undefined;
   Approved: undefined;
 
+
+
+
+
   Update_exchange: 
    {
     exchangeRates:Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>,
@@ -50,7 +54,7 @@ export type RootStackParamList = {
     buyValue:number,
     sellValue:number,
     flag:string,
-    setSelectedRate: (value:{ imageName: string; currency: string,buyValue:number, sellValue:number} )=>void;
+   // setSelectedRate: (value:{ imageName: string; currency: string,buyValue:number, sellValue:number} )=>void;
 
 };
   Create_exchange: 
