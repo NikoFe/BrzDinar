@@ -162,7 +162,7 @@ const Exchange_office_screen = ({
               setExchangeRates={setExchangeRates}
               navigateToEdit={navigateToEdit}
               navigateToCreate={navigateToCreate}
-              selectedRate={selectedRate}
+            //  selectedRate={selectedRate}
               setSelectedRate={setSelectedRate}
               />
             </View>

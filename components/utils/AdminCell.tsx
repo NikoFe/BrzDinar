@@ -14,16 +14,28 @@ import {
 import AppStyles from '../../styles/AppStyles.tsx';
 import Primary_button from './Primary_button.tsx';
 
-const AdminCell = () => {
+const AdminCell = (
+{
+name,
+created,
+password
+}:
+{
+name:string,
+created:string,
+password:string,
+}
+
+) => {
   return (
     <View style={[AppStyles.admin_cell, AppStyles.horizontaly_centered]}>
       <View style={[AppStyles.admin_cell_brighter]}>
         <Text style={[AppStyles.boldFontWeight, AppStyles.paragraph_3]}>
-          INSA menjalnica
+          {name}
         </Text>
       </View>
       <View style={AppStyles.admin_cell_darker}>
-        <Text style={AppStyles.paragraph_3}>Created: 09/04/2025</Text>
+        <Text style={AppStyles.paragraph_3}>Created:{created}</Text>
       </View>
       <View style={AppStyles.admin_cell_brighter}>
         <Primary_button
@@ -34,13 +46,13 @@ const AdminCell = () => {
         <Text style={AppStyles.paragraph_3}>Name:</Text>
       </View>
       <View style={AppStyles.admin_cell_brighter}>
-        <Text style={AppStyles.paragraph_3}>INSA menjalnica</Text>
+        <Text style={AppStyles.paragraph_3}>{name}</Text>
       </View>
       <View style={AppStyles.admin_cell_darker}>
-        <Text style={AppStyles.paragraph_3}>Password:</Text>
+        <Text style={AppStyles.paragraph_3}>Password:  </Text>
       </View>
       <View style={AppStyles.admin_cell_brighter}>
-        <Text style={AppStyles.paragraph_3}>CurrentPassword:</Text>
+        <Text style={AppStyles.paragraph_3}>{password}</Text>
       </View>
 
       <View style={AppStyles.admin_cell_darker}>

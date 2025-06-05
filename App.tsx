@@ -39,11 +39,7 @@ export type RootStackParamList = {
   Account: undefined;
   Admin_check: undefined;
   Approved: undefined;
-
-
-
-
-
+  
   Update_exchange: 
    {
     exchangeRates:Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>,

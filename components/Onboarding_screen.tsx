@@ -49,11 +49,15 @@ const Onboarding_screen = ({
               }}
               text="Exchange office"></Secondary_button>
           </View>
-          <Secondary_button
+
+
+           <Secondary_button
             onPressFunction={() => {
-              navigation.navigate('Exchange_office');
+              navigation.navigate('Admin_check');
             }}
-            text="Test123"></Secondary_button>
+            text="Admin check"></Secondary_button>
+
+
 
           <Secondary_button
             onPressFunction={() => {

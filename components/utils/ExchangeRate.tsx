@@ -47,7 +47,6 @@ const ExchangeRate = (
    //selectedRate: { imageName: string; currency: string,buyValue:number, sellValue:number},
    setSelectedRate :(variable:{ imageName: string; currency: string,buyValue:number, sellValue:number})=>void;
  // setRate: (value: Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>) => void
-
 }
 ) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
