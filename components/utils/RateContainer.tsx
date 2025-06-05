@@ -18,45 +18,29 @@ import PlusButton from './PlusButton.tsx';
 import {useEffect} from 'react';
 
 const RateContainer = (
-
 {
 navigateToCreate,
-navigateToEdit,
 exchangeRates,
 setExchangeRates,
-selectedRate,
+//selectedRate,
 setSelectedRate
-
-
 }: {
-//  navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>;
    navigateToCreate: ()=>void; 
    navigateToEdit: ()=>void; 
    exchangeRates: Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>,
    setExchangeRates: (variable:Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>)=>void;
-   selectedRate: { imageName: string; currency: string,buyValue:number, sellValue:number},
+ //  selectedRate: { imageName: string; currency: string,buyValue:number, sellValue:number},
    setSelectedRate :(variable:{ imageName: string; currency: string,buyValue:number, sellValue:number})=>void;
-
 }
-
 ) => {
-
   const addExchangeRate = async (imageName:string,currency:string,buyValue:number,sellValue:number   ) => {
-  // Alert.alert("AAAAAA")
        const newItem = {
        imageName: imageName,
       currency: currency,
       buyValue: buyValue,
       sellValue: sellValue,
     };
-    /*
-   if(exchangeRates && exchangeRates.length==0 && setExchangeRates){
-    setExchangeRates([newItem])
-   }
 
-   else if(exchangeRates && setExchangeRates )     {
-     setExchangeRates([...exchangeRates, newItem]);
-   }*/
      navigateToCreate();
  }
   
@@ -91,14 +75,12 @@ if(setExchangeRates && exchangeRates){
          currency=  {rate.currency}
          buyValue= {rate.buyValue}
          sellValue= {rate.sellValue}
-         navigateToEdit={navigateToEdit}
-         selectedRate={selectedRate}
+        // selectedRate={selectedRate}
          setSelectedRate={ setSelectedRate}
        />
 )}
 
 </ScrollView>
-
   <PlusButton
   onPressFunction={()=>{addExchangeRate("australian-flag.png", "AUD", 2, 22 )
 }}

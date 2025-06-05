@@ -19,7 +19,6 @@ import { useNavigation } from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App.tsx';
 
-
 const imageMap: { [key: string]: any } = {
   'australian-flag.png': require('../../resources/png/australian-flag.png'),
   'russian-flag.png': require('../../resources/png/russian-flag.png'),
@@ -32,14 +31,11 @@ const ExchangeRate = (
    currency,
    buyValue,
    sellValue,
-  // setExchangeRate,
    setExchangeRates,
    exchangeRates,
-   navigateToEdit,
-   selectedRate,
+  // selectedRate,
    setSelectedRate
 }: {
-
   // onPressFunction : React.MouseEventHandler;
   imageName: string;
   currency:string;
@@ -48,8 +44,7 @@ const ExchangeRate = (
   //deleteRate: (value: number)=>void
   setExchangeRates:(value: Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>) => void;
   exchangeRates:Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>
-  navigateToEdit:()=>void
-   selectedRate: { imageName: string; currency: string,buyValue:number, sellValue:number},
+   //selectedRate: { imageName: string; currency: string,buyValue:number, sellValue:number},
    setSelectedRate :(variable:{ imageName: string; currency: string,buyValue:number, sellValue:number})=>void;
  // setRate: (value: Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>) => void
 
@@ -69,7 +64,6 @@ const ExchangeRate = (
      tempArray.splice(i,1)
      setExchangeRates(tempArray)
      }
-
     }
    }
 
@@ -79,13 +73,8 @@ const ExchangeRate = (
      currency,
      buyValue,
      sellValue,
-
     }
     setSelectedRate(newRate)
-
-
-   // navigateToEdit()
-
     navigation.navigate('Update_exchange', {
       exchangeRates,
       setExchangeRates,
@@ -94,8 +83,6 @@ const ExchangeRate = (
       sellValue,
       flag: imageName,
     });
-
-
   }
 
   return (

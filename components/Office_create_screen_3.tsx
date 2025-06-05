@@ -88,13 +88,13 @@ const Office_create_screen_3 = ({ route, navigation }: Props) => {
     sellValue,
     flag,
     //
-    setSelectedRate
+    //setSelectedRate
    }
   )
   }
    const checkResult = async () =>{
-     let concat="name: "+name+" location: "+location+" email: "+" description: "+description    +"phone:"+phone
-     Alert.alert("FINAL: "+concat)
+     //let concat="name: "+name+" location: "+location+" email: "+" description: "+description    +"phone:"+phone
+     //Alert.alert("FINAL: "+concat)
      await  handleRegister()
    }
 
@@ -178,11 +178,10 @@ const Office_create_screen_3 = ({ route, navigation }: Props) => {
             <RateContainer
             exchangeRates={exchangeRates}
             setExchangeRates={setExchangeRates}
-
            // currency:string, flag:string , buyValue :number,sellValue:number
             navigateToEdit={()=>{navigateToEdit(selectedRate.currency, selectedRate.imageName,selectedRate.buyValue, selectedRate.sellValue)}}
             navigateToCreate={navigateToCreate}
-            selectedRate={selectedRate}
+           // selectedRate={selectedRate}
             setSelectedRate={setSelectedRate}
             ></RateContainer>
           </View>

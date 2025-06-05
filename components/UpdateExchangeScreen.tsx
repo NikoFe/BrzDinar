@@ -49,9 +49,9 @@ const UpdateExchangeScreen = ({
   //const [oldCurrencyValue, setOldCurrencyValue]= useState(currency)
   const oldCurrencyValue=currency
 
+  
   const checkInputs = async () => {
     try {
- 
       if(buyValue2==0 ||sellValue2==0 ||  buyValue2<0|| sellValue2<0  ||selectedDropDown=="" ){
          Alert.alert("empty or invalid fields")
       }
@@ -67,10 +67,6 @@ const UpdateExchangeScreen = ({
     }
   };
 
-useEffect(() => {
-  Alert.alert(oldCurrencyValue)
-  //Runs only on the first render
-}, []);
  const  UpdateExchange = async ()=>{
 
     const newExchange ={
