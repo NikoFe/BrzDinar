@@ -96,43 +96,50 @@ const Map_screen = ({
     requestLocationPermission();
   }, []);
 
-  // Generate HTML for the WebView Leaflet map, including user location marker,
-  // office markers, and a polyline from user to selected office
-  const generateMapHtml = (offices: ExchangeOffice[], userLoc: LatLng | null, selectedLoc: LatLng | null) => {
+  const generateMapHtml = (
+    offices: ExchangeOffice[],
+    userLoc: LatLng | null,
+    selectedLoc: LatLng | null
+  ) => {
     const markersJs = offices.map((office) => {
-      const ratesHtml = office.exchangeRates?.map((rate: any) => {
-        return `
-        <tr>
-          <td>${rate.currency}</td>
-          <td>${rate.buyValue}</td>
-          <td>${rate.sellValue}</td>
-        </tr>
-      `;
-      }).join('') ?? '';
+      const ratesHtml =
+        office.exchangeRates
+          ?.map((rate) => {
+            return `
+              <tr>
+                <td>${rate.currency}</td>
+                <td>${rate.buyValue}</td>
+                <td>${rate.sellValue}</td>
+              </tr>
+            `;
+          })
+          .join('') ?? '';
 
       return `
-      const marker${office.id} = L.marker([${office.latitude}, ${office.longitude}], {
-        icon: L.icon({
-          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-          iconSize: [40, 60],
-          iconAnchor: [20, 60],
-          popupAnchor: [0, -60],
-        })
-      }).addTo(map);
+        const marker${office.id} = L.marker([${office.latitude}, ${office.longitude}], {
+          icon: L.icon({
+            iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+            iconSize: [40, 60],
+            iconAnchor: [20, 60],
+            popupAnchor: [0, -60],
+          })
+        }).addTo(map);
 
-      marker${office.id}.bindPopup(\`
-        <div style="width: 300px; font-size: 14px;">
-          <strong>${office.name}</strong><br/>
-          <em>${office.description}</em><br/>
-          <p><strong>Location:</strong> ${office.location}</p>
-          <p><strong>Email:</strong> ${office.email}</p>
-          <p><strong>Phone:</strong> ${office.phone}</p>
-          <table border="1" style="width: 100%; font-size: 12px;">
-            <thead><tr><th>Currency</th><th>Buy</th><th>Sell</th></tr></thead>
-            <tbody>${ratesHtml}</tbody>
-          </table>
-          <button onclick="selectOffice(${office.latitude}, ${office.longitude})" style="margin-top: 8px; width: 100%;">Show route</button>
-        </div>\`);
+        marker${office.id}.bindPopup(\`
+          <div style="width: 300px; font-size: 14px;">
+            <strong>${office.name}</strong><br/>
+            <em>${office.description}</em><br/>
+            <p><strong>Location:</strong> ${office.location}</p>
+            <p><strong>Email:</strong> ${office.email}</p>
+            <p><strong>Phone:</strong> ${office.phone}</p>
+            <table border="1" style="width: 100%; font-size: 12px;">
+              <thead><tr><th>Currency</th><th>Buy</th><th>Sell</th></tr></thead>
+              <tbody>${ratesHtml}</tbody>
+            </table>
+            <button onclick="toggleRoute(${office.latitude}, ${office.longitude})" style="margin-top: 8px; width: 100%;">
+              \${window.selectedLatLng && window.selectedLatLng.lat === ${office.latitude} && window.selectedLatLng.lng === ${office.longitude} ? 'Cancel route' : 'Show route'}
+            </button>
+          </div>\`);
       `;
     }).join('\n');
 
@@ -145,7 +152,7 @@ const Map_screen = ({
       }).addTo(map).bindPopup('Your current location').openPopup();
     ` : '';
 
-    const routeJs = (userLoc && selectedLoc) ? `
+    const routeJs = userLoc && selectedLoc ? `
       if(window.routeLine) {
         map.removeLayer(window.routeLine);
       }
@@ -153,9 +160,15 @@ const Map_screen = ({
         [${userLoc.latitude}, ${userLoc.longitude}],
         [${selectedLoc.latitude}, ${selectedLoc.longitude}]
       ], { color: 'red', weight: 4 }).addTo(map);
-
       map.fitBounds(window.routeLine.getBounds(), { padding: [50, 50] });
-    ` : '';
+      window.selectedLatLng = { lat: ${selectedLoc.latitude}, lng: ${selectedLoc.longitude} };
+    ` : `
+      if(window.routeLine) {
+        map.removeLayer(window.routeLine);
+        window.routeLine = null;
+      }
+      window.selectedLatLng = null;
+    `;
 
     return `
     <html>
@@ -185,14 +198,27 @@ const Map_screen = ({
             attribution: '&copy; OpenStreetMap contributors'
           }).addTo(map);
 
-          ${markersJs}
-
           ${userMarkerJs}
 
-          function selectOffice(lat, lng) {
-            window.ReactNativeWebView.postMessage(JSON.stringify({ lat, lng }));
+          window.routeLine = null;
+          window.selectedLatLng = null;
+
+          function toggleRoute(lat, lng) {
+            const isSame = window.selectedLatLng && window.selectedLatLng.lat === lat && window.selectedLatLng.lng === lng;
+            if (isSame) {
+              window.selectedLatLng = null;
+              if (window.routeLine) {
+                map.removeLayer(window.routeLine);
+                window.routeLine = null;
+              }
+              window.ReactNativeWebView.postMessage(JSON.stringify({ cancel: true }));
+            } else {
+              window.selectedLatLng = { lat, lng };
+              window.ReactNativeWebView.postMessage(JSON.stringify({ lat, lng }));
+            }
           }
 
+          ${markersJs}
           ${routeJs}
         </script>
       </body>
@@ -200,11 +226,12 @@ const Map_screen = ({
     `;
   };
 
-  // Handle message from WebView (when user clicks 'Show route')
   const onMessage = (event: any) => {
     try {
       const data = JSON.parse(event.nativeEvent.data);
-      if (data.lat && data.lng) {
+      if (data.cancel) {
+        setSelectedOfficeLocation(null);
+      } else if (data.lat && data.lng) {
         setSelectedOfficeLocation({ latitude: data.lat, longitude: data.lng });
       }
     } catch (e) {
