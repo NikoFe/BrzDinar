@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -11,6 +11,7 @@ import {
   TextInput,
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import RNBootSplash from 'react-native-bootsplash';
 import AppStyles from './styles/AppStyles.tsx';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
@@ -109,6 +110,10 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const [userRole, setUserRole] = useState<'user' | 'exchange' | null>(null);
+
+  useEffect(() => {
+    RNBootSplash.hide({ fade: true });
+  }, []);
 
   const backgroundStyle = {
     flex: 1,
