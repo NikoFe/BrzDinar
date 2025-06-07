@@ -139,12 +139,10 @@ const Map_screen = ({
 
       marker${office.id}.bindPopup(popupContent);
 
-      // When popup opens, send message to start navigation (draw route)
       marker${office.id}.on('popupopen', () => {
         window.ReactNativeWebView.postMessage(JSON.stringify({ lat: ${office.latitude}, lng: ${office.longitude} }));
       });
 
-      // When popup closes, send message to stop navigation (remove route)
       marker${office.id}.on('popupclose', () => {
         window.ReactNativeWebView.postMessage(JSON.stringify({ cancel: true }));
       });
@@ -158,18 +156,15 @@ const Map_screen = ({
       color: '#2A81CB',
       fillColor: '#2A81CB',
       fillOpacity: 0.8,
-      interactive: false  // disables click events on marker itself
+      interactive: false
     }).addTo(map);
 
-    // Bind popup with options so it stays open until user clicks close
-    userMarker.bindPopup('<div style="font-size: 32px;">Your current location</div>', { closeOnClick: false, autoClose: false }).openPopup();
+    userMarker.bindPopup('<div style="font-size: 32px;">Your current location</div>', { closeButton: false, closeOnClick: false, autoClose: false }).openPopup();
 
-    // Additionally disable pointer events on SVG path to prevent toggling popup on click
     if(userMarker._path) {
       userMarker._path.style.pointerEvents = 'none';
     }
   ` : '';
-
 
     const routeJs = userLoc && selectedLoc ? `
     if (window.routeLine) {
@@ -181,13 +176,9 @@ const Map_screen = ({
     ], { color: 'red', weight: 4 }).addTo(map);
     window.selectedLatLng = { lat: ${selectedLoc.latitude}, lng: ${selectedLoc.longitude} };
 
-    // Reopen marker popup
     map.eachLayer(layer => {
       if (layer.getLatLng && layer.getLatLng().lat === ${selectedLoc.latitude} && layer.getLatLng().lng === ${selectedLoc.longitude}) {
         layer.openPopup();
-        if (layer.setPopupContent) {
-          layer.setPopupContent(layer.getPopup().getContent().replace('Navigate', 'Stop Navigation'));
-        }
       }
     });
   ` : `
@@ -210,22 +201,28 @@ const Map_screen = ({
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100% !important;
+            height: auto !important;
+            padding: 5px 0;
           }
           .leaflet-control-zoom-in,
-          .leaflet-control-zoom-out {
+          .leaflet-control-zoom-out,
+          button#centerBtn {
             width: 80px !important;
             height: 80px !important;
             font-size: 50px !important;
             line-height: 80px !important;
             text-align: center;
             margin: 5px 0;
-          }
-          button {
             background-color: #2A81CB;
             color: white;
             border: none;
             border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            user-select: none;
+          }
+          button#centerBtn:hover {
+            background-color: #1b5d9c;
           }
           .leaflet-popup-close-button {
             width: 40px !important;
@@ -238,7 +235,11 @@ const Map_screen = ({
       <body>
         <div id="map"></div>
         <script>
-          var map = L.map('map').setView([46.557494, 15.645358], 18);
+          var map = L.map('map').setView(
+            ${userLoc ? `[${userLoc.latitude}, ${userLoc.longitude}]` : '[46.557494, 15.645358]'}, 
+            18
+          );
+
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 20,
             attribution: '&copy; OpenStreetMap contributors'
@@ -251,6 +252,21 @@ const Map_screen = ({
 
           ${markersJs}
           ${routeJs}
+
+          // Add center button under zoom controls
+          window.onload = function () {
+            const zoomControl = document.querySelector('.leaflet-control-zoom');
+            if (zoomControl) {
+              const centerBtn = document.createElement('button');
+              centerBtn.id = 'centerBtn';
+              centerBtn.title = 'Center to My Location';
+              centerBtn.innerHTML = '&#x25CF;'; // ● dot symbol
+              centerBtn.onclick = function() {
+                ${userLoc ? `map.setView([${userLoc.latitude}, ${userLoc.longitude}], 18);` : 'alert("User location not available");'}
+              };
+              zoomControl.appendChild(centerBtn);
+            }
+          };
         </script>
       </body>
     </html>
