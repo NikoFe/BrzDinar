@@ -40,24 +40,24 @@ const Exchange_office_screen = ({
   const [location, setLocation] = useState('');
   const [phone, setPhone] = useState('');
   const [exchangeRates, setExchangeRates] =
-   useState<Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>>([]);
+    useState<Array<{ imageName: string; currency: string, buyValue: number, sellValue: number }>>([]);
 
   const [selectedRate, setSelectedRate] =
-   useState<{ imageName: string; currency: string,buyValue:number, sellValue:number}>({imageName:"",currency:"",buyValue:0,sellValue:0});
+    useState<{ imageName: string; currency: string, buyValue: number, sellValue: number }>({ imageName: "", currency: "", buyValue: 0, sellValue: 0 });
 
 
 
-//////placeholders:
-  const navigateToCreate=()=>{
+  //////placeholders:
+  const navigateToCreate = () => {
     navigation.navigate("Create_exchange",
-   {
-    exchangeRates,
-    setExchangeRates
-   }
+      {
+        exchangeRates,
+        setExchangeRates
+      }
     )
   }
 
-  const navigateToEdit  =()=>{
+  const navigateToEdit = () => {
     /* WIP
     Alert.alert("AAA")
     navigation.navigate("Update_exchange",{
@@ -124,51 +124,41 @@ const Exchange_office_screen = ({
 
   return (
     <>
-      <ScrollView>
-        <StatusBar hidden={true} />
-        <SafeAreaView style={{ flex: 1 }}>
-          <HeaderWithProfile text="Exchange office" />
-          <View style={[AppStyles.grayBackground, { flex: 1 }]}>
-            {loading ? (
-              <ActivityIndicator size="large" color="#00ff00" />
-            ) : (
-              <ExchangeOfficeData data={officeData} />
-            )}
+      <StatusBar hidden={true} />
+      <View style={[AppStyles.grayBackground, { flex: 1 }]}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <SafeAreaView style={{ flex: 1 }}>
+            <HeaderWithProfile text="Exchange office" />
+            <View style={{ flex: 1 }}>
+              {loading ? (
+                <ActivityIndicator size="large" color="#00ff00" />
+              ) : (
+                <ExchangeOfficeData data={officeData} />
+              )}
 
+              <View style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3]}>
+                <AppTextInputWithLabel
+                  label="Location"
+                  value={location}
+                  onChangeText={setLocation}
+                />
+              </View>
 
-            <View style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3]}>
-              <AppTextInputWithLabel
-                label="Location"
-                value={location}
-                onChangeText={setLocation}
-              />
+              <View style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3]}>
+                <AppTextInputWithLabel
+                  label="Phone number:"
+                  value={phone}
+                  onChangeText={setPhone}
+                />
+              </View>
+
+              <View style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3]}>
+                <Primary_button onPressFunction={handleUpdate} text="Change" />
+              </View>
             </View>
-
-            <View style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3]}>
-              <AppTextInputWithLabel
-                label="Phone number:"
-                value={phone}
-                onChangeText={setPhone}
-              />
-            </View>
-
-            <View style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3]}>
-              <Primary_button onPressFunction={handleUpdate} text="Change" />
-            </View>
-
-            <View style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3]}>
-              <RateContainer
-              exchangeRates={exchangeRates}
-              setExchangeRates={setExchangeRates}
-              navigateToEdit={navigateToEdit}
-              navigateToCreate={navigateToCreate}
-            //  selectedRate={selectedRate}
-              setSelectedRate={setSelectedRate}
-              />
-            </View>
-          </View>
-        </SafeAreaView>
-      </ScrollView>
+          </SafeAreaView>
+        </ScrollView>
+      </View>
     </>
   );
 };
