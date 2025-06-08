@@ -101,6 +101,51 @@ const Map_screen = ({
     userLoc: LatLng | null,
     selectedLoc: LatLng | null
   ) => {
+    const formatWorkingHours = (office: any) => {
+      const days = [
+        { key1: 'monday1', key2: 'monday2', name: 'Mon' },
+        { key1: 'tuesday1', key2: 'tuesday2', name: 'Tue' },
+        { key1: 'wednsday1', key2: 'wednsday2', name: 'Wed' },
+        { key1: 'thursday1', key2: 'thursday2', name: 'Thu' },
+        { key1: 'friday1', key2: 'friday2', name: 'Fri' },
+        { key1: 'saturday1', key2: 'saturday2', name: 'Sat' },
+        { key1: 'sunday1', key2: 'sunday2', name: 'Sun' },
+      ];
+
+      const hourMap: Record<string, string[]> = {};
+
+      days.forEach(({ key1, key2, name }) => {
+        const start = office[key1];
+        const end = office[key2];
+        let label = '';
+
+        if (!start || !end || start.toLowerCase() === 'closed' || end.toLowerCase() === 'closed') {
+          label = 'Closed';
+        } else {
+          label = `${start}:00 - ${end}:00`;
+        }
+
+        if (!hourMap[label]) {
+          hourMap[label] = [];
+        }
+        hourMap[label].push(name);
+      });
+
+      const tableRows = Object.entries(hourMap).map(([hours, days]) => {
+        const dayRange = days.join(', ');
+        return `<tr><td>${dayRange}</td><td>${hours}</td></tr>`;
+      });
+
+      return `
+      <table border="1" style="width: 100%; font-size: 28px;">
+        <thead><tr><th>Days</th><th>Working Hours</th></tr></thead>
+        <tbody>
+          ${tableRows.join('')}
+        </tbody>
+      </table>
+    `;
+    };
+
     const markersJs = offices.map((office) => {
       const ratesHtml =
         office.exchangeRates?.map((rate) => {
@@ -130,6 +175,11 @@ const Map_screen = ({
           <p><strong>Location:</strong> ${office.location}</p>
           <p><strong>Email:</strong> ${office.email}</p>
           <p><strong>Phone:</strong> ${office.phone}</p>
+          <p><strong>Working Hours:</strong></p>
+          <div style="margin-top: 10px;">
+            ${formatWorkingHours(office)}
+          </div>
+          <p><strong>Exchange Rates:</strong></p>
           <table border="1" style="width: 100%; font-size: 32px;">
             <thead><tr><th>Currency</th><th>Buy</th><th>Sell</th></tr></thead>
             <tbody>${ratesHtml}</tbody>
@@ -148,7 +198,6 @@ const Map_screen = ({
       });
     `;
     }).join('\n');
-
 
     const userMarkerJs = userLoc ? `
     const userMarker = L.circleMarker([${userLoc.latitude}, ${userLoc.longitude}], {
@@ -260,7 +309,7 @@ const Map_screen = ({
               const centerBtn = document.createElement('button');
               centerBtn.id = 'centerBtn';
               centerBtn.title = 'Center to My Location';
-              centerBtn.innerHTML = '&#x25CF;'; // ● dot symbol
+              centerBtn.innerHTML = '&#x25CF;';
               centerBtn.onclick = function() {
                 ${userLoc ? `map.setView([${userLoc.latitude}, ${userLoc.longitude}], 18);` : 'alert("User location not available");'}
               };

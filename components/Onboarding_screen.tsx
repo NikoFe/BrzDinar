@@ -50,8 +50,7 @@ const Onboarding_screen = ({
               text="Exchange office"></Secondary_button>
           </View>
 
-
-           <Secondary_button
+           {/* <Secondary_button
             onPressFunction={() => {
               navigation.navigate('Admin_check');
             }}
@@ -63,7 +62,7 @@ const Onboarding_screen = ({
             onPressFunction={() => {
               navigation.navigate('Approved');
             }}
-            text="Approved"></Secondary_button>
+            text="Approved"></Secondary_button> */}
         </View>
       </SafeAreaView>
     </>
