@@ -11,6 +11,7 @@ import { RootStackParamList } from '../App.tsx';
 import Header from './utils/Header.tsx';
 import { WebView } from 'react-native-webview';
 import { firebase } from '@react-native-firebase/firestore';
+import AppStyles from '../styles/AppStyles.tsx';
 import Geolocation from '@react-native-community/geolocation';
 
 type ExchangeRate = {
@@ -86,9 +87,22 @@ const Map_screen = ({
         },
         (error: any) => {
           console.log('Geolocation error:', error.message);
-          Alert.alert('Error', 'Failed to get your location');
+          Alert.alert(
+            'Error',
+            'Failed to get your location',
+            [
+              {
+                text: 'Retry',
+                onPress: () => requestLocationPermission(),
+              },
+              {
+                text: 'Cancel',
+                style: 'cancel',
+              },
+            ]
+          );
         },
-        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+        { enableHighAccuracy: true, timeout: 30000, maximumAge: 10000 }
       );
     };
 
@@ -249,10 +263,43 @@ const Map_screen = ({
     if (window.routeLine) {
       map.removeLayer(window.routeLine);
     }
-    window.routeLine = L.polyline([
-      [${userLoc.latitude}, ${userLoc.longitude}],
-      [${selectedLoc.latitude}, ${selectedLoc.longitude}]
-    ], { color: 'red', weight: 4 }).addTo(map);
+
+    // Fetch route from OSRM
+    fetch(\`https://router.project-osrm.org/route/v1/driving/\${${userLoc.longitude}},\${${userLoc.latitude}};\${${selectedLoc.longitude}},\${${selectedLoc.latitude}}?overview=full&geometries=geojson\`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.routes && data.routes.length > 0) {
+          const route = data.routes[0];
+          const coordinates = route.geometry.coordinates.map(coord => [coord[1], coord[0]]);
+          
+          window.routeLine = L.polyline(coordinates, {
+            color: 'red',
+            weight: 4,
+            opacity: 0.8
+          }).addTo(map);
+
+          // Add distance and duration information
+          const distance = (route.distance / 1000).toFixed(1);
+          const duration = Math.round(route.duration / 60);
+          
+          window.routeLine.bindPopup(\`
+            <div style="font-size: 32px;">
+              <strong>Route Information:</strong><br>
+              Distance: \${distance} km<br>
+              Duration: \${duration} minutes
+            </div>
+          \`);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching route:', error);
+        // Fallback to straight line if routing fails
+        window.routeLine = L.polyline([
+          [${userLoc.latitude}, ${userLoc.longitude}],
+          [${selectedLoc.latitude}, ${selectedLoc.longitude}]
+        ], { color: 'red', weight: 4 }).addTo(map);
+      });
+
     window.selectedLatLng = { lat: ${selectedLoc.latitude}, lng: ${selectedLoc.longitude} };
 
     map.eachLayer(layer => {
@@ -381,12 +428,19 @@ const Map_screen = ({
   };
 
   return (
+    <>
+    <StatusBar 
+      hidden={false}
+      barStyle="light-content"
+      translucent={true}
+    />
     <SafeAreaView
       style={{
         flex: 1,
-        marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+        backgroundColor: AppStyles.headerBackground.backgroundColor,
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
       }}
-    >
+      >
       <Header
         text="Maps"
       />
@@ -410,6 +464,7 @@ const Map_screen = ({
         }}
       />
     </SafeAreaView>
+    </>
   );
 };
 

@@ -9,6 +9,7 @@ import {
   View,
   Button,
   TextInput,
+  Platform,
 } from 'react-native';
 import AppStyles from '../styles/AppStyles.tsx';
 import {RootStackParamList} from '../App.tsx';
@@ -24,8 +25,18 @@ const Approved_screen = ({
 }) => {
   return (
     <>
-      <StatusBar hidden={true} />
-      <SafeAreaView style={{flex: 1}}>
+      <StatusBar 
+        hidden={false}
+        barStyle="light-content"
+        translucent={true}
+      />
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: AppStyles.grayBackground.backgroundColor,
+          paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+        }}
+      >
         <Header text="Admin approved"></Header>
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
           <Text
@@ -43,7 +54,7 @@ const Approved_screen = ({
               AppStyles.white,
               AppStyles.margin_top_spacing13,
             ]}>
-            The admin has reviewed your form and approved it’s creation.
+            The admin has reviewed your form and approved it's creation.
           </Text>
           <Text
             style={[

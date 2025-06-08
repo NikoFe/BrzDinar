@@ -77,6 +77,10 @@ const AppStyles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
 
+  headerBackground: {
+    backgroundColor: header_black,
+  },
+
   verticalCenter: {
     display: 'flex',
     flexDirection: 'column',

@@ -10,6 +10,7 @@ import {
   View,
   Button,
   TextInput,
+  Platform,
 } from 'react-native';
 import AppStyles from '../styles/AppStyles.tsx';
 import {RootStackParamList} from '../App.tsx';
@@ -99,8 +100,18 @@ const UpdateExchangeScreen = ({
 
   return (
     <>
-      <StatusBar hidden={true} />
-      <SafeAreaView style={{flex: 1}}>
+      <StatusBar 
+        hidden={false}
+        barStyle="light-content"
+        translucent={true}
+      />
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: AppStyles.headerBackground.backgroundColor,
+          paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+        }}
+      >
         <HeaderWithProfile text="Update exchange rate"></HeaderWithProfile>
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
           <View style={[AppStyles.margin_top_spacing37]}>

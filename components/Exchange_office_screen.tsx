@@ -10,6 +10,7 @@ import {
   Alert,
   TextInput,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import AppStyles from '../styles/AppStyles.tsx';
 import { RootStackParamList } from '../App.tsx';
@@ -203,11 +204,20 @@ const Exchange_office_screen = ({
 
   return (
     <>
-      <StatusBar hidden={true} />
+      <StatusBar 
+        hidden={false}
+        barStyle="light-content"
+        translucent={true}
+      />
       <View style={[AppStyles.grayBackground, { flex: 1 }]}>
         <Header text="Exchange Office" />
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          <SafeAreaView style={{ flex: 1, paddingHorizontal: 20 }}>
+          <SafeAreaView style={{ 
+            flex: 1, 
+            paddingHorizontal: 20,
+            backgroundColor: AppStyles.headerBackground.backgroundColor,
+            paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+          }}>
             <Text style={[AppStyles.header_3_bold_Inter_white]}>Office Info</Text>
             <View style={{ flex: 1 }}>
               {loading ? (

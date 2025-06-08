@@ -4,6 +4,7 @@ import {
   StatusBar,
   Text,
   View,
+  Platform,
 } from 'react-native';
 import AppStyles from '../styles/AppStyles.tsx';
 import { RootStackParamList } from '../App.tsx';
@@ -60,8 +61,18 @@ const Account_screen = ({
 
   return (
     <>
-      <StatusBar hidden={true} />
-      <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar 
+        hidden={false}
+        barStyle="light-content"
+        translucent={true}
+      />
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: AppStyles.grayBackground.backgroundColor,
+          paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+        }}
+      >
         <HeaderWithProfile text="Account" />
         <View style={[AppStyles.grayBackground, { flex: 1 }]}>
           <View style={[AppStyles.margin_top_spacing2]}>

@@ -4,6 +4,7 @@ import {
   StatusBar,
   Text,
   View,
+  Platform,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import AppStyles from '../styles/AppStyles.tsx';
@@ -50,8 +51,18 @@ const Login_screen = ({
 
   return (
     <>
-      <StatusBar hidden={true} />
-      <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar 
+        hidden={false}
+        barStyle="light-content"
+        translucent={true}
+      />
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: AppStyles.grayBackground.backgroundColor,
+          paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+        }}
+      >
         <Header text="Login" />
         <View style={[AppStyles.grayBackground, { flex: 1 }]}>
           <View style={AppStyles.margin_top_spacing13}>
