@@ -16,7 +16,6 @@ const Secondary_button = ({
   onPressFunction,
   text,
 }: {
-  // onPressFunction : React.MouseEventHandler;
   onPressFunction: () => void;
   text: string;
 }) => {
@@ -24,12 +23,9 @@ const Secondary_button = ({
     <Pressable
       onPress={onPressFunction}
       style={({pressed}) => [
-        AppStyles.secondary_button,
-        pressed && AppStyles.secondary_button,
+        pressed ? AppStyles.secondary_pressed : AppStyles.secondary_button,
       ]}>
-      <View style={AppStyles.secondary_button}>
-        <Text style={AppStyles.paragraph_3}>{text}</Text>
-      </View>
+      <Text style={AppStyles.paragraph_3}>{text}</Text>
     </Pressable>
   );
 };

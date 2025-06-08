@@ -17,22 +17,21 @@ const Primary_button = ({
   onPressFunction,
   text,
 }: {
-  // onPressFunction : React.MouseEventHandler;
   onPressFunction: () => void;
   text: string;
 }) => {
   return (
     <Pressable
       onPress={onPressFunction}
-      style={({pressed}) => [
+      style={({ pressed }) => [
         AppStyles.primary_button,
-        pressed && AppStyles.secondary_button,
-      ]}>
-      <View style={AppStyles.primary_button}>
-        <Text style={[AppStyles.paragraph_3, AppStyles.white]}>{text}</Text>
-      </View>
+        pressed && AppStyles.primary_pressed,
+      ]}
+    >
+      <Text style={[AppStyles.paragraph_3, AppStyles.white]}>{text}</Text>
     </Pressable>
   );
 };
+
 
 export default Primary_button;

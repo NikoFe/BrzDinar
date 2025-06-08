@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const header1_size = 48;
 const header2_size = 44;
@@ -111,16 +111,36 @@ const AppStyles = StyleSheet.create({
     width: 195,
   },
 
+  primary_pressed: {
+    backgroundColor: primary_pressed,
+    color: app_white,
+    paddingTop: spacing1,
+    paddingBottom: spacing1,
+    alignSelf: 'flex-start',
+    marginHorizontal: 'auto',
+    width: 195,
+  },
+
   secondary_button: {
     backgroundColor: secondary_default,
     color: app_gray2,
-
-    alignSelf: 'flex-start',
-    marginHorizontal: 'auto',
     paddingTop: spacing1,
     paddingBottom: spacing1,
+    alignSelf: 'flex-start',
+    marginHorizontal: 'auto',
     width: 195,
   },
+
+  secondary_pressed: {
+    backgroundColor: secondary_pressed,
+    color: app_gray2,
+    paddingTop: spacing1,
+    paddingBottom: spacing1,
+    alignSelf: 'flex-start',
+    marginHorizontal: 'auto',
+    width: 195,
+  },
+
 
   header_2_bold_Inter_white: {
     fontSize: header2_size,
@@ -332,11 +352,11 @@ const AppStyles = StyleSheet.create({
   },
 
   dropdown_arrow_up_div: {
-   position:"absolute",
-   backgroundColor:app_gray,
-   left:10,
-   zIndex:5,
-  transform: 'rotate(180deg)',
+    position: "absolute",
+    backgroundColor: app_gray,
+    left: 10,
+    zIndex: 5,
+    transform: 'rotate(180deg)',
   },
 
   error_text: {
@@ -445,10 +465,10 @@ const AppStyles = StyleSheet.create({
   exchange_plus_button: {
     //position: 'absolute',
     //left: 140,
-   // top: 400,
-  //  zIndex: 3,
-   marginHorizontal:"auto"
-    
+    // top: 400,
+    //  zIndex: 3,
+    marginHorizontal: "auto"
+
   },
 
   office_data_header: {
@@ -538,53 +558,53 @@ const AppStyles = StyleSheet.create({
     opacity: 0,
   },
 
-  dropdownCell:{
-  backgroundColor:header_black,
-  color:app_white,
-  paddingTop:2,
-  paddingBottom:2,
-  paddingLeft:10,
-  fontSize:paragraph_size4
-    
-  },
-  hiddenDropdown:{
-  top:50,
-  position:"absolute",
-  zIndex:200,
-  width:300
-  },
-
-  number_input_div:{
-
-    display:"flex",
-    justifyContent:"flex-end"
+  dropdownCell: {
+    backgroundColor: header_black,
+    color: app_white,
+    paddingTop: 2,
+    paddingBottom: 2,
+    paddingLeft: 10,
+    fontSize: paragraph_size4
 
   },
-  up_pressable:{
-
-  width:20,
-  height:20,
- // backgroundColor:"green",
-  position:"absolute",
-  zIndex:100,
-  left:275,
-  top:42,
+  hiddenDropdown: {
+    top: 50,
+    position: "absolute",
+    zIndex: 200,
+    width: 300
   },
-  down_pressable:{
 
-  width:20,
-  height:20,
-  //backgroundColor:"red",
-  position:"absolute",
-  zIndex:100,
-  left:275,
-  top:65,
+  number_input_div: {
+
+    display: "flex",
+    justifyContent: "flex-end"
+
+  },
+  up_pressable: {
+
+    width: 20,
+    height: 20,
+    // backgroundColor:"green",
+    position: "absolute",
+    zIndex: 100,
+    left: 275,
+    top: 42,
+  },
+  down_pressable: {
+
+    width: 20,
+    height: 20,
+    //backgroundColor:"red",
+    position: "absolute",
+    zIndex: 100,
+    left: 275,
+    top: 65,
   },
 
   number_textInput: {
     width: 300,
     height: 50,
-    padding:10,
+    padding: 10,
     backgroundColor: app_gray4,
     fontSize: paragraph_size3,
   },

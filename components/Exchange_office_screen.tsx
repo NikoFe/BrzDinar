@@ -21,6 +21,7 @@ import Header from './utils/Header.tsx';
 import ExchangeOfficeData from './utils/ExchangeOfficeData.tsx';
 import AppTextInputWithLabel from './utils/AppTextInputWithLabel.tsx';
 import Primary_button from './utils/Primary_button.tsx';
+import Secondary_button from './utils/Secondary_button.tsx';
 
 type ExchangeOfficeScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -365,7 +366,7 @@ const Exchange_office_screen = ({
                 </View>
               </View>
               <View style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3]}>
-                <Primary_button onPressFunction={saveExchangeRates} text="Save Rates" />
+                <Secondary_button onPressFunction={saveExchangeRates} text="Save Rates" />
               </View>
             </View>
           </SafeAreaView>

@@ -68,11 +68,11 @@ const Exchange_role_screen = ({
               text="Create"></Primary_button>
           </View>
           <View style={[AppStyles.margin_top_spacing4]}>
-            <Primary_button
+            <Secondary_button
               onPressFunction={() => {
              navigation.navigate('Login', { type: 'Login as Office' });
               }}
-              text="Login"></Primary_button>
+              text="Login"></Secondary_button>
           </View>
 
 
