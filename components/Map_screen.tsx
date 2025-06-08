@@ -155,56 +155,79 @@ const Map_screen = ({
           office.exchangeRates
             ?.map(
               (rate) => `
-          <tr>
-            <td>${rate.currency}</td>
-            <td>${rate.buyValue}</td>
-            <td>${rate.sellValue}</td>
-          </tr>
-        `
+      <tr>
+        <td>${rate.currency}</td>
+        <td>${rate.buyValue}</td>
+        <td>${rate.sellValue}</td>
+      </tr>
+    `
             )
             .join('') ?? '';
 
+        // Calculate distance if user location is available
+        const distance = userLoc
+          ? (function getDistance(lat1, lon1, lat2, lon2) {
+            function toRad(x: number) {
+              return x * Math.PI / 180;
+            }
+            const R = 6371e3;
+            const φ1 = toRad(lat1);
+            const φ2 = toRad(lat2);
+            const Δφ = toRad(lat2 - lat1);
+            const Δλ = toRad(lon2 - lon1);
+            const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+              Math.cos(φ1) * Math.cos(φ2) *
+              Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            const d = R * c;
+            return d;
+          })(userLoc.latitude, userLoc.longitude, office.latitude, office.longitude)
+          : null;
+
+        const distanceLabel = distance !== null ? ` (${Math.round(distance)} m)` : '';
+
         return `
-      (function() {
-        const marker = L.marker([${office.latitude}, ${office.longitude}], {
-          icon: L.icon({
-            iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-            iconSize: [60, 80],
-            iconAnchor: [20, 60],
-            popupAnchor: [0, -60],
-          })
-        }).addTo(map);
+  (function() {
+    const marker = L.marker([${office.latitude}, ${office.longitude}], {
+      icon: L.icon({
+        iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+        iconSize: [60, 80],
+        iconAnchor: [20, 60],
+        popupAnchor: [0, -60],
+      })
+    }).addTo(map);
 
-        const popupContent = \`
-          <div style="width: 300px; font-size: 32px; z-index: 10000;">
-            <strong>${office.name}</strong><br/>
-            <em>${office.description}</em><br/>
-            <p><strong>Location:</strong> ${office.location}</p>
-            <p><strong>Email:</strong> ${office.email}</p>
-            <p><strong>Phone:</strong> ${office.phone}</p>
-            <p><strong>Working Hours:</strong></p>
-            <div style="margin-top: 10px;">${formatWorkingHours(office)}</div>
-            <p><strong>Exchange Rates:</strong></p>
-            <table border="1" style="width: 100%; font-size: 32px;">
-              <thead><tr><th>Currency</th><th>Buy</th><th>Sell</th></tr></thead>
-              <tbody>${ratesHtml}</tbody>
-            </table>
-          </div>
-        \`;
+    const popupContent = \`
+      <div style="width: 300px; font-size: 32px; z-index: 10000;">
+        <strong>${office.name}${distanceLabel}</strong><br/>
+        <em>${office.description}</em><br/>
+        <p><strong>Location:</strong> ${office.location}</p>
+        <p><strong>Email:</strong> ${office.email}</p>
+        <p><strong>Phone:</strong> ${office.phone}</p>
+        <p><strong>Working Hours:</strong></p>
+        <div style="margin-top: 10px;">${formatWorkingHours(office)}</div>
+        <p><strong>Exchange Rates:</strong></p>
+        <table border="1" style="width: 100%; font-size: 32px;">
+          <thead><tr><th>Currency</th><th>Buy</th><th>Sell</th></tr></thead>
+          <tbody>${ratesHtml}</tbody>
+        </table>
+      </div>
+    \`;
 
-        marker.bindPopup(popupContent);
+    marker.bindPopup(popupContent);
 
-        marker.on('popupopen', () => {
-          window.ReactNativeWebView.postMessage(JSON.stringify({ lat: ${office.latitude}, lng: ${office.longitude} }));
-        });
+    marker.on('popupopen', () => {
+      window.ReactNativeWebView.postMessage(JSON.stringify({ lat: ${office.latitude}, lng: ${office.longitude} }));
+    });
 
-        marker.on('popupclose', () => {
-          window.ReactNativeWebView.postMessage(JSON.stringify({ cancel: true }));
-        });
-      })();
-    `;
+    marker.on('popupclose', () => {
+      window.ReactNativeWebView.postMessage(JSON.stringify({ cancel: true }));
+    });
+  })();
+`;
       })
       .join('\n');
+
 
     const userMarkerJs = userLoc
       ? `
