@@ -11,6 +11,7 @@ import { RootStackParamList } from '../App.tsx';
 import Header from './utils/Header.tsx';
 import { WebView } from 'react-native-webview';
 import { firebase } from '@react-native-firebase/firestore';
+import AppStyles from '../styles/AppStyles.tsx';
 import Geolocation from '@react-native-community/geolocation';
 
 type ExchangeRate = {
@@ -86,9 +87,22 @@ const Map_screen = ({
         },
         (error: any) => {
           console.log('Geolocation error:', error.message);
-          Alert.alert('Error', 'Failed to get your location');
+          Alert.alert(
+            'Error',
+            'Failed to get your location',
+            [
+              {
+                text: 'Retry',
+                onPress: () => requestLocationPermission(),
+              },
+              {
+                text: 'Cancel',
+                style: 'cancel',
+              },
+            ]
+          );
         },
-        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+        { enableHighAccuracy: true, timeout: 30000, maximumAge: 10000 }
       );
     };
 
@@ -381,12 +395,19 @@ const Map_screen = ({
   };
 
   return (
+    <>
+    <StatusBar 
+      hidden={false}
+      barStyle="light-content"
+      translucent={true}
+    />
     <SafeAreaView
       style={{
         flex: 1,
-        marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+        backgroundColor: AppStyles.headerBackground.backgroundColor,
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
       }}
-    >
+      >
       <Header
         text="Maps"
       />
@@ -410,6 +431,7 @@ const Map_screen = ({
         }}
       />
     </SafeAreaView>
+    </>
   );
 };
 

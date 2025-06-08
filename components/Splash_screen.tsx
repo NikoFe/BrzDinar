@@ -10,6 +10,7 @@ import {
   Button,
   TextInput,
   Image,
+  Platform,
 } from 'react-native';
 import AppStyles from '../styles/AppStyles.tsx';
 import Header from './utils/Header.tsx';
@@ -30,8 +31,18 @@ const Splash_screen = ({
 
   return (
     <>
-      <StatusBar hidden={true} />
-      <SafeAreaView style={{flex: 1}}>
+      <StatusBar 
+        hidden={false}
+        barStyle="light-content"
+        translucent={true}
+      />
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: AppStyles.grayBackground_down.backgroundColor,
+          paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+        }}
+      >
         <View style={[AppStyles.grayBackground_down, {flex: 1}]}>
           <Image
             source={require('../resources/png/brzDinarWhite.png')}

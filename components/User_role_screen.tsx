@@ -10,6 +10,7 @@ import {
   Button,
   TextInput,
   Image,
+  Platform,
 } from 'react-native';
 import AppStyles from '../styles/AppStyles.tsx';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -24,8 +25,18 @@ const User_role_screen = ({
 }) => {
   return (
     <>
-      <StatusBar hidden={true} />
-      <SafeAreaView style={{flex: 1}}>
+      <StatusBar 
+        hidden={false}
+        barStyle="light-content"
+        translucent={true}
+      />
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: AppStyles.grayBackground.backgroundColor,
+          paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+        }}
+      >
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
           <Image
             source={require('../resources/png/profile-vector.png')}
@@ -53,7 +64,7 @@ const User_role_screen = ({
                 AppStyles.width_300,
               ]}>
               As a regular user you can look at various exchange offices on the
-              apps map and find the shortest path to the office’s location on
+              apps map and find the shortest path to the office's location on
               the map
             </Text>
           </View>

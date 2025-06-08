@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   Alert,
+  Platform,
 } from 'react-native';
 import AppStyles from '../styles/AppStyles.tsx';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -62,8 +63,18 @@ const Office_create_screen_1 = ({
 
   return (
     <>
-      <StatusBar hidden={true} />
-      <SafeAreaView style={{flex: 1}}>
+      <StatusBar 
+        hidden={false}
+        barStyle="light-content"
+        translucent={true}
+      />
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: AppStyles.headerBackground.backgroundColor,
+          paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+        }}
+      >
         <Header text="Register Exchange Office" />
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
           <ScrollView contentContainerStyle={{paddingBottom: 32}}>

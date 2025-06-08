@@ -10,6 +10,7 @@ import {
   Button,
   TextInput,
   Image,
+  Platform,
 } from 'react-native';
 import AppStyles from '../styles/AppStyles.tsx';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -23,8 +24,18 @@ const Waiting_screen = ({
 }) => {
   return (
     <>
-      <StatusBar hidden={true} />
-      <SafeAreaView style={{flex: 1}}>
+      <StatusBar 
+        hidden={false}
+        barStyle="light-content"
+        translucent={true}
+      />
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: AppStyles.grayBackground.backgroundColor,
+          paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+        }}
+      >
         <Header text="Create exchange offices"></Header>
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
           <Image

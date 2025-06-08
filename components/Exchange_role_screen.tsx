@@ -10,6 +10,7 @@ import {
   Button,
   TextInput,
   Image,
+  Platform,
 } from 'react-native';
 import AppStyles from '../styles/AppStyles.tsx';
 import Header from './utils/Header.tsx';
@@ -27,8 +28,18 @@ const Exchange_role_screen = ({
 }) => {
   return (
     <>
-      <StatusBar hidden={true} />
-      <SafeAreaView style={{flex: 1}}>
+      <StatusBar 
+        hidden={false}
+        barStyle="light-content"
+        translucent={true}
+      />
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: AppStyles.grayBackground.backgroundColor,
+          paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+        }}
+      >
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
           <Image
             source={require('../resources/png/dollar-bills.png')}
@@ -54,10 +65,10 @@ const Exchange_role_screen = ({
                 AppStyles.width_300,
                 AppStyles.margin_top_spacing5,
               ]}>
-              As an exchange office you can add you’re exchange office to our
-              map and monitor your company’s finances or if you are an admin,
+              As an exchange office you can add you're exchange office to our
+              map and monitor your company's finances or if you are an admin,
               give permission to exchange offices to add their office to the
-              app’s map
+              app's map
             </Text>
           </View>
           <View style={[AppStyles.margin_top_spacing4]}>

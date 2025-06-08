@@ -11,6 +11,7 @@ import {
   Button,
   TextInput,
   ScrollView,
+  Platform,
 } from 'react-native';
 import AppStyles from '../styles/AppStyles.tsx';
 import Header from './utils/Header.tsx';
@@ -114,9 +115,14 @@ useEffect(() => {
 
   return (
     <>
-      <ScrollView>
-        <StatusBar hidden={true} />
-        <SafeAreaView style={{flex: 1}}>
+      <StatusBar hidden={false}/>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 1,
+        }}
+      >
+        <ScrollView>
           <HeaderWithProfile text="Admin_check"></HeaderWithProfile>
           <View style={[AppStyles.grayBackground, {flex: 1}]}>
             <Text
@@ -143,8 +149,8 @@ useEffect(() => {
             </View>
 
           </View>
-        </SafeAreaView>
-      </ScrollView>
+        </ScrollView>
+      </SafeAreaView>
     </>
   );
 };
