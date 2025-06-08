@@ -44,7 +44,7 @@ const Exchange_role_screen = ({
               AppStyles.horizontaly_centered,
               AppStyles.margin_top_spacing5,
             ]}>
-            Exchange_office
+            Exchange Office
           </Text>
           <View style={[AppStyles.horizontaly_centered]}>
             <Text
