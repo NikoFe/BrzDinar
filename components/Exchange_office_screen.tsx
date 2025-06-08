@@ -17,7 +17,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 
-import Header from './utils/Header.tsx';
+import Header from './utils/HeaderWithProfile.tsx';
 import ExchangeOfficeData from './utils/ExchangeOfficeData.tsx';
 import AppTextInputWithLabel from './utils/AppTextInputWithLabel.tsx';
 import Primary_button from './utils/Primary_button.tsx';
