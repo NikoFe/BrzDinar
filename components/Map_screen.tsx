@@ -119,7 +119,12 @@ const Map_screen = ({
         const end = office[key2];
         let label = '';
 
-        if (!start || !end || start.toLowerCase() === 'closed' || end.toLowerCase() === 'closed') {
+        if (
+          !start ||
+          !end ||
+          start.toLowerCase() === 'closed' ||
+          end.toLowerCase() === 'closed'
+        ) {
           label = 'Closed';
         } else {
           label = `${start}:00 - ${end}:00`;
@@ -137,69 +142,72 @@ const Map_screen = ({
       });
 
       return `
-      <table border="1" style="width: 100%; font-size: 28px;">
-        <thead><tr><th>Days</th><th>Working Hours</th></tr></thead>
-        <tbody>
-          ${tableRows.join('')}
-        </tbody>
-      </table>
-    `;
+        <table border="1" style="width: 100%; font-size: 28px;">
+          <thead><tr><th>Days</th><th>Working Hours</th></tr></thead>
+          <tbody>${tableRows.join('')}</tbody>
+        </table>
+      `;
     };
 
-    const markersJs = offices.map((office) => {
-      const ratesHtml =
-        office.exchangeRates?.map((rate) => {
-          return `
-      <tr>
-        <td>${rate.currency}</td>
-        <td>${rate.buyValue}</td>
-        <td>${rate.sellValue}</td>
-      </tr>
-    `;
-        }).join('') ?? '';
+    const markersJs = offices
+      .map((office) => {
+        const ratesHtml =
+          office.exchangeRates
+            ?.map(
+              (rate) => `
+          <tr>
+            <td>${rate.currency}</td>
+            <td>${rate.buyValue}</td>
+            <td>${rate.sellValue}</td>
+          </tr>
+        `
+            )
+            .join('') ?? '';
 
-      return `
-      const marker${office.id} = L.marker([${office.latitude}, ${office.longitude}], {
-        icon: L.icon({
-          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-          iconSize: [60, 80],
-          iconAnchor: [20, 60],
-          popupAnchor: [0, -60],
-        })
-      }).addTo(map);
+        return `
+      (function() {
+        const marker = L.marker([${office.latitude}, ${office.longitude}], {
+          icon: L.icon({
+            iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+            iconSize: [60, 80],
+            iconAnchor: [20, 60],
+            popupAnchor: [0, -60],
+          })
+        }).addTo(map);
 
-      const popupContent = \`
-        <div style="width: 300px; font-size: 32px;">
-          <strong>${office.name}</strong><br/>
-          <em>${office.description}</em><br/>
-          <p><strong>Location:</strong> ${office.location}</p>
-          <p><strong>Email:</strong> ${office.email}</p>
-          <p><strong>Phone:</strong> ${office.phone}</p>
-          <p><strong>Working Hours:</strong></p>
-          <div style="margin-top: 10px;">
-            ${formatWorkingHours(office)}
+        const popupContent = \`
+          <div style="width: 300px; font-size: 32px; z-index: 10000;">
+            <strong>${office.name}</strong><br/>
+            <em>${office.description}</em><br/>
+            <p><strong>Location:</strong> ${office.location}</p>
+            <p><strong>Email:</strong> ${office.email}</p>
+            <p><strong>Phone:</strong> ${office.phone}</p>
+            <p><strong>Working Hours:</strong></p>
+            <div style="margin-top: 10px;">${formatWorkingHours(office)}</div>
+            <p><strong>Exchange Rates:</strong></p>
+            <table border="1" style="width: 100%; font-size: 32px;">
+              <thead><tr><th>Currency</th><th>Buy</th><th>Sell</th></tr></thead>
+              <tbody>${ratesHtml}</tbody>
+            </table>
           </div>
-          <p><strong>Exchange Rates:</strong></p>
-          <table border="1" style="width: 100%; font-size: 32px;">
-            <thead><tr><th>Currency</th><th>Buy</th><th>Sell</th></tr></thead>
-            <tbody>${ratesHtml}</tbody>
-          </table>
-        </div>
-      \`;
+        \`;
 
-      marker${office.id}.bindPopup(popupContent);
+        marker.bindPopup(popupContent);
 
-      marker${office.id}.on('popupopen', () => {
-        window.ReactNativeWebView.postMessage(JSON.stringify({ lat: ${office.latitude}, lng: ${office.longitude} }));
-      });
+        marker.on('popupopen', () => {
+          window.ReactNativeWebView.postMessage(JSON.stringify({ lat: ${office.latitude}, lng: ${office.longitude} }));
+        });
 
-      marker${office.id}.on('popupclose', () => {
-        window.ReactNativeWebView.postMessage(JSON.stringify({ cancel: true }));
-      });
+        marker.on('popupclose', () => {
+          window.ReactNativeWebView.postMessage(JSON.stringify({ cancel: true }));
+        });
+      })();
     `;
-    }).join('\n');
+      })
+      .join('\n');
 
-    const userMarkerJs = userLoc ? `
+    const userMarkerJs = userLoc
+      ? `
     const userMarker = L.circleMarker([${userLoc.latitude}, ${userLoc.longitude}], {
       radius: 20,
       color: '#2A81CB',
@@ -207,15 +215,14 @@ const Map_screen = ({
       fillOpacity: 0.8,
       interactive: false
     }).addTo(map);
+    userMarker.bindPopup('<div style="font-size: 32px;">Your current location</div>', { closeButton: false }).openPopup();
+  `
+      : '';
 
-    userMarker.bindPopup('<div style="font-size: 32px;">Your current location</div>', { closeButton: false, closeOnClick: false, autoClose: false }).openPopup();
-
-    if(userMarker._path) {
-      userMarker._path.style.pointerEvents = 'none';
-    }
-  ` : '';
-
-    const routeJs = userLoc && selectedLoc ? `
+    // Routing lines code unchanged
+    const routeJs =
+      userLoc && selectedLoc
+        ? `
     if (window.routeLine) {
       map.removeLayer(window.routeLine);
     }
@@ -230,13 +237,43 @@ const Map_screen = ({
         layer.openPopup();
       }
     });
-  ` : `
+  `
+        : `
     if (window.routeLine) {
       map.removeLayer(window.routeLine);
       window.routeLine = null;
     }
     window.selectedLatLng = null;
   `;
+
+    // Recenter control button
+    const recenterControlJs = userLoc
+      ? `
+    const recenterControl = L.control({ position: 'topright' });
+
+    recenterControl.onAdd = function(map) {
+      const div = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+      div.style.backgroundColor = 'white';
+      div.style.width = '40px';
+      div.style.height = '40px';
+      div.style.display = 'flex';
+      div.style.justifyContent = 'center';
+      div.style.alignItems = 'center';
+      div.style.cursor = 'pointer';
+      div.title = 'Recenter map';
+
+      div.innerHTML = '<svg fill="black" height="24" width="24" viewBox="0 0 24 24"><path d="M12 8a4 4 0 100 8 4 4 0 000-8zm0-6v2a8 8 0 018 8h2a10 10 0 00-10-10zM4 12a8 8 0 018-8V2a10 10 0 00-10 10h2zm8 8a8 8 0 01-8-8H2a10 10 0 0010 10v-2zm2.83-4.83L12 14l-2.83-2.83-1.41 1.41L12 16.83l4.24-4.24-1.41-1.41z"/></svg>';
+
+      div.onclick = function() {
+        map.setView([${userLoc.latitude}, ${userLoc.longitude}], 18);
+      };
+
+      return div;
+    };
+
+    recenterControl.addTo(map);
+  `
+      : '';
 
     return `
     <html>
@@ -245,39 +282,50 @@ const Map_screen = ({
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
         <style>
           html, body, #map { height: 100%; margin: 0; padding: 0; }
+
+          .leaflet-popup,
+          .leaflet-popup-content-wrapper,
+          .leaflet-popup-tip {
+            margin-left: 30px !important;
+          }
+
+
+          /* Restore zoom control styles */
           .leaflet-control-zoom {
+            width: 40px !important;
+            height: 100px !important;
             display: flex !important;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: auto !important;
-            padding: 5px 0;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 5px 0 !important;
+            background: white !important;
+            border-radius: 4px !important;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.65) !important;
           }
+
           .leaflet-control-zoom-in,
-          .leaflet-control-zoom-out,
-          button#centerBtn {
-            width: 80px !important;
-            height: 80px !important;
-            font-size: 50px !important;
-            line-height: 80px !important;
-            text-align: center;
-            margin: 5px 0;
-            background-color: #2A81CB;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-            user-select: none;
+          .leaflet-control-zoom-out {
+            width: 40px !important;
+            height: 40px !important;
+            line-height: 38px !important;
+            font-size: 28px !important;
+            text-align: center !important;
+            cursor: pointer !important;
           }
-          button#centerBtn:hover {
-            background-color: #1b5d9c;
-          }
+
+          /* Popup close button */
           .leaflet-popup-close-button {
             width: 40px !important;
             height: 40px !important;
             font-size: 28px !important;
             line-height: 38px !important;
+          }
+
+          /* Custom recenter button */
+          .leaflet-control-custom {
+            box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+            border-radius: 4px;
           }
         </style>
       </head>
@@ -285,7 +333,7 @@ const Map_screen = ({
         <div id="map"></div>
         <script>
           var map = L.map('map').setView(
-            ${userLoc ? `[${userLoc.latitude}, ${userLoc.longitude}]` : '[46.557494, 15.645358]'}, 
+            ${userLoc ? `[${userLoc.latitude}, ${userLoc.longitude}]` : '[46.557494, 15.645358]'},
             18
           );
 
@@ -302,52 +350,43 @@ const Map_screen = ({
           ${markersJs}
           ${routeJs}
 
-          // Add center button under zoom controls
-          window.onload = function () {
-            const zoomControl = document.querySelector('.leaflet-control-zoom');
-            if (zoomControl) {
-              const centerBtn = document.createElement('button');
-              centerBtn.id = 'centerBtn';
-              centerBtn.title = 'Center to My Location';
-              centerBtn.innerHTML = '&#x25CF;';
-              centerBtn.onclick = function() {
-                ${userLoc ? `map.setView([${userLoc.latitude}, ${userLoc.longitude}], 18);` : 'alert("User location not available");'}
-              };
-              zoomControl.appendChild(centerBtn);
-            }
-          };
+          ${recenterControlJs}
         </script>
       </body>
     </html>
   `;
   };
 
-  const onMessage = (event: any) => {
-    try {
-      const data = JSON.parse(event.nativeEvent.data);
-      if (data.cancel) {
-        setSelectedOfficeLocation(null);
-      } else if (data.lat && data.lng) {
-        setSelectedOfficeLocation({ latitude: data.lat, longitude: data.lng });
-      }
-    } catch (e) {
-      console.warn('Failed to parse message from WebView', e);
-    }
-  };
-
   return (
-    <>
-      <StatusBar hidden={true} />
-      <SafeAreaView style={{ flex: 1 }}>
-        <Header text="Maps" />
-        <WebView
-          originWhitelist={['*']}
-          source={{ html: generateMapHtml(exchangeOffices, userLocation, selectedOfficeLocation) }}
-          style={{ flex: 1 }}
-          onMessage={onMessage}
-        />
-      </SafeAreaView>
-    </>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+      }}
+    >
+      <Header
+        text="Maps"
+      />
+      <WebView
+        originWhitelist={['*']}
+        source={{ html: generateMapHtml(exchangeOffices, userLocation, selectedOfficeLocation) }}
+        javaScriptEnabled={true}
+        domStorageEnabled={true}
+        style={{ flex: 1 }}
+        onMessage={(event) => {
+          try {
+            const data = JSON.parse(event.nativeEvent.data);
+            if (data.cancel) {
+              setSelectedOfficeLocation(null);
+            } else if (data.lat && data.lng) {
+              setSelectedOfficeLocation({ latitude: data.lat, longitude: data.lng });
+            }
+          } catch (e) {
+            console.log('Invalid message from WebView', e);
+          }
+        }}
+      />
+    </SafeAreaView>
   );
 };
 

@@ -277,7 +277,7 @@ const Exchange_office_screen = ({
                 <Primary_button onPressFunction={handleUpdateOfficeInfo} text="Update Info" />
               </View>
 
-              <Text style={[AppStyles.header_3_bold_Inter_white, AppStyles.margin_top_spacing5]}>Update Exchange Rates</Text>
+              <Text style={[AppStyles.header_3_bold_Inter_white, AppStyles.margin_top_spacing5]}>Update Rates</Text>
               {/* Exchange Rates section with improved styling */}
               <View style={[AppStyles.margin_top_spacing5, styles.exchangeRatesContainer]}>
                 <Text style={[styles.sectionHeader]}>Exchange Rates</Text>
