@@ -40,7 +40,7 @@ const Exchange_office_screen = ({
   const [officeData, setOfficeData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  // Only these 3 fields editable
+  // Editable fields
   const [location, setLocation] = useState('');
   const [phone, setPhone] = useState('');
 
@@ -48,6 +48,22 @@ const Exchange_office_screen = ({
     useState<Array<{ currency: string; buyValue: number; sellValue: number }>>([]);
 
   const [newRate, setNewRate] = useState({ currency: '', buyValue: '', sellValue: '' });
+
+  // Working hours states
+  const [monday1, setMonday1] = useState('');
+  const [monday2, setMonday2] = useState('');
+  const [tuesday1, setTuesday1] = useState('');
+  const [tuesday2, setTuesday2] = useState('');
+  const [wednsday1, setWednsday1] = useState('');
+  const [wednsday2, setWednsday2] = useState('');
+  const [thursday1, setThursday1] = useState('');
+  const [thursday2, setThursday2] = useState('');
+  const [friday1, setFriday1] = useState('');
+  const [friday2, setFriday2] = useState('');
+  const [saturday1, setSaturday1] = useState('');
+  const [saturday2, setSaturday2] = useState('');
+  const [sunday1, setSunday1] = useState('');
+  const [sunday2, setSunday2] = useState('');
 
   useEffect(() => {
     const fetchOfficeData = async () => {
@@ -63,6 +79,22 @@ const Exchange_office_screen = ({
           setLocation(data.location || '');
           setPhone(data.phone || '');
           setExchangeRates(data.exchangeRates || []);
+
+          // Working hours
+          setMonday1(data.monday1 || '');
+          setMonday2(data.monday2 || '');
+          setTuesday1(data.tuesday1 || '');
+          setTuesday2(data.tuesday2 || '');
+          setWednsday1(data.wednsday1 || '');
+          setWednsday2(data.wednsday2 || '');
+          setThursday1(data.thursday1 || '');
+          setThursday2(data.thursday2 || '');
+          setFriday1(data.friday1 || '');
+          setFriday2(data.friday2 || '');
+          setSaturday1(data.saturday1 || '');
+          setSaturday2(data.saturday2 || '');
+          setSunday1(data.sunday1 || '');
+          setSunday2(data.sunday2 || '');
         }
       } catch (error) {
         console.error('Error fetching office data:', error);
@@ -89,6 +121,20 @@ const Exchange_office_screen = ({
           .update({
             location,
             phone,
+            monday1,
+            monday2,
+            tuesday1,
+            tuesday2,
+            wednsday1,
+            wednsday2,
+            thursday1,
+            thursday2,
+            friday1,
+            friday2,
+            saturday1,
+            saturday2,
+            sunday1,
+            sunday2,
           });
         Alert.alert('Data updated successfully!');
       }
@@ -161,6 +207,7 @@ const Exchange_office_screen = ({
         <Header text="Exchange Office" />
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <SafeAreaView style={{ flex: 1, paddingHorizontal: 20 }}>
+            <Text style={[AppStyles.header_3_bold_Inter_white]}>Office Info</Text>
             <View style={{ flex: 1 }}>
               {loading ? (
                 <ActivityIndicator size="large" color="#00ff00" />
@@ -168,6 +215,7 @@ const Exchange_office_screen = ({
                 <ExchangeOfficeData data={officeData} />
               )}
 
+              <Text style={[AppStyles.header_3_bold_Inter_white, AppStyles.margin_top_spacing5]}>Update Info</Text>
               <View style={[AppStyles.margin_top_spacing3]}>
                 <AppTextInputWithLabel
                   label="Location"
@@ -184,10 +232,52 @@ const Exchange_office_screen = ({
                 />
               </View>
 
+              {/* Working Hours Inputs */}
+              <View style={[AppStyles.margin_top_spacing5, styles.exchangeRatesContainer]}>
+                <Text style={[styles.sectionHeader]}>Working Hours</Text>
+
+                {/* Table Header */}
+                <View style={styles.tableHeader}>
+                  <Text style={[styles.headerCell, { flex: 2 }]}>Day</Text>
+                  <Text style={[styles.headerCell, { flex: 1 }]}>Open</Text>
+                  <Text style={[styles.headerCell, { flex: 1 }]}>Close</Text>
+                </View>
+
+                {[
+                  { day: 'Monday', start: monday1, end: monday2, setStart: setMonday1, setEnd: setMonday2 },
+                  { day: 'Tuesday', start: tuesday1, end: tuesday2, setStart: setTuesday1, setEnd: setTuesday2 },
+                  { day: 'Wednesday', start: wednsday1, end: wednsday2, setStart: setWednsday1, setEnd: setWednsday2 },
+                  { day: 'Thursday', start: thursday1, end: thursday2, setStart: setThursday1, setEnd: setThursday2 },
+                  { day: 'Friday', start: friday1, end: friday2, setStart: setFriday1, setEnd: setFriday2 },
+                  { day: 'Saturday', start: saturday1, end: saturday2, setStart: setSaturday1, setEnd: setSaturday2 },
+                  { day: 'Sunday', start: sunday1, end: sunday2, setStart: setSunday1, setEnd: setSunday2 },
+                ].map(({ day, start, end, setStart, setEnd }) => (
+                  <View key={day} style={styles.tableRow}>
+                    <Text style={[styles.cell, { flex: 2, textAlign: 'left', paddingLeft: 10 }]}>{day}</Text>
+                    <TextInput
+                      style={[styles.cell, { flex: 1 }]}
+                      placeholder="Open"
+                      value={start}
+                      onChangeText={setStart}
+                      keyboardType="numeric"
+                    />
+                    <TextInput
+                      style={[styles.cell, { flex: 1 }]}
+                      placeholder="Close"
+                      value={end}
+                      onChangeText={setEnd}
+                      keyboardType="numeric"
+                    />
+                  </View>
+                ))}
+              </View>
+
+
               <View style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3]}>
                 <Primary_button onPressFunction={handleUpdateOfficeInfo} text="Update Info" />
               </View>
 
+              <Text style={[AppStyles.header_3_bold_Inter_white, AppStyles.margin_top_spacing5]}>Update Exchange Rates</Text>
               {/* Exchange Rates section with improved styling */}
               <View style={[AppStyles.margin_top_spacing5, styles.exchangeRatesContainer]}>
                 <Text style={[styles.sectionHeader]}>Exchange Rates</Text>
@@ -228,49 +318,54 @@ const Exchange_office_screen = ({
                       placeholder="Sell"
                       placeholderTextColor="#999"
                     />
-                    <Text style={styles.deleteText} onPress={() => deleteRate(index)}>
-                      ✕
+
+                    <Text
+                      style={[styles.deleteButton]}
+                      onPress={() => deleteRate(index)}
+                    >
+                      X
                     </Text>
                   </View>
                 ))}
 
-                {/* New rate row */}
+                {/* Add new rate */}
                 <View style={styles.tableRow}>
                   <Picker
                     selectedValue={newRate.currency}
                     style={[styles.cell, { flex: 2, paddingHorizontal: 0 }]}
-                    onValueChange={(itemValue: any) => setNewRate({ ...newRate, currency: itemValue })}
+                    onValueChange={itemValue => setNewRate(prev => ({ ...prev, currency: itemValue }))}
                     mode="dropdown"
                   >
-                    <Picker.Item label="Select Currency" value="" />
+                    <Picker.Item label="Currency" value="" />
                     <Picker.Item label="EUR" value="EUR" />
                     <Picker.Item label="USD" value="USD" />
                     <Picker.Item label="AUD" value="AUD" />
                   </Picker>
+
                   <TextInput
                     style={[styles.cell, { flex: 1 }]}
-                    placeholder="Buy"
                     keyboardType="numeric"
-                    placeholderTextColor="#999"
                     value={newRate.buyValue}
-                    onChangeText={text => setNewRate({ ...newRate, buyValue: text })}
+                    onChangeText={text => setNewRate(prev => ({ ...prev, buyValue: text }))}
+                    placeholder="Buy"
+                    placeholderTextColor="#999"
                   />
                   <TextInput
                     style={[styles.cell, { flex: 1 }]}
-                    placeholder="Sell"
                     keyboardType="numeric"
-                    placeholderTextColor="#999"
                     value={newRate.sellValue}
-                    onChangeText={text => setNewRate({ ...newRate, sellValue: text })}
+                    onChangeText={text => setNewRate(prev => ({ ...prev, sellValue: text }))}
+                    placeholder="Sell"
+                    placeholderTextColor="#999"
                   />
-                  <Text style={styles.addText} onPress={addNewRate}>
-                    ＋
+
+                  <Text style={[styles.addButton]} onPress={addNewRate}>
+                    +
                   </Text>
                 </View>
-
-                <View style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3]}>
-                  <Primary_button onPressFunction={saveExchangeRates} text="Save Rates" />
-                </View>
+              </View>
+              <View style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3]}>
+                <Primary_button onPressFunction={saveExchangeRates} text="Save Rates" />
               </View>
             </View>
           </SafeAreaView>
@@ -281,52 +376,53 @@ const Exchange_office_screen = ({
 };
 
 const styles = StyleSheet.create({
-  exchangeRatesContainer: {
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 15,
-    marginHorizontal: 0,
-    marginBottom: 20,
-  },
-  sectionHeader: {
-    fontSize: 18,
-    fontWeight: '700',
-    marginBottom: 12,
-    color: '#000',
+  cell: {
+    backgroundColor: 'white',
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 4,
+    height: 50,
+    fontSize: 16,
+    paddingHorizontal: 8,
+    textAlign: 'center',
   },
   tableHeader: {
     flexDirection: 'row',
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderColor: '#ccc',
+    marginBottom: 6,
   },
   headerCell: {
     fontWeight: 'bold',
     fontSize: 16,
-    color: '#000',
+    textAlign: 'center',
   },
   tableRow: {
     flexDirection: 'row',
+    marginBottom: 6,
     alignItems: 'center',
-    marginVertical: 6,
   },
-  cell: {
-    borderBottomWidth: 1,
-    borderColor: '#ccc',
-    marginHorizontal: 6,
-    paddingVertical: 6,
-    fontSize: 14,
-    color: '#000',
-  },
-  deleteText: {
+  deleteButton: {
     color: 'red',
-    fontSize: 22,
-    paddingHorizontal: 10,
+    fontWeight: 'bold',
+    fontSize: 20,
+    paddingHorizontal: 8,
   },
-  addText: {
+  addButton: {
     color: 'green',
-    fontSize: 28,
-    paddingHorizontal: 10,
+    fontWeight: 'bold',
+    fontSize: 20,
+    paddingHorizontal: 8,
+  },
+  exchangeRatesContainer: {
+    backgroundColor: '#f0f0f0',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 20,
+  },
+  sectionHeader: {
+    fontWeight: '700',
+    fontSize: 20,
+    marginBottom: 12,
+    textAlign: 'center',
   },
 });
 
