@@ -16,12 +16,42 @@ import AppStyles from '../styles/AppStyles.tsx';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../App.tsx';
 import Header from './utils/Header.tsx';
+import auth from '@react-native-firebase/auth';
 
 const Waiting_screen = ({
   navigation,
 }: {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
 }) => {
+  const handleLogout = async () => {
+    try {
+      await auth().signOut();
+      navigation.navigate('Login', { type: 'Login as Office' });
+    } catch (error) {
+      console.error('Error signing out:', error);
+      Alert.alert('Error', 'Failed to log out. Please try again.');
+    }
+  };
+
+  const handleBackPress = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to log out?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Logout',
+          onPress: handleLogout,
+          style: 'destructive',
+        },
+      ],
+      { cancelable: true }
+    );
+  };
+
   return (
     <>
       <StatusBar 
@@ -36,7 +66,7 @@ const Waiting_screen = ({
           paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
         }}
       >
-        <Header text="Create exchange offices"></Header>
+        <Header text="Create exchange offices" onBackPress={handleBackPress}></Header>
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
           <Image
             source={require('../resources/png/wait.png')}

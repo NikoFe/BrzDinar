@@ -21,6 +21,8 @@ import {RootStackParamList} from '../../App.tsx';
 
 const imageMap: { [key: string]: any } = {
   'australian-flag.png': require('../../resources/png/australian-flag.png'),
+  'us-flag.png': require('../../resources/png/us-flag.png'),
+  'eu-flag.png': require('../../resources/png/eu-flag.png'),
   'russian-flag.png': require('../../resources/png/russian-flag.png'),
   // Add more mappings here
 };
@@ -28,50 +30,56 @@ const imageMap: { [key: string]: any } = {
 const ExchangeRate = (
 {
   imageName,
-   currency,
-   buyValue,
-   sellValue,
-   setExchangeRates,
-   exchangeRates,
-  // selectedRate,
-   setSelectedRate
+  currency,
+  buyValue,
+  sellValue,
+  setExchangeRates,
+  exchangeRates,
+  setSelectedRate,
+  isViewOnly = false
 }: {
-  // onPressFunction : React.MouseEventHandler;
   imageName: string;
-  currency:string;
-  buyValue:number;
-  sellValue:number;
-  //deleteRate: (value: number)=>void
-  setExchangeRates:(value: Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>) => void;
-  exchangeRates:Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>
-   //selectedRate: { imageName: string; currency: string,buyValue:number, sellValue:number},
-   setSelectedRate :(variable:{ imageName: string; currency: string,buyValue:number, sellValue:number})=>void;
- // setRate: (value: Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>) => void
+  currency: string;
+  buyValue: number;
+  sellValue: number;
+  setExchangeRates: (value: Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>) => void;
+  exchangeRates: Array<{ imageName: string; currency: string,buyValue:number, sellValue:number  }>;
+  setSelectedRate: (variable:{ imageName: string; currency: string,buyValue:number, sellValue:number})=>void;
+  isViewOnly?: boolean;
 }
 ) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-   const deleteRate= async ()=>{
+  
+  const deleteRate = async () => {
+    if (isViewOnly) {
+      Alert.alert('Info', 'This is a view-only screen');
+      return;
+    }
     
-     let tempArray = exchangeRates.slice();
-
+    let tempArray = exchangeRates.slice();
     for(let i=0; i<exchangeRates.length; i++){
       if(exchangeRates[i].imageName == imageName && exchangeRates[i].currency==currency && 
       exchangeRates[i].buyValue==buyValue && exchangeRates[i].sellValue==sellValue 
        )
      {
       console.log("DELETED at INDEX: ", i)
-     tempArray.splice(i,1)
-     setExchangeRates(tempArray)
+      tempArray.splice(i,1)
+      setExchangeRates(tempArray)
      }
     }
-   }
+  }
 
-  const startEdit= ()=>{
+  const startEdit = () => {
+    if (isViewOnly) {
+      Alert.alert('Info', 'This is a view-only screen');
+      return;
+    }
+
     const newRate = {
-     imageName,
-     currency,
-     buyValue,
-     sellValue,
+      imageName,
+      currency,
+      buyValue,
+      sellValue,
     }
     setSelectedRate(newRate)
     navigation.navigate('Update_exchange', {
@@ -86,22 +94,20 @@ const ExchangeRate = (
 
   return (
     <View style={[AppStyles.horizontaly_centered]}>
-      <View style={[AppStyles.exchange_buttons]}>
-        <DeleteButton 
-          onPressFunction={
-            ()=>deleteRate()}
-
-        />
-        <EditButton
-        onPressFunction={
-          startEdit
-        }
-        />
-      </View>
-       <Image
-         source={imageMap[imageName]}
-         style={[AppStyles.horizontaly_centered, AppStyles.flag_image]}
-       />
+      {!isViewOnly && (
+        <View style={[AppStyles.exchange_buttons]}>
+          <DeleteButton 
+            onPressFunction={deleteRate}
+          />
+          <EditButton
+            onPressFunction={startEdit}
+          />
+        </View>
+      )}
+      <Image
+        source={imageMap[imageName]}
+        style={[AppStyles.horizontaly_centered, AppStyles.flag_image]}
+      />
       <Text style={[AppStyles.paragraph_3, AppStyles.margin_top_spacing3]}>
         {currency}
       </Text>

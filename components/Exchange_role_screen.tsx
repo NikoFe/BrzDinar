@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -11,6 +11,7 @@ import {
   TextInput,
   Image,
   Platform,
+  TouchableOpacity,
 } from 'react-native';
 import AppStyles from '../styles/AppStyles.tsx';
 import Header from './utils/Header.tsx';
@@ -26,6 +27,18 @@ const Exchange_role_screen = ({
 }: {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Exchange_role'>;
 }) => {
+  const [tapCount, setTapCount] = useState(0);
+
+  const handleLogoPress = () => {
+    const newCount = tapCount + 1;
+    setTapCount(newCount);
+    
+    if (newCount === 5) {
+      setTapCount(0); // Reset counter
+      navigation.navigate('Login', { type: 'Login as Admin' });
+    }
+  };
+
   return (
     <>
       <StatusBar 
@@ -41,14 +54,19 @@ const Exchange_role_screen = ({
         }}
       >
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
-          <Image
-            source={require('../resources/png/dollar-bills.png')}
-            style={[
-              AppStyles.horizontaly_centered,
-              AppStyles.image_300x150,
-              AppStyles.margin_top_spacing10,
-            ]}
-          />
+          <TouchableOpacity 
+            onPress={handleLogoPress}
+            activeOpacity={1}
+          >
+            <Image
+              source={require('../resources/png/dollar-bills.png')}
+              style={[
+                AppStyles.horizontaly_centered,
+                AppStyles.image_300x150,
+                AppStyles.margin_top_spacing10,
+              ]}
+            />
+          </TouchableOpacity>
           <Text
             style={[
               AppStyles.header_3_bold_Inter_white,

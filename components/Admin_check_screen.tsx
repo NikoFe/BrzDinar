@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState,useEffect} from "react";
+import {useState, useEffect} from "react";
 import {
   SafeAreaView,
   StatusBar,
@@ -19,99 +19,117 @@ import {RootStackParamList} from '../App.tsx';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import AdminCell from './utils/AdminCell.tsx';
 import HeaderWithProfile from './utils/HeaderWithProfile.tsx';
+import firestore from '@react-native-firebase/firestore';
+
+interface PendingOffice {
+  id: string;
+  name: string;
+  created: string;
+  email: string;
+  location: string;
+  description: string;
+  phone: string;
+  approved: boolean;
+  exchangeRates: Array<{ imageName: string; currency: string; buyValue: number; sellValue: number }>;
+  monday1: string;
+  monday2: string;
+  tuesday1: string;
+  tuesday2: string;
+  wednsday1: string;
+  wednsday2: string;
+  thursday1: string;
+  thursday2: string;
+  friday1: string;
+  friday2: string;
+  saturday1: string;
+  saturday2: string;
+  sunday1: string;
+  sunday2: string;
+}
+
+type AdminCheckScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Admin_check'>;
 
 const Admin_cheek_screen = ({
   navigation,
 }: {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
+  navigation: AdminCheckScreenNavigationProp;
 }) => {
+  const [pendingOffices, setPendingOffices] = useState<PendingOffice[]>([]);
 
-  const [pendingOffices, setPendingOffices] =
-   useState<Array<{ 
-    name: string; 
-    created: string,
-    password:number
-    exchangeRates:Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}> 
-    location:string
-    email:string
-    description:string 
-    phone:string
-    monday1:string
-    monday2:string
-    tuesday1:string
-    tuesday2:string
-    wednsday1:string
-    wednsday2:string
-    thursday1:string
-    thursday2:string
-    friday1:string
-    friday2:string
-    saturday1:string
-    saturday2:string
-    sunday1:string
-    sunday2:string
-   }>>([]);
+  useEffect(() => {
+    const fetchPendingOffices = async () => {
+      try {
+        console.log('Fetching pending offices...');
+        const snapshot = await firestore()
+          .collection('exchange_offices')
+          .where('approved', '==', false)
+          .get();
 
-useEffect(() => {
-  const sampleOffices = [
-    {
-      name: 'INSA menjalnica',
-      created: '09/04/2025',
-      password: 1234,
-      exchangeRates: [
-        { imageName: 'eur.png', currency: 'EUR', buyValue: 1.1, sellValue: 1.2 },
-        { imageName: 'usd.png', currency: 'USD', buyValue: 1.0, sellValue: 1.1 },
-      ],
-      location: 'Ljubljana',
-      email: 'insa@example.com',
-      description: 'Currency exchange office in city center.',
-      phone: '+38640123456',
-      monday1: '08:00',
-      monday2: '16:00',
-      tuesday1: '08:00',
-      tuesday2: '16:00',
-      wednsday1: '08:00',
-      wednsday2: '16:00',
-      thursday1: '08:00',
-      thursday2: '16:00',
-      friday1: '08:00',
-      friday2: '16:00',
-      saturday1: '10:00',
-      saturday2: '14:00',
-      sunday1: '',
-      sunday2: '',
-    },
-    {
-      name: 'M exchange',
-      created: '08/20/2025',
-      password: 5678,
-      exchangeRates: [
-        { imageName: 'gbp.png', currency: 'GBP', buyValue: 1.3, sellValue: 1.4 },
-      ],
-      location: 'Maribor',
-      email: 'mexchange@example.com',
-      description: 'We offer best rates in the region.',
-      phone: '+38640567890',
-      monday1: '09:00',
-      monday2: '17:00',
-      tuesday1: '09:00',
-      tuesday2: '17:00',
-      wednsday1: '09:00',
-      wednsday2: '17:00',
-      thursday1: '09:00',
-      thursday2: '17:00',
-      friday1: '09:00',
-      friday2: '17:00',
-      saturday1: '',
-      saturday2: '',
-      sunday1: '',
-      sunday2: '',
-    },
-  ];
+        console.log('Raw Firestore data:', snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        })));
 
-  setPendingOffices(sampleOffices);
-}, []);
+        const offices = snapshot.docs.map(doc => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            name: data.name || '',
+            created: data.createdAt?.toDate().toLocaleDateString() || 'N/A',
+            email: data.email || '',
+            location: data.location || '',
+            description: data.description || '',
+            phone: data.phone || '',
+            approved: data.approved || false,
+            exchangeRates: data.exchangeRates || [],
+            monday1: data.monday1 || '',
+            monday2: data.monday2 || '',
+            tuesday1: data.tuesday1 || '',
+            tuesday2: data.tuesday2 || '',
+            wednsday1: data.wednsday1 || '',
+            wednsday2: data.wednsday2 || '',
+            thursday1: data.thursday1 || '',
+            thursday2: data.thursday2 || '',
+            friday1: data.friday1 || '',
+            friday2: data.friday2 || '',
+            saturday1: data.saturday1 || '',
+            saturday2: data.saturday2 || '',
+            sunday1: data.sunday1 || '',
+            sunday2: data.sunday2 || ''
+          };
+        });
+        console.log('Processed offices:', offices);
+        setPendingOffices(offices);
+      } catch (error) {
+        console.error('Error fetching pending offices:', error);
+        Alert.alert('Error', 'Failed to fetch pending offices');
+      }
+    };
 
+    fetchPendingOffices();
+  }, []);
+
+  const handleApprove = async (officeId: string) => {
+    try {
+      await firestore()
+        .collection('exchange_offices')
+        .doc(officeId)
+        .update({
+          approved: true
+        });
+
+      // Update local state
+      setPendingOffices(prev => prev.filter(office => office.id !== officeId));
+      Alert.alert('Success', 'Office approved successfully');
+    } catch (error) {
+      console.error('Error approving office:', error);
+      Alert.alert('Error', 'Failed to approve office');
+    }
+  };
+
+  const handleDetails = (office: PendingOffice) => {
+    navigation.navigate('Exchange_details', { officeData: office });
+  };
 
   return (
     <>
@@ -122,9 +140,9 @@ useEffect(() => {
           marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 1,
         }}
       >
-        <ScrollView>
-          <HeaderWithProfile text="Admin_check"></HeaderWithProfile>
-          <View style={[AppStyles.grayBackground, {flex: 1}]}>
+        <HeaderWithProfile text="Admin_check"></HeaderWithProfile>
+        <ScrollView style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
+          <View style={[AppStyles.grayBackground, {flex: 1, minHeight: '100%'}]}>
             <Text
               style={[
                 AppStyles.paragraph_1,
@@ -135,19 +153,30 @@ useEffect(() => {
               Requests:
             </Text>
 
-            <View>
-            {
-              pendingOffices.map((pending) => 
-             <View style={[AppStyles.margin_top_spacing4, {flex: 1}]}>
-              <AdminCell 
-               name={pending.name}
-               created={"9/20/5"}
-               password={"placeholder_password"}
-              />
-             </View>
+            <View style={{flex: 1}}>
+              {pendingOffices.length === 0 ? (
+                <Text
+                  style={[
+                    AppStyles.paragraph_1,
+                    AppStyles.horizontaly_centered,
+                    AppStyles.margin_top_spacing4,
+                    AppStyles.white,
+                  ]}>
+                  No pending requests
+                </Text>
+              ) : (
+                pendingOffices.map((office) => (
+                  <View key={office.id} style={[AppStyles.margin_top_spacing4]}>
+                    <AdminCell 
+                      name={office.name}
+                      created={office.created}
+                      onApprove={() => handleApprove(office.id)}
+                      onDetails={() => handleDetails(office)}
+                    />
+                  </View>
+                ))
               )}
             </View>
-
           </View>
         </ScrollView>
       </SafeAreaView>

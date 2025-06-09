@@ -11,6 +11,8 @@ import {
   Button,
   TextInput,
   Platform,
+  ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native';
 import AppStyles from '../styles/AppStyles.tsx';
 import {RootStackParamList} from '../App.tsx';
@@ -30,6 +32,19 @@ type Props = {
   route: OfficeCreateProp;
   navigation: NativeStackNavigationProp<RootStackParamList, 'Create_exchange'>;
 };*/
+
+const getFlagForCurrency = (currency: string): string => {
+  switch (currency) {
+    case 'USD':
+      return 'us-flag.png';
+    case 'EUR':
+      return 'eu-flag.png';
+    case 'AUD':
+      return 'australian-flag.png';
+    default:
+      return 'australian-flag.png';
+  }
+};
 
 const Create_exchange = ({
   route,
@@ -65,7 +80,7 @@ const Create_exchange = ({
      //  Alert.alert("SUCCESS: ", selectedDropDown)
 
        const newExchange ={
-       imageName: "australian-flag.png",
+       imageName: getFlagForCurrency(selectedDropDown),
        buyValue:buyValue,
        sellValue:sellValue,
        currency:selectedDropDown,
@@ -94,32 +109,39 @@ const Create_exchange = ({
         }}
       >
         <HeaderWithProfile text="Create exchange rate"></HeaderWithProfile>
-        <View style={[AppStyles.grayBackground, {flex: 1}]}>
-          <View style={[AppStyles.margin_top_spacing37]}>
-            <AppDropdown 
-            onPressFunction={()=>{}}
-            title="Currency"
-            values={["AUD", "USD","EUR"]}
-
-            dropdownSetter ={setSelectedDropdown}
-            ></AppDropdown>
-          </View>
-          <View style={[AppStyles.margin_top_spacing3]}>
-            <NumberInput value={buyValue} label="Buy:"
-            setValue={setBuyValue}
-            />
-          </View>
-          <View style={[AppStyles.margin_top_spacing1]}>
-            <NumberInput value={sellValue} label="Sell:" 
-             setValue={setSellValue}
-            />
-          </View>
-          <View style={[AppStyles.margin_top_spacing12]}>
-            <Primary_button
-              onPressFunction={() => checkInputs2()}
-              text="Create"></Primary_button>
-          </View>
-        </View>
+        <KeyboardAvoidingView 
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{ flex: 1 }}
+        >
+          <ScrollView 
+            style={[AppStyles.grayBackground, {flex: 1}]}
+            keyboardShouldPersistTaps="handled"
+          >
+            <View style={[AppStyles.margin_top_spacing37]}>
+              <AppDropdown 
+              onPressFunction={()=>{}}
+              title="Currency"
+              values={["AUD", "USD","EUR"]}
+              dropdownSetter={setSelectedDropdown}
+              ></AppDropdown>
+            </View>
+            <View style={[AppStyles.margin_top_spacing3]}>
+              <NumberInput value={buyValue} label="Buy:"
+              setValue={setBuyValue}
+              />
+            </View>
+            <View style={[AppStyles.margin_top_spacing1]}>
+              <NumberInput value={sellValue} label="Sell:" 
+               setValue={setSellValue}
+              />
+            </View>
+            <View style={[AppStyles.margin_top_spacing12, AppStyles.margin_bottom_spacing10]}>
+              <Primary_button
+                onPressFunction={() => checkInputs2()}
+                text="Create"></Primary_button>
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </>
   );

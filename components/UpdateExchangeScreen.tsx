@@ -24,6 +24,19 @@ import NumberInput from './utils/NumberInput.tsx';
 
 type OfficeUpdateProp = RouteProp<RootStackParamList, 'Update_exchange'>;
 
+const getFlagForCurrency = (currency: string): string => {
+  switch (currency) {
+    case 'USD':
+      return 'us-flag.png';
+    case 'EUR':
+      return 'eu-flag.png';
+    case 'AUD':
+      return 'australian-flag.png';
+    default:
+      return 'australian-flag.png';
+  }
+};
+
 const UpdateExchangeScreen = ({
   route,
   navigation,
@@ -71,10 +84,10 @@ const UpdateExchangeScreen = ({
  const  UpdateExchange = async ()=>{
 
     const newExchange ={
-    imageName: "australian-flag.png",
-    buyValue:buyValue2,
-    sellValue:sellValue2,
-    currency:selectedDropDown,
+    imageName: getFlagForCurrency(selectedDropDown),
+    buyValue: buyValue2,
+    sellValue: sellValue2,
+    currency: selectedDropDown,
     }
 
    let copiedRates =exchangeRates.slice()
