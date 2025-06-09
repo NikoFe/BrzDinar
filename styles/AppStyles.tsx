@@ -422,7 +422,7 @@ const AppStyles = StyleSheet.create({
     backgroundColor: app_gray4,
     width: '100%',
     maxWidth: 328,
-    minHeight: 461,
+    minHeight: 294,
     marginHorizontal: 'auto',
     overflow: 'hidden',
     flex: 1,

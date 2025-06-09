@@ -104,6 +104,9 @@ const ExchangeRate = (
           />
         </View>
       )}
+      {isViewOnly && (
+        <View style={{height: 90}} />
+      )}
       <Image
         source={imageMap[imageName]}
         style={[AppStyles.horizontaly_centered, AppStyles.flag_image]}

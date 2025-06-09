@@ -162,7 +162,7 @@ const Office_create_screen_3 = ({ route, navigation }: Props) => {
         <Header text="Create exchange offices"></Header>
 
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
-          <ScrollView style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
+          <View style={{flex: 1}}>
             <Image
               source={require('../resources/png/progress-3.png')}
               style={[
@@ -182,7 +182,7 @@ const Office_create_screen_3 = ({ route, navigation }: Props) => {
               </Text>
             </View>
 
-            <View style={[AppStyles.margin_top_spacing5, {height: 461}]}>
+            <View style={[AppStyles.margin_top_spacing5]}>
               <RateContainer
                 exchangeRates={exchangeRates}
                 setExchangeRates={setExchangeRates}
@@ -192,7 +192,9 @@ const Office_create_screen_3 = ({ route, navigation }: Props) => {
                 isViewOnly={false}
               />
             </View>
+          </View>
 
+          <View style={{paddingBottom: 32}}>
             <View style={AppStyles.margin_top_spacing4}>
               <Primary_button
                 onPressFunction={() => {
@@ -216,7 +218,7 @@ const Office_create_screen_3 = ({ route, navigation }: Props) => {
                 }}
                 text="Back"></Secondary_button>
             </View>
-          </ScrollView>
+          </View>
         </View>
       </SafeAreaView>
     </>

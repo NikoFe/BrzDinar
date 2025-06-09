@@ -72,8 +72,8 @@ isViewOnly = false
   }, []);
 
   return (
-    <View style={[AppStyles.exchange_rate_div]}>
-      <ScrollView style={{flex: 1}} contentContainerStyle={{flexGrow: 1, paddingBottom: 20}}>
+    <View style={[AppStyles.exchange_rate_div, {height: '100%'}]}>
+      <ScrollView style={{flex: 1}} contentContainerStyle={{paddingBottom: 60}}>
         {exchangeRates && setExchangeRates && 
           exchangeRates.map((rate, index) => 
             <ExchangeRate
