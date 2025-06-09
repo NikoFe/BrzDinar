@@ -60,7 +60,33 @@ export type RootStackParamList = {
   setExchangeRates  :(variable:Array<{ imageName: string; currency: string,buyValue:number, sellValue:number}>)=>void
   };
 
-  Exchange_details: undefined;
+  Exchange_details: {
+    officeData: {
+      id: string;
+      name: string;
+      created: string;
+      email: string;
+      location: string;
+      description: string;
+      phone: string;
+      approved: boolean;
+      exchangeRates: Array<{ imageName: string; currency: string; buyValue: number; sellValue: number }>;
+      monday1: string;
+      monday2: string;
+      tuesday1: string;
+      tuesday2: string;
+      wednsday1: string;
+      wednsday2: string;
+      thursday1: string;
+      thursday2: string;
+      friday1: string;
+      friday2: string;
+      saturday1: string;
+      saturday2: string;
+      sunday1: string;
+      sunday2: string;
+    };
+  };
   Exchange_office: { email: string };
   Exchange_role: undefined;
   Login: { type: string };

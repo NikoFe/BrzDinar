@@ -14,19 +14,17 @@ import {
 import AppStyles from '../../styles/AppStyles.tsx';
 import Primary_button from './Primary_button.tsx';
 
-const AdminCell = (
-{
-name,
-created,
-password
-}:
-{
-name:string,
-created:string,
-password:string,
-}
-
-) => {
+const AdminCell = ({
+  name,
+  created,
+  onApprove,
+  onDetails
+}: {
+  name: string;
+  created: string;
+  onApprove: () => void;
+  onDetails: () => void;
+}) => {
   return (
     <View style={[AppStyles.admin_cell, AppStyles.horizontaly_centered]}>
       <View style={[AppStyles.admin_cell_brighter]}>
@@ -39,7 +37,7 @@ password:string,
       </View>
       <View style={AppStyles.admin_cell_brighter}>
         <Primary_button
-          onPressFunction={() => {}}
+          onPressFunction={onDetails}
           text="Details"></Primary_button>
       </View>
       <View style={AppStyles.admin_cell_darker}>
@@ -48,16 +46,10 @@ password:string,
       <View style={AppStyles.admin_cell_brighter}>
         <Text style={AppStyles.paragraph_3}>{name}</Text>
       </View>
-      <View style={AppStyles.admin_cell_darker}>
-        <Text style={AppStyles.paragraph_3}>Password:  </Text>
-      </View>
-      <View style={AppStyles.admin_cell_brighter}>
-        <Text style={AppStyles.paragraph_3}>{password}</Text>
-      </View>
 
       <View style={AppStyles.admin_cell_darker}>
         <Primary_button
-          onPressFunction={() => {}}
+          onPressFunction={onApprove}
           text="Approve"></Primary_button>
       </View>
     </View>

@@ -12,6 +12,7 @@ import {
   TextInput,
   Image,
   Platform,
+  ScrollView,
 } from 'react-native';
 import AppStyles from '../styles/AppStyles.tsx';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -132,15 +133,12 @@ const Office_create_screen_3 = ({ route, navigation }: Props) => {
          saturday2,
          sunday1,
          sunday2, 
-         exchangeRates
+         exchangeRates,
+         approved:false
        });
  
-       Alert.alert('Uspeh', 'Registracija uspešna!');
-       navigation.navigate('Exchange_office',
-        {
-       email
-        }
-       );
+       Alert.alert('Success', 'Registration successful!');
+       navigation.navigate('Waiting');
      } catch (error: any) {
        console.error(error);
        Alert.alert('Napaka pri registraciji', error.message);
@@ -164,64 +162,62 @@ const Office_create_screen_3 = ({ route, navigation }: Props) => {
         <Header text="Create exchange offices"></Header>
 
         <View style={[AppStyles.grayBackground, {flex: 1}]}>
-          <Image
-            source={require('../resources/png/progress-3.png')}
-            style={[
-              AppStyles.horizontaly_centered,
-              AppStyles.progress_image,
-              AppStyles.margin_top_spacing6,
-            ]}
-          />
-          <View style={AppStyles.margin_top_spacing4}>
-            <Text
+          <View style={{flex: 1}}>
+            <Image
+              source={require('../resources/png/progress-3.png')}
               style={[
-                AppStyles.header_3_bold_Inter_white,
-                AppStyles.white,
                 AppStyles.horizontaly_centered,
-              ]}>
-              Exchange rates:
-            </Text>
+                AppStyles.progress_image,
+                AppStyles.margin_top_spacing6,
+              ]}
+            />
+            <View style={AppStyles.margin_top_spacing4}>
+              <Text
+                style={[
+                  AppStyles.header_3_bold_Inter_white,
+                  AppStyles.white,
+                  AppStyles.horizontaly_centered,
+                ]}>
+                Exchange rates:
+              </Text>
+            </View>
+
+            <View style={[AppStyles.margin_top_spacing5]}>
+              <RateContainer
+                exchangeRates={exchangeRates}
+                setExchangeRates={setExchangeRates}
+                navigateToEdit={() => navigateToEdit(selectedRate.currency, selectedRate.imageName, selectedRate.buyValue, selectedRate.sellValue)}
+                navigateToCreate={navigateToCreate}
+                setSelectedRate={setSelectedRate}
+                isViewOnly={false}
+              />
+            </View>
           </View>
 
-          <View style={AppStyles.margin_top_spacing5}>
-            <RateContainer
-            exchangeRates={exchangeRates}
-            setExchangeRates={setExchangeRates}
-           // currency:string, flag:string , buyValue :number,sellValue:number
-            navigateToEdit={()=>{navigateToEdit(selectedRate.currency, selectedRate.imageName,selectedRate.buyValue, selectedRate.sellValue)}}
-            navigateToCreate={navigateToCreate}
-           // selectedRate={selectedRate}
-            setSelectedRate={setSelectedRate}
-            ></RateContainer>
-          </View>
+          <View style={{paddingBottom: 32}}>
+            <View style={AppStyles.margin_top_spacing4}>
+              <Primary_button
+                onPressFunction={() => {
+                  checkResult()
+                }}
+                text="Next"></Primary_button>
+            </View>
 
-          <View style={AppStyles.margin_top_spacing4}>
-            <Primary_button
-              onPressFunction={() => {
-
-
-                checkResult()
-              //  navigation.navigate('Waiting');
-              }}
-              text="Next"></Primary_button>
-          </View>
-
-          <View style={AppStyles.margin_top_spacing2}>
-            <Secondary_button
-              onPressFunction={() => {
-                navigation.navigate('Office_create_2', {
-                name,
-                location,
-                email,
-                description,
-                phone,
-                password,
-                repeatPassword,
-                }
-              )
-            //    navigation.navigate('Office_create_2');
-              }}
-              text="Back"></Secondary_button>
+            <View style={AppStyles.margin_top_spacing2}>
+              <Secondary_button
+                onPressFunction={() => {
+                  navigation.navigate('Office_create_2', {
+                    name,
+                    location,
+                    email,
+                    description,
+                    phone,
+                    password,
+                    repeatPassword,
+                  })
+                }}
+                text="Back"></Secondary_button>
+            </View>
           </View>
         </View>
       </SafeAreaView>

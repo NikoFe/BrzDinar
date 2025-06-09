@@ -64,12 +64,13 @@ const AppDropdown = (
       <View style={AppStyles.hiddenDropdown}> 
        {values.map((value, index) => 
        <Pressable
-       onPress={()=>{
-         //Alert.alert(value)
-        setCurrentTitle(value)
-        dropdownSetter(value)
-        setVisible(!visible)
-      }}
+         key={`${value}-${index}`}
+         onPress={()=>{
+           //Alert.alert(value)
+          setCurrentTitle(value)
+          dropdownSetter(value)
+          setVisible(!visible)
+        }}
        >
        <Text  style={AppStyles.dropdownCell} >{value}</Text> 
        </Pressable>

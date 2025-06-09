@@ -17,6 +17,7 @@ import { RootStackParamList } from '../App.tsx';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 import Header from './utils/HeaderWithProfile.tsx';
 import ExchangeOfficeData from './utils/ExchangeOfficeData.tsx';
@@ -202,6 +203,35 @@ const Exchange_office_screen = ({
     setExchangeRates(updated);
   };
 
+  const handleLogout = async () => {
+    try {
+      await auth().signOut();
+      navigation.navigate('Login', { type: 'Login as Office' });
+    } catch (error) {
+      console.error('Error signing out:', error);
+      Alert.alert('Error', 'Failed to log out. Please try again.');
+    }
+  };
+
+  const handleBackPress = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to log out?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Logout',
+          onPress: handleLogout,
+          style: 'destructive',
+        },
+      ],
+      { cancelable: true }
+    );
+  };
+
   return (
     <>
       <StatusBar 
@@ -209,105 +239,148 @@ const Exchange_office_screen = ({
         barStyle="light-content"
         translucent={true}
       />
-      <View style={[AppStyles.grayBackground, { flex: 1 }]}>
-        <Header text="Exchange Office" />
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          <SafeAreaView style={{ 
-            flex: 1, 
-            paddingHorizontal: 20,
-            backgroundColor: AppStyles.headerBackground.backgroundColor,
-            paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-          }}>
-            <Text style={[AppStyles.header_3_bold_Inter_white]}>Office Info</Text>
-            <View style={{ flex: 1 }}>
-              {loading ? (
-                <ActivityIndicator size="large" color="#00ff00" />
-              ) : (
-                <ExchangeOfficeData data={officeData} />
-              )}
+      <SafeAreaView style={{ 
+        flex: 1, 
+        backgroundColor: AppStyles.headerBackground.backgroundColor,
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+      }}>
+        <View style={[AppStyles.grayBackground, { flex: 1 }]}>
+          <Header text="Exchange Office" onBackPress={handleBackPress} />
+          <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <View style={{ 
+              flex: 1, 
+              paddingHorizontal: 20,
+            }}>
+              <Text style={[AppStyles.header_3_bold_Inter_white]}>Office Info</Text>
+              <View style={{ flex: 1 }}>
+                {loading ? (
+                  <ActivityIndicator size="large" color="#00ff00" />
+                ) : (
+                  <ExchangeOfficeData data={officeData} />
+                )}
 
-              <Text style={[AppStyles.header_3_bold_Inter_white, AppStyles.margin_top_spacing5]}>Update Info</Text>
-              <View style={[AppStyles.margin_top_spacing3]}>
-                <AppTextInputWithLabel
-                  label="Location"
-                  value={location}
-                  onChangeText={setLocation}
-                />
-              </View>
-
-              <View style={[AppStyles.margin_top_spacing3]}>
-                <AppTextInputWithLabel
-                  label="Phone number"
-                  value={phone}
-                  onChangeText={setPhone}
-                />
-              </View>
-
-              {/* Working Hours Inputs */}
-              <View style={[AppStyles.margin_top_spacing5, styles.exchangeRatesContainer]}>
-                <Text style={[styles.sectionHeader]}>Working Hours</Text>
-
-                {/* Table Header */}
-                <View style={styles.tableHeader}>
-                  <Text style={[styles.headerCell, { flex: 2 }]}>Day</Text>
-                  <Text style={[styles.headerCell, { flex: 1 }]}>Open</Text>
-                  <Text style={[styles.headerCell, { flex: 1 }]}>Close</Text>
+                <Text style={[AppStyles.header_3_bold_Inter_white, AppStyles.margin_top_spacing5]}>Update Info</Text>
+                <View style={[AppStyles.margin_top_spacing3]}>
+                  <AppTextInputWithLabel
+                    label="Location"
+                    value={location}
+                    onChangeText={setLocation}
+                  />
                 </View>
 
-                {[
-                  { day: 'Monday', start: monday1, end: monday2, setStart: setMonday1, setEnd: setMonday2 },
-                  { day: 'Tuesday', start: tuesday1, end: tuesday2, setStart: setTuesday1, setEnd: setTuesday2 },
-                  { day: 'Wednesday', start: wednsday1, end: wednsday2, setStart: setWednsday1, setEnd: setWednsday2 },
-                  { day: 'Thursday', start: thursday1, end: thursday2, setStart: setThursday1, setEnd: setThursday2 },
-                  { day: 'Friday', start: friday1, end: friday2, setStart: setFriday1, setEnd: setFriday2 },
-                  { day: 'Saturday', start: saturday1, end: saturday2, setStart: setSaturday1, setEnd: setSaturday2 },
-                  { day: 'Sunday', start: sunday1, end: sunday2, setStart: setSunday1, setEnd: setSunday2 },
-                ].map(({ day, start, end, setStart, setEnd }) => (
-                  <View key={day} style={styles.tableRow}>
-                    <Text style={[styles.cell, { flex: 2, textAlign: 'left', paddingLeft: 10 }]}>{day}</Text>
-                    <TextInput
-                      style={[styles.cell, { flex: 1 }]}
-                      placeholder="Open"
-                      value={start}
-                      onChangeText={setStart}
-                      keyboardType="numeric"
-                    />
-                    <TextInput
-                      style={[styles.cell, { flex: 1 }]}
-                      placeholder="Close"
-                      value={end}
-                      onChangeText={setEnd}
-                      keyboardType="numeric"
-                    />
+                <View style={[AppStyles.margin_top_spacing3]}>
+                  <AppTextInputWithLabel
+                    label="Phone number"
+                    value={phone}
+                    onChangeText={setPhone}
+                  />
+                </View>
+
+                {/* Working Hours Inputs */}
+                <View style={[AppStyles.margin_top_spacing5, styles.exchangeRatesContainer]}>
+                  <Text style={[styles.sectionHeader]}>Working Hours</Text>
+
+                  {/* Table Header */}
+                  <View style={styles.tableHeader}>
+                    <Text style={[styles.headerCell, { flex: 2 }]}>Day</Text>
+                    <Text style={[styles.headerCell, { flex: 1 }]}>Open</Text>
+                    <Text style={[styles.headerCell, { flex: 1 }]}>Close</Text>
                   </View>
-                ))}
-              </View>
 
-
-              <View style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3]}>
-                <Primary_button onPressFunction={handleUpdateOfficeInfo} text="Update Info" />
-              </View>
-
-              <Text style={[AppStyles.header_3_bold_Inter_white, AppStyles.margin_top_spacing5]}>Update Rates</Text>
-              {/* Exchange Rates section with improved styling */}
-              <View style={[AppStyles.margin_top_spacing5, styles.exchangeRatesContainer]}>
-                <Text style={[styles.sectionHeader]}>Exchange Rates</Text>
-
-                <View style={styles.tableHeader}>
-                  <Text style={[styles.headerCell, { flex: 2 }]}>Currency</Text>
-                  <Text style={[styles.headerCell, { flex: 1 }]}>Buy</Text>
-                  <Text style={[styles.headerCell, { flex: 1 }]}>Sell</Text>
-                  <Text style={[styles.headerCell, { width: 40 }]}></Text>
+                  {[
+                    { day: 'Monday', start: monday1, end: monday2, setStart: setMonday1, setEnd: setMonday2 },
+                    { day: 'Tuesday', start: tuesday1, end: tuesday2, setStart: setTuesday1, setEnd: setTuesday2 },
+                    { day: 'Wednesday', start: wednsday1, end: wednsday2, setStart: setWednsday1, setEnd: setWednsday2 },
+                    { day: 'Thursday', start: thursday1, end: thursday2, setStart: setThursday1, setEnd: setThursday2 },
+                    { day: 'Friday', start: friday1, end: friday2, setStart: setFriday1, setEnd: setFriday2 },
+                    { day: 'Saturday', start: saturday1, end: saturday2, setStart: setSaturday1, setEnd: setSaturday2 },
+                    { day: 'Sunday', start: sunday1, end: sunday2, setStart: setSunday1, setEnd: setSunday2 },
+                  ].map(({ day, start, end, setStart, setEnd }) => (
+                    <View key={day} style={styles.tableRow}>
+                      <Text style={[styles.cell, { flex: 2, textAlign: 'left', paddingLeft: 10 }]}>{day}</Text>
+                      <TextInput
+                        style={[styles.cell, { flex: 1 }]}
+                        placeholder="Open"
+                        value={start}
+                        onChangeText={setStart}
+                        keyboardType="numeric"
+                      />
+                      <TextInput
+                        style={[styles.cell, { flex: 1 }]}
+                        placeholder="Close"
+                        value={end}
+                        onChangeText={setEnd}
+                        keyboardType="numeric"
+                      />
+                    </View>
+                  ))}
                 </View>
 
-                {exchangeRates.map((rate, index) => (
-                  <View key={index} style={styles.tableRow}>
+
+                <View style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3]}>
+                  <Primary_button onPressFunction={handleUpdateOfficeInfo} text="Update Info" />
+                </View>
+
+                <Text style={[AppStyles.header_3_bold_Inter_white, AppStyles.margin_top_spacing5]}>Update Rates</Text>
+                {/* Exchange Rates section with improved styling */}
+                <View style={[AppStyles.margin_top_spacing5, styles.exchangeRatesContainer]}>
+                  <Text style={[styles.sectionHeader]}>Exchange Rates</Text>
+
+                  <View style={styles.tableHeader}>
+                    <Text style={[styles.headerCell, { flex: 2 }]}>Currency</Text>
+                    <Text style={[styles.headerCell, { flex: 1 }]}>Buy</Text>
+                    <Text style={[styles.headerCell, { flex: 1 }]}>Sell</Text>
+                    <Text style={[styles.headerCell, { width: 40 }]}></Text>
+                  </View>
+
+                  {exchangeRates.map((rate, index) => (
+                    <View key={index} style={styles.tableRow}>
+                      <Picker
+                        selectedValue={rate.currency}
+                        style={[styles.cell, { flex: 2, paddingHorizontal: 0 }]}
+                        onValueChange={(itemValue: string) => updateRate(index, 'currency', itemValue)}
+                        mode="dropdown"
+                      >
+                        <Picker.Item label="EUR" value="EUR" />
+                        <Picker.Item label="USD" value="USD" />
+                        <Picker.Item label="AUD" value="AUD" />
+                      </Picker>
+
+                      <TextInput
+                        style={[styles.cell, { flex: 1 }]}
+                        keyboardType="numeric"
+                        value={rate.buyValue.toString()}
+                        onChangeText={text => updateRate(index, 'buyValue', text)}
+                        placeholder="Buy"
+                        placeholderTextColor="#999"
+                      />
+                      <TextInput
+                        style={[styles.cell, { flex: 1 }]}
+                        keyboardType="numeric"
+                        value={rate.sellValue.toString()}
+                        onChangeText={text => updateRate(index, 'sellValue', text)}
+                        placeholder="Sell"
+                        placeholderTextColor="#999"
+                      />
+
+                      <Text
+                        style={[styles.deleteButton]}
+                        onPress={() => deleteRate(index)}
+                      >
+                        X
+                      </Text>
+                    </View>
+                  ))}
+
+                  {/* Add new rate */}
+                  <View style={styles.tableRow}>
                     <Picker
-                      selectedValue={rate.currency}
+                      selectedValue={newRate.currency}
                       style={[styles.cell, { flex: 2, paddingHorizontal: 0 }]}
-                      onValueChange={(itemValue: string) => updateRate(index, 'currency', itemValue)}
+                      onValueChange={itemValue => setNewRate(prev => ({ ...prev, currency: itemValue }))}
                       mode="dropdown"
                     >
+                      <Picker.Item label="Currency" value="" />
                       <Picker.Item label="EUR" value="EUR" />
                       <Picker.Item label="USD" value="USD" />
                       <Picker.Item label="AUD" value="AUD" />
@@ -316,72 +389,33 @@ const Exchange_office_screen = ({
                     <TextInput
                       style={[styles.cell, { flex: 1 }]}
                       keyboardType="numeric"
-                      value={rate.buyValue.toString()}
-                      onChangeText={text => updateRate(index, 'buyValue', text)}
+                      value={newRate.buyValue}
+                      onChangeText={text => setNewRate(prev => ({ ...prev, buyValue: text }))}
                       placeholder="Buy"
                       placeholderTextColor="#999"
                     />
                     <TextInput
                       style={[styles.cell, { flex: 1 }]}
                       keyboardType="numeric"
-                      value={rate.sellValue.toString()}
-                      onChangeText={text => updateRate(index, 'sellValue', text)}
+                      value={newRate.sellValue}
+                      onChangeText={text => setNewRate(prev => ({ ...prev, sellValue: text }))}
                       placeholder="Sell"
                       placeholderTextColor="#999"
                     />
 
-                    <Text
-                      style={[styles.deleteButton]}
-                      onPress={() => deleteRate(index)}
-                    >
-                      X
+                    <Text style={[styles.addButton]} onPress={addNewRate}>
+                      +
                     </Text>
                   </View>
-                ))}
-
-                {/* Add new rate */}
-                <View style={styles.tableRow}>
-                  <Picker
-                    selectedValue={newRate.currency}
-                    style={[styles.cell, { flex: 2, paddingHorizontal: 0 }]}
-                    onValueChange={itemValue => setNewRate(prev => ({ ...prev, currency: itemValue }))}
-                    mode="dropdown"
-                  >
-                    <Picker.Item label="Currency" value="" />
-                    <Picker.Item label="EUR" value="EUR" />
-                    <Picker.Item label="USD" value="USD" />
-                    <Picker.Item label="AUD" value="AUD" />
-                  </Picker>
-
-                  <TextInput
-                    style={[styles.cell, { flex: 1 }]}
-                    keyboardType="numeric"
-                    value={newRate.buyValue}
-                    onChangeText={text => setNewRate(prev => ({ ...prev, buyValue: text }))}
-                    placeholder="Buy"
-                    placeholderTextColor="#999"
-                  />
-                  <TextInput
-                    style={[styles.cell, { flex: 1 }]}
-                    keyboardType="numeric"
-                    value={newRate.sellValue}
-                    onChangeText={text => setNewRate(prev => ({ ...prev, sellValue: text }))}
-                    placeholder="Sell"
-                    placeholderTextColor="#999"
-                  />
-
-                  <Text style={[styles.addButton]} onPress={addNewRate}>
-                    +
-                  </Text>
+                </View>
+                <View style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3]}>
+                  <Secondary_button onPressFunction={saveExchangeRates} text="Save Rates" />
                 </View>
               </View>
-              <View style={[AppStyles.horizontaly_centered, AppStyles.margin_top_spacing3]}>
-                <Secondary_button onPressFunction={saveExchangeRates} text="Save Rates" />
-              </View>
             </View>
-          </SafeAreaView>
-        </ScrollView>
-      </View>
+          </ScrollView>
+        </View>
+      </SafeAreaView>
     </>
   );
 };
@@ -396,6 +430,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 8,
     textAlign: 'center',
+    color: 'black',
   },
   tableHeader: {
     flexDirection: 'row',
@@ -405,6 +440,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     textAlign: 'center',
+    color: 'black',
   },
   tableRow: {
     flexDirection: 'row',
@@ -434,6 +470,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 12,
     textAlign: 'center',
+    color: 'black',
   },
 });
 

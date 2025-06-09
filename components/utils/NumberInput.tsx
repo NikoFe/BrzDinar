@@ -15,47 +15,39 @@ import {
 } from 'react-native';
 import AppStyles from '../../styles/AppStyles.tsx';
 
-
 const NumberInput = ({
   label,
   value,
   setValue,
-  
 }: {
   label: string;
   value: number;
   setValue: (value: number) => void;
 }) => {
-  const [number, onChangeNumber] = React.useState(  value,
-);
+  const [inputValue, setInputValue] = React.useState(value.toString());
 
-  useEffect(() => {
-    onChangeNumber(  value,
-);
-  }, []);
+  const handleTextChange = (text: string) => {
+    // Allow only numbers and optional decimal point
+    if (/^\d*\.?\d*$/.test(text) || text === '') {
+      setInputValue(text);
+      const numValue = parseFloat(text);
+      if (!isNaN(numValue)) {
+        setValue(numValue);
+      }
+    }
+  };
+
+  const handleBlur = () => {
+    // Format to 2 decimal places when input loses focus
+    const numValue = parseFloat(inputValue);
+    if (!isNaN(numValue)) {
+      setInputValue(numValue.toFixed(2));
+      setValue(numValue);
+    }
+  };
 
   return (
-
-
-
     <View style={AppStyles.horizontaly_centered}>
-
-   <Pressable
-    style={AppStyles.up_pressable}
-    onPress={()=>{
-      setValue(value+1)}}
-      />
-
-   
-   <Pressable
-    style={AppStyles.down_pressable}
-    onPress={()=>{
-      setValue(value-1)}}
-      />
-
-
-
-
       <Text
         style={[
           AppStyles.paragraph_4_label,
@@ -65,45 +57,45 @@ const NumberInput = ({
         {label}
       </Text>
 
-
-    
-      <Image
-        source={require('../../resources/png/gray-arrow-down.png')}
-        style={[
-          AppStyles.horizontaly_centered,
-          AppStyles.number_input_arrow_down,
-        ]}
-      />
-      <Image
-         source={require('../../resources/png/gray-arrow-down.png')}
-         style={[
-           AppStyles.horizontaly_centered,
-           AppStyles.number_input_arrow_up,
-         ]}
-       />
-    
-
-       <View
-         style={AppStyles.number_textInput}
-       
-       >
-
-        <Text style={AppStyles.paragraph_4}>
-          {value}
-        </Text>
-
-     </View>
-
-
-       {/*
-       <TextInput
-         style={AppStyles.textInput}
-         value={number.toString()}
-       />
-       */
-       }
-     </View>
-   );
- };
+      <View style={[AppStyles.number_textInput, { flexDirection: 'row', alignItems: 'center', padding: 0 }]}>
+        <TextInput
+          style={[
+            AppStyles.paragraph_4,
+            {
+              flex: 1,
+              textAlign: 'center',
+              padding: 0,
+              margin: 0,
+              height: '100%',
+            }
+          ]}
+          value={inputValue}
+          onChangeText={handleTextChange}
+          onBlur={handleBlur}
+          keyboardType="decimal-pad"
+          placeholder="0.00"
+        />
+        <View style={{ flexDirection: 'column', marginLeft: 10 }}>
+          <Pressable
+            style={[AppStyles.up_pressable, { position: 'relative', left: 0, top: 0 }]}
+            onPress={() => {
+              const newValue = parseFloat(inputValue) + 1;
+              setValue(newValue);
+              setInputValue(newValue.toFixed(2));
+            }}
+          />
+          <Pressable
+            style={[AppStyles.down_pressable, { position: 'relative', left: 0, top: 0 }]}
+            onPress={() => {
+              const newValue = parseFloat(inputValue) - 1;
+              setValue(newValue);
+              setInputValue(newValue.toFixed(2));
+            }}
+          />
+        </View>
+      </View>
+    </View>
+  );
+};
 
 export default NumberInput;

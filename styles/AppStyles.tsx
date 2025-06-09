@@ -420,10 +420,12 @@ const AppStyles = StyleSheet.create({
   },
   exchange_rate_div: {
     backgroundColor: app_gray4,
-    width: 328,
-    height: 461,
+    width: '100%',
+    maxWidth: 328,
+    minHeight: 294,
     marginHorizontal: 'auto',
-    overflow: 'scroll',
+    overflow: 'hidden',
+    flex: 1,
   },
   flag_image: {
     width: 88,

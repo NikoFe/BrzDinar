@@ -22,20 +22,23 @@ import {useAnimatedProps} from 'react-native-reanimated';
 type DatePickerProps = {
   setLeftValue: (value: string) => void;
   setRightValue: (value: string) => void;
+  leftValue: string;
+  rightValue: string;
 };
 
 
 const DatePicker = (
-{ setLeftValue, setRightValue }: DatePickerProps
+{ setLeftValue, setRightValue, leftValue, rightValue }: DatePickerProps
 ) => {
-
-
   return (
     <View style={AppStyles.date_inputs}>
       <TextInput
         style={AppStyles.date_picker_cell}
         onChangeText={setLeftValue}
-        //value={leftText}
+        value={leftValue}
+        placeholder="HH"
+        keyboardType="numeric"
+        maxLength={2}
       />
 
       <Text style={[AppStyles.header_2_bold_Inter_white, AppStyles.date_dots]}>
@@ -44,8 +47,11 @@ const DatePicker = (
       </Text>
       <TextInput
         style={AppStyles.date_picker_cell}
-       onChangeText={setRightValue}
-      //  value={rightText}
+        onChangeText={setRightValue}
+        value={rightValue}
+        placeholder="HH"
+        keyboardType="numeric"
+        maxLength={2}
       />
     </View>
   );

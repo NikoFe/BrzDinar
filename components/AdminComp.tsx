@@ -84,7 +84,6 @@ const Admin_cheek_screen = ({
               <AdminCell 
                name={pending.name}
                created={"9/20/5"}
-               password={"placeholder_password"}
               />
               )}
             </View>
